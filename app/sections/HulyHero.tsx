@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
+import { motion } from "motion/react";
 import { GlowingButton } from "@/components/ui/glowing-button";
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -129,8 +130,11 @@ export default function HulyHero() {
         className="relative mx-auto flex h-full flex-col max-w-[1280px] px-5 2xs:px-6 sm:px-8"
       >
         {/* ─── H1 ─────────────────────────────────────────────── */}
-        <h1
-          className="relative z-30 text-hero-headline font-title max-w-72 sm:max-w-[420px] md:max-w-[520px] lg:max-w-[616px]"
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0, ease: [0.25, 0.1, 0.25, 1] }}
+          className="relative z-30 text-display-hero font-title max-w-72 sm:max-w-[420px] md:max-w-[520px] lg:max-w-[616px]"
           style={{
             background:
               "linear-gradient(to bottom right, #ffffff 30%, #d5d8f6 80%, #fdf7fe)",
@@ -139,25 +143,36 @@ export default function HulyHero() {
             backgroundClip: "text",
           }}
         >
-          We don&apos;t just talk AI. We deliver it.
-        </h1>
+          We help growing businesses put AI to work.
+        </motion.h1>
 
         {/* ─── Sub-text ────────────────────────────────────────── */}
-        <p
+        <motion.p
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.8,
+            delay: 0.15,
+            ease: [0.25, 0.1, 0.25, 1],
+          }}
           className="relative z-30 mt-5 sm:mt-6 max-w-88 sm:max-w-104 md:max-w-md text-body-ds"
           style={{ color: "#e5e5e7" }}
         >
-          Jupitex is an AI-first development agency that identifies exactly
-          where AI and Automation moves the needle in your business then builds
-          it, and trains your team to own it.
-        </p>
+          We look at your day-to-day operations, find the work that&apos;s
+          eating up time and money, and build AI solutions to make them better.
+        </motion.p>
 
         {/* ─── CTA button ──────────────────────────────────────── */}
-        <div className="relative flex justify-start z-50 mt-8 sm:mt-10 md:mt-11">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+          className="relative flex justify-start z-50 mt-8 sm:mt-10 md:mt-11"
+        >
           <GlowingButton href="#contact" className="h-11 px-8 text-[13px]">
             Free AI Audit Report
           </GlowingButton>
-        </div>
+        </motion.div>
 
         {/* ─── Hero media stack (overlay + screenshot) ────────── */}
         <div
@@ -189,21 +204,20 @@ export default function HulyHero() {
                 type="video/webm"
               />
             </video>
-            {/* Right-side fade — inside the lighten-blend container so it darkens the video before blending */}
+            {/* Side fades — blend video edges into the black background */}
             <div className="pointer-events-none absolute inset-0 z-10">
-              {/* Left-side smooth fade */}
               <div
-                className="absolute inset-y-0 left-0 w-[100px] sm:w-[150px] xl:w-[220px]"
+                className="absolute inset-y-0 left-0 w-[140px] sm:w-[200px] xl:w-[320px]"
                 style={{
                   background:
-                    "linear-gradient(to right, var(--color-grey-1) 0%, color-mix(in oklab, var(--color-grey-1) 85%, transparent) 30%, color-mix(in oklab, var(--color-grey-1) 50%, transparent) 55%, color-mix(in oklab, var(--color-grey-1) 20%, transparent) 80%, transparent 100%)",
+                    "linear-gradient(to right, #000000 0%, rgba(0,0,0,0.85) 25%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.2) 75%, transparent 100%)",
                 }}
               />
               <div
-                className="absolute inset-y-0 right-0 w-[100px] sm:w-[150px] xl:w-[220px]"
+                className="absolute inset-y-0 right-0 w-[140px] sm:w-[200px] xl:w-[320px]"
                 style={{
                   background:
-                    "linear-gradient(to left, var(--color-grey-1) 0%, color-mix(in oklab, var(--color-grey-1) 85%, transparent) 30%, color-mix(in oklab, var(--color-grey-1) 50%, transparent) 55%, color-mix(in oklab, var(--color-grey-1) 20%, transparent) 80%, transparent 100%)",
+                    "linear-gradient(to left, #000000 0%, rgba(0,0,0,0.85) 25%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.2) 75%, transparent 100%)",
                 }}
               />
             </div>

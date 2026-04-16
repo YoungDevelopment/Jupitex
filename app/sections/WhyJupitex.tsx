@@ -27,10 +27,8 @@ function WhyJupitexCard({
         />
       </div>
       <div className="px-5 sm:px-6 md:px-8 pt-5 sm:pt-6 pb-6 sm:pb-8 flex-1">
-        <h3 className="text-tile-heading text-apple-near-black">
-          {title}
-        </h3>
-        <p className="mt-2 text-caption-ds text-apple-text-secondary">
+        <h3 className="text-tile-heading text-apple-near-black">{title}</h3>
+        <p className="mt-4 text-caption-ds text-apple-text-secondary">
           {description}
         </p>
       </div>
@@ -39,35 +37,55 @@ function WhyJupitexCard({
 }
 
 const awards = [
-  { src: "/images/awards/upwork-logo.png", alt: "Upwork Top Rated", width: 90, height: 90 },
-  { src: "/images/awards/upfirms-logo.png", alt: "UpFirms Top Company", width: 100, height: 90 },
-  { src: "/images/awards/clutch-logo.png", alt: "Clutch We Deliver", width: 90, height: 90 },
-  { src: "/images/awards/reliable-company-logo.png", alt: "Reliable Company", width: 90, height: 90 },
+  {
+    src: "/images/awards/upwork-logo.png",
+    alt: "Upwork Top Rated",
+    width: 90,
+    height: 90,
+  },
+  {
+    src: "/images/awards/upfirms-logo.png",
+    alt: "UpFirms Top Company",
+    width: 100,
+    height: 90,
+  },
+  {
+    src: "/images/awards/clutch-logo.png",
+    alt: "Clutch We Deliver",
+    width: 90,
+    height: 90,
+  },
+  {
+    src: "/images/awards/reliable-company-logo.png",
+    alt: "Reliable Company",
+    width: 90,
+    height: 90,
+  },
 ];
 
 const cards: WhyJupitexCardProps[] = [
   {
     cardName: "Integrations",
-    title: "Seamless integrations.",
+    title: "No need to change your systems",
     description:
-      "Connect with the tools you already love — GitHub, Jira, Trello, Zendesk, and dozens more, all in one place.",
+      "We build AI that works with systems you already have. No migrations, no starting from scratch. Everything we build plugs into how your business runs today.",
     image: "/images/Why Jupitex/Integrations.png",
     imageAlt: "Jupitex seamless integrations with popular tools",
   },
   {
     cardName: "ROI",
-    title: "Measurable ROI.",
+    title: "You see the numbers before you spend a dollar",
     description:
-      "AI-powered workflows that automate tasks, save 70+ hours weekly, and deliver performance reports you can act on.",
+      "Before any work begins, you get a clear breakdown — what it costs, what it saves, and how long it takes. No vague promises.",
     image: "/images/Why Jupitex/ROI.png",
     imageAlt: "Jupitex AI performance dashboard showing measurable ROI",
   },
   {
     cardName: "Timeline",
-    title: "On-time, every time.",
+    title: "Your team owns it, not us",
     description:
-      "Transparent project timelines with clear milestones — from beta to launch, you always know where things stand.",
-    image: "/images/Why Jupitex/Timeline.png",
+      "We don't build something and disappear. We train your team to run it, manage it, and grow with it. You're never dependent on us to keep things running.",
+    image: "/images/Why Jupitex/Team.png",
     imageAlt: "Jupitex project timeline with detailed milestones",
   },
 ];
@@ -86,7 +104,7 @@ export default function WhyJupitex() {
         ))}
       </div>
 
-      <div className="mt-10 sm:mt-12 md:mt-16 flex flex-col items-center">
+      {/* <div className="mt-10 sm:mt-12 md:mt-16 flex flex-col items-center">
         <h3 className="text-tile-heading text-apple-near-black text-center">
           Achievements & Awards
         </h3>
@@ -102,7 +120,7 @@ export default function WhyJupitex() {
             />
           ))}
         </div>
-      </div>
+      </div> */}
     </SectionLayout>
   );
 }

@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import { Marquee } from "@/components/ui/marquee";
 import { ProgressiveBlur } from "@/components/ui/progressive-blur";
+import ScrollReveal from "./ScrollReveal";
 
 const PARTNERS = [
   { name: "Microsoft", logo: "/images/logos/microsoft.svg" },
@@ -15,6 +18,7 @@ const PARTNERS = [
 export default function LogoStrip() {
   return (
     <section className="bg-apple-light-gray py-8 sm:py-10 md:py-12">
+    <ScrollReveal>
       <div className="mb-4 sm:mb-6 flex items-center justify-center gap-2 sm:gap-3">
         <svg
           width="18"
@@ -67,6 +71,7 @@ export default function LogoStrip() {
           className="pointer-events-none absolute inset-y-0 right-0 z-10 w-1/6"
         />
       </div>
+    </ScrollReveal>
     </section>
   );
 }

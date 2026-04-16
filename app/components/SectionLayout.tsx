@@ -1,5 +1,6 @@
 import React from "react";
 import SectionWrapper from "./sectionWrapper";
+import ScrollReveal from "./ScrollReveal";
 import { TextAnimate } from "@/components/ui/text-animate";
 
 interface SectionLayoutProps {
@@ -26,41 +27,44 @@ const SectionLayout = ({
 
   return (
     <SectionWrapper id={sectionId} bg={bg}>
-      <div className="flex items-center">
-        <div className="flex items-baseline">
-          <TextAnimate
-            animation="blurInUp"
-            by="character"
-            once
-            accessible={false}
-            className="text-display-hero font-title text-orange-500 text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold"
-          >
-            _
-          </TextAnimate>
-          <TextAnimate
-            animation="blurInUp"
-            by="character"
-            once
-            accessible={false}
-            className={`text-display-hero font-title ${titleColor} text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold`}
-          >
-            {title}
-          </TextAnimate>
+      <ScrollReveal>
+        <div className="flex items-center">
+          <div className="flex items-baseline">
+            <TextAnimate
+              animation="blurInUp"
+              by="character"
+              once
+              accessible={false}
+              className="text-display-hero font-title text-orange-500 text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold"
+            >
+              _
+            </TextAnimate>
+            <TextAnimate
+              animation="blurInUp"
+              by="character"
+              once
+              accessible={false}
+              className={`text-display-hero font-title ${titleColor} text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold`}
+            >
+              {title}
+            </TextAnimate>
+          </div>
         </div>
-   
-      </div>
-      <TextAnimate
-        animation="blurInUp"
-        by="word"
-        once
-        accessible={false}
-        className={`text-body-ds mt-5 max-w-xl md:max-w-2xl md:mt-6 lg:mt-8 ${descColor}`}
-      >
-        {description}
-      </TextAnimate>
+        {/* <TextAnimate
+          animation="blurInUp"
+          by="word"
+          once
+          accessible={false}
+          className={`text-caption-ds mt-5 max-w-xl md:max-w-2xl md:mt-6 lg:mt-8 ${descColor}`}
+        >
+          {description}
+        </TextAnimate> */}
+      </ScrollReveal>
 
       <div className="h-12 sm:h-16 md:h-20 lg:h-24" />
-      {children}
+      <ScrollReveal delay={0.15}>
+        {children}
+      </ScrollReveal>
       <div className="h-12 sm:h-16 md:h-20 lg:h-24" />
     </SectionWrapper>
   );

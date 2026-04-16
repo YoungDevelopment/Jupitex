@@ -1,12 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect, useCallback } from "react";
-import {
-  motion,
-  useMotionValue,
-  useSpring,
-  useTransform,
-} from "motion/react";
+import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import { cn } from "@/lib/utils";
 
 interface GlowingButtonProps {
@@ -72,8 +67,13 @@ export function GlowingButton({
   }, []);
 
   const stops = [
-    -halfWidth, -0.7 * halfWidth, -0.3 * halfWidth, 0,
-    0.3 * halfWidth, 0.7 * halfWidth, halfWidth,
+    -halfWidth,
+    -0.7 * halfWidth,
+    -0.3 * halfWidth,
+    0,
+    0.3 * halfWidth,
+    0.7 * halfWidth,
+    halfWidth,
   ];
   const opacityStops = [0, 0.1, 0.3, 0.5, 0.7, 0.9, 1];
   const opacityStopsReversed = [1, 0.9, 0.7, 0.5, 0.3, 0.1, 0];

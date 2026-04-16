@@ -2,6 +2,7 @@
 import { Footer } from "@/components/ui/modem-animated-footer";
 import { Twitter, Linkedin, Github, Mail } from "lucide-react";
 import Image from "next/image";
+import ScrollReveal from "../components/ScrollReveal";
 
 export default function FooterSection() {
   const socialLinks = [
@@ -37,20 +38,22 @@ export default function FooterSection() {
   ];
 
   return (
-    <Footer
-      brandName="Jupitex"
-      brandDescription="We help teams ship faster with AI, automation, and dedicated engineering—strategy through execution."
-      socialLinks={socialLinks}
-      navLinks={navLinks}
-      brandIcon={
-        <Image
-          src="/images/logo/nav_logo_dark.png"
-          alt="Jupitex"
-          width={200}
-          height={52}
-          className="h-10 w-auto sm:h-12"
-        />
-      }
-    />
+    <ScrollReveal>
+      <Footer
+        brandName="Jupitex"
+        brandDescription="We help teams ship faster with AI, automation, and dedicated engineering—strategy through execution."
+        socialLinks={socialLinks}
+        navLinks={navLinks}
+        brandIcon={
+          <Image
+            src="/images/logo/nav_logo_dark.png"
+            alt="Jupitex"
+            width={200}
+            height={52}
+            className="h-10 w-auto sm:h-12"
+          />
+        }
+      />
+    </ScrollReveal>
   );
 }

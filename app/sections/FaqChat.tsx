@@ -120,20 +120,15 @@ function AiAvatar({ size = 28 }: { size?: number }) {
         width: size,
         height: size,
         background:
-          "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
+          "linear-gradient(135deg, #000000 0%, #000000 50%, #000000 100%)",
+     
       }}
     >
       <Image
-        src="/images/logo/tab-logo-dark.png"
-        alt="JX"
-        width={logoSize}
-        height={logoSize}
-        className="object-contain"
-      />
+        src="/images/logo/tab-logo-dark.png" alt="JX" width={logoSize} height={logoSize} className="object-contain" />
     </div>
   );
-}
-
+} 
 /* ─── Chat Message Bubble ──────────────────────────────────────── */
 function ChatBubble({
   message,
@@ -311,7 +306,7 @@ export default function FaqChat() {
                     className="mx-auto mb-5 h-14 w-14 sm:h-16 sm:w-16 rounded-full flex items-center justify-center overflow-hidden"
                     style={{
                       background:
-                        "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
+                        "linear-gradient(135deg, #000000 0%, #000000 100%)",
                     }}
                   >
                     <Image
