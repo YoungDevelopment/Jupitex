@@ -8,8 +8,8 @@ import {
   MobileNavHeader,
   MobileNavMenu,
   MobileNavToggle,
-  NavbarButton,
 } from "@/components/ui/resizable-navbar";
+import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 const navItems = [
   { name: "Problems", link: "#problems" },
   { name: "Services", link: "#services" },
+  { name: "Our Work", link: "#our-work" },
   { name: "Why Jupitex", link: "#why-jupitex" },
   { name: "Testimonials", link: "#testimonials" },
   { name: "FAQ", link: "#faq" },
@@ -30,9 +31,11 @@ export default function SiteNavbar() {
       <NavBody>
         <Logo />
         <NavItems items={navItems} />
-        <NavbarButton variant="gradient" href="#contact">
-          Book a call
-        </NavbarButton>
+        <a href="#contact" className="relative z-10">
+          <InteractiveHoverButton className="border-neutral-300 bg-white px-8 py-3 text-sm font-medium text-neutral-700 shadow-sm transition-all duration-200 hover:bg-orange-500 hover:text-white hover:shadow-md dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-orange-500">
+            Book a call
+          </InteractiveHoverButton>
+        </a>
       </NavBody>
 
       <MobileNav>
@@ -57,14 +60,15 @@ export default function SiteNavbar() {
               {item.name}
             </a>
           ))}
-          <NavbarButton
-            variant="gradient"
+          <a
             href="#contact"
             className="w-full"
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            Book a call
-          </NavbarButton>
+            <InteractiveHoverButton className="w-full border-neutral-300 bg-white px-8 py-3 text-sm font-medium text-neutral-700 shadow-sm transition-all duration-200 hover:bg-orange-500 hover:text-white hover:shadow-md dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-orange-500">
+              Book a call
+            </InteractiveHoverButton>
+          </a>
         </MobileNavMenu>
       </MobileNav>
     </Navbar>

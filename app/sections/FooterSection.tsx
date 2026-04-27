@@ -23,7 +23,7 @@ export default function FooterSection() {
     },
     {
       icon: <Mail className="w-5 h-5" />,
-      href: "mailto:contact@jupitex.com",
+      href: "mailto:contact@jupitex.io",
       label: "Email",
     },
   ];
@@ -31,6 +31,7 @@ export default function FooterSection() {
   const navLinks = [
     { label: "Problems", href: "#problems" },
     { label: "Services", href: "#services" },
+    { label: "Our Work", href: "#our-work" },
     { label: "Why Jupitex", href: "#why-jupitex" },
     { label: "Testimonials", href: "#testimonials" },
     { label: "FAQ", href: "#faq" },

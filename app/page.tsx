@@ -1,14 +1,16 @@
+import dynamic from "next/dynamic";
 import HulyHero from "./sections/HulyHero";
 import LogoStrip from "./components/LogoStrip";
 import SiteNavbar from "./components/SiteNavbar";
-import FeatureCards from "./sections/FeatureCards";
 import WhyJupitex from "./sections/WhyJupitex";
 import Services from "./sections/Services";
-import Testimonials from "./sections/Testimonials";
-import FaqChat from "./sections/FaqChat";
-import BookCallSection from "./sections/BookCallSection";
+import OurWork from "./sections/OurWork";
 import Problems from "./sections/Problems";
-import FooterSection from "./sections/FooterSection";
+
+const Testimonials = dynamic(() => import("./sections/Testimonials"));
+const FaqChat = dynamic(() => import("./sections/FaqChat"));
+const BookCallSection = dynamic(() => import("./sections/BookCallSection"));
+const FooterSection = dynamic(() => import("./sections/FooterSection"));
 
 export default function Home() {
   return (
@@ -16,10 +18,10 @@ export default function Home() {
       <SiteNavbar />
       <HulyHero />
       <LogoStrip />
-    
       <Problems />
-      <Services />
-      <WhyJupitex /> <Testimonials />
+      <Services /> <WhyJupitex />
+      <OurWork />
+      <Testimonials />
       <FaqChat />
       <BookCallSection />
       <FooterSection />

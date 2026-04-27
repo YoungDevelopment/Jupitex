@@ -11,7 +11,7 @@ import SectionLayout from "../components/SectionLayout";
 const faqs = [
   {
     question:
-      "How is Morningside AI different from every other AI company out there?",
+      "How is side Jupitex different from every other AI company out there?",
     answer:
       "We don't just build AI — we build AI that actually gets used. Most firms hand off a prototype and disappear. We stay through adoption, training, and optimization to make sure it delivers real ROI.",
   },
@@ -74,7 +74,7 @@ function FaqItem({
         onClick={onToggle}
         className="flex w-full items-center justify-between py-5 sm:py-6 text-left cursor-pointer"
       >
-        <span className="text-body-ds font-semibold text-apple-near-black pr-4">
+        <span className={`text-caption-ds pr-4 transition-all duration-200 ${isOpen ? "font-extrabold text-black" : "font-medium text-apple-near-black"}`}>
           {question}
         </span>
         <motion.span
@@ -94,7 +94,7 @@ function FaqItem({
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <p className="pb-5 sm:pb-6 text-body-ds text-apple-text-secondary max-w-3xl">
+            <p className="pb-5 sm:pb-6 text-caption-ds text-apple-text-secondary max-w-3xl">
               {answer}
             </p>
           </motion.div>
@@ -215,6 +215,17 @@ export default function FaqChat() {
     });
   }, []);
 
+  const handleWheel = useCallback((e: React.WheelEvent<HTMLDivElement>) => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    const { scrollTop, scrollHeight, clientHeight } = el;
+    const canScrollUp = scrollTop > 0;
+    const canScrollDown = scrollTop + clientHeight < scrollHeight - 1;
+    if ((e.deltaY < 0 && canScrollUp) || (e.deltaY > 0 && canScrollDown)) {
+      e.stopPropagation();
+    }
+  }, []);
+
   useEffect(() => {
     scrollToBottom();
   }, [messages, isLoading, scrollToBottom]);
@@ -270,7 +281,7 @@ export default function FaqChat() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="max-w-3xl mx-auto"
+        className="max-w-4xl mx-auto"
       >
         <div className="rounded-2xl sm:rounded-3xl border border-[rgba(0,0,0,0.1)] bg-white shadow-[rgba(0,0,0,0.22)_3px_5px_30px_0px] overflow-hidden">
           {/* ── Chat header ──────────────────────────────────── */}
@@ -292,7 +303,8 @@ export default function FaqChat() {
           {/* ── Messages area ────────────────────────────────── */}
           <div
             ref={scrollContainerRef}
-            className="h-[320px] sm:h-[380px] md:h-[420px] overflow-y-auto p-4 sm:p-5 md:p-6 space-y-3 sm:space-y-4 faq-scrollbar"
+            onWheel={handleWheel}
+            className="h-[420px] sm:h-[500px] md:h-[560px] overflow-y-scroll p-4 sm:p-5 md:p-6 space-y-3 sm:space-y-4 faq-scrollbar"
           >
             {!hasMessages && (
               <div className="flex items-center justify-center h-full">

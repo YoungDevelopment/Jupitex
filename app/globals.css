@@ -18,7 +18,7 @@ html.lenis body {
   overscroll-behavior: contain;
 }
 
-/* ─── Huly custom font faces ─────────────────────────────────────── */
+/* ─── Jupitex custom font faces ──────────────────────────────────── */
 @font-face {
   font-family: "esbuild";
   src: url("/fonts/esbuild-400.woff2") format("woff2");
@@ -91,6 +91,12 @@ html.lenis body {
 @media (max-width: 1070px) {
   :root {
     --hero-mask-size: 200px;
+  }
+}
+
+@media (max-width: 834px) {
+  :root {
+    --hero-mask-size: 0px;
   }
 }
 
@@ -200,7 +206,7 @@ html.lenis body {
   }
 }
 
-/* ─── Huly hero / CTA button glow classes ───────────────────────── */
+/* ─── Jupitex hero / CTA button glow classes ────────────────────── */
 .border-button-light {
   border-radius: 9999px;
   border-width: 1px;
@@ -230,20 +236,19 @@ html.lenis body {
   border-width: 2px;
   border-color: transparent;
   border-style: solid;
-  filter: blur(7px);
+  filter: blur(13px);
   background:
     linear-gradient(transparent, transparent) padding-box,
     linear-gradient(
         91.96deg,
         rgba(255, 177, 153, 0) 6.11%,
-        rgba(255, 177, 153, 0.2) 53.57%,
+        rgba(255, 177, 153, 0.48) 53.57%,
         #ff7950 93.6%
       )
       border-box;
 }
 
 .border-button-light-blur {
-  position: relative;
   border-radius: 9999px;
   border-width: 3px;
   border-style: solid;
@@ -267,13 +272,13 @@ html.lenis body {
   top: -0.125rem;
   z-index: 10;
   border-width: 2px;
-  filter: blur(2px);
+  filter: blur(6px);
   background:
     linear-gradient(transparent, transparent) padding-box,
     linear-gradient(
         97.68deg,
         rgba(255, 177, 153, 0) 38.1%,
-        rgba(255, 177, 153, 0.2) 82.47%,
+        rgba(255, 177, 153, 0.5) 82.47%,
         #ff7950 93.3%
       )
       border-box;
@@ -284,14 +289,14 @@ html.lenis body {
   top: -3px;
   z-index: 20;
   border-width: 3px;
-  filter: blur(15px);
+  filter: blur(34px);
   background:
     linear-gradient(transparent, transparent) padding-box,
-    linear-gradient(91.88deg, rgba(255, 137, 100, 0.2) 46.45%, #cd3100 98.59%)
+    linear-gradient(91.88deg, rgba(255, 137, 100, 0.52) 46.45%, #cd3100 98.59%)
       border-box;
 }
 
-/* ─── Huly hero custom utilities ────────────────────────────────── */
+/* ─── Jupitex hero custom utilities ─────────────────────────────── */
 .container {
   margin-left: auto;
   margin-right: auto;
@@ -385,20 +390,22 @@ html.lenis body {
 
 .faq-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: #d1d5db transparent;
+  scrollbar-color: #d1d5db #f3f4f6;
 }
 
 .faq-scrollbar::-webkit-scrollbar {
-  width: 4px;
+  width: 5px;
 }
 
 .faq-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
+  background: #f3f4f6;
+  border-radius: 9999px;
 }
 
 .faq-scrollbar::-webkit-scrollbar-thumb {
   background-color: #d1d5db;
   border-radius: 9999px;
+  min-height: 40px;
 }
 
 .faq-scrollbar::-webkit-scrollbar-thumb:hover {
@@ -451,7 +458,7 @@ html.lenis body {
 }
 
 .text-display-hero {
-  font-size: 2.25rem;
+  font-size: 2rem;
   font-weight: 700;
   line-height: 1.07;
   letter-spacing: -0.03em;
@@ -506,7 +513,7 @@ html.lenis body {
 }
 
 .text-body-ds {
-  font-size: 1.125rem;
+  font-size: 0.9375rem;
   font-weight: 400;
   line-height: 1.5;
   letter-spacing: -0.374px;

@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
 import { GlowingButton } from "@/components/ui/glowing-button";
 
 /* ─────────────────────────────────────────────────────────────────────────
-   Huly hero idle sweep.
+   Jupitex hero idle sweep.
 
    The overlay SVGs fill maskRef which is 1574 × 1474 px.  The sweep path
    must be expressed in that same coordinate space so the reveal circle
@@ -33,10 +33,173 @@ function getSweepPos(progress: number) {
   };
 }
 
+const HERO_HEADLINE_GRADIENT = {
+  background: "linear-gradient(to bottom right, #ffffff 30%, #d5d8f6 80%, #fdf7fe)",
+  WebkitBackgroundClip: "text" as const,
+  WebkitTextFillColor: "transparent" as const,
+  backgroundClip: "text" as const,
+};
+
+const HERO_MUTED = "#e5e5e7";
+
+/** Match `<motion.h1>` width so stats align with the hero headline block. */
+const HERO_TEXT_MAX_W =
+  "max-w-72 sm:max-w-[420px] md:max-w-[520px] lg:max-w-[616px]";
+
+/** Animate 0 → target with easeOutCubic. Starts when `start` flips true. */
+function useCountUp(
+  target: number,
+  duration = 1800,
+  start = false,
+  decimals = 0,
+) {
+  const [value, setValue] = useState(0);
+  const rafRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (!start) return;
+    const t0 = performance.now();
+    const ease = (t: number) => 1 - Math.pow(1 - t, 3);
+
+    const tick = (now: number) => {
+      const t = Math.min((now - t0) / duration, 1);
+      const next = target * ease(t);
+      setValue(
+        decimals ? parseFloat(next.toFixed(decimals)) : Math.floor(next),
+      );
+      if (t < 1) rafRef.current = requestAnimationFrame(tick);
+      else setValue(target);
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+    return () => {
+      if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
+    };
+  }, [target, duration, start, decimals]);
+
+  return value;
+}
+
+type StatItemProps = {
+  value: number;
+  prefix?: string;
+  suffix?: string;
+  label: string;
+  decimals?: number;
+  start: boolean;
+};
+
+function StatItem({
+  value,
+  prefix = "",
+  suffix = "",
+  label,
+  decimals = 0,
+  start,
+}: StatItemProps) {
+  const animated = useCountUp(value, 1800, start, decimals);
+  const display = decimals ? animated.toFixed(decimals) : animated.toLocaleString();
+
+  return (
+    <div
+      role="listitem"
+      className="flex min-w-0 flex-col items-center text-center"
+    >
+      <div
+        className="font-title text-4xl font-light leading-none tracking-tight tabular-nums whitespace-nowrap sm:text-5xl md:text-6xl"
+        style={HERO_HEADLINE_GRADIENT}
+      >
+        {prefix}
+        {display}
+        {suffix}
+      </div>
+      <div
+        className="mt-3 text-sm leading-snug md:text-base"
+        style={{ color: HERO_MUTED, opacity: 0.7 }}
+      >
+        {label}
+      </div>
+    </div>
+  );
+}
+
+type Stat = {
+  value: number;
+  prefix?: string;
+  suffix?: string;
+  label: string;
+  decimals?: number;
+};
+
+function StatsBar({
+  stats = [
+    { value: 4, suffix: " weeks", label: "from Audit to Automation" },
+    { value: 105, suffix: " hrs", label: "saved per month" },
+    { value: 11, suffix: " audits", label: "completed since 2026" },
+    { value: 30, suffix: "k+", label: "system migrations required" },
+  ],
+  className = "",
+}: {
+  stats?: Stat[];
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    const obs = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          setInView(true);
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.3 },
+    );
+    obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      role="list"
+      className={[
+        "w-full",
+        HERO_TEXT_MAX_W,
+        "relative h-full max-w-[1280px] px-5 2xs:px-6 sm:px-8 grid grid-cols-4 place-items-center gap-x-60 gap-y-12 justify-items-center items-center",
+        "pb-8 md:pb-10 lg:pb-12",
+        "mx-auto", // Centers horizontally
+        "flex justify-center", // Ensures content is centered horizontally
+        className,
+      ].join(" ")}
+      style={{ marginLeft: "auto", marginRight: "auto" }}
+    >
+      {stats.map((s, i) => (
+        <StatItem key={i} {...s} start={inView} />
+      ))}
+    </div>
+  );
+}
+
 export default function HulyHero() {
   const sectionRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const maskRef = useRef<HTMLDivElement>(null);
+
+  const [isDesktop, setIsDesktop] = useState(() =>
+    typeof window !== "undefined"
+      ? window.matchMedia("(min-width: 1024px)").matches
+      : false,
+  );
+
+  useEffect(() => {
+    const mql = window.matchMedia("(min-width: 1024px)");
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
+    mql.addEventListener("change", handler);
+    return () => mql.removeEventListener("change", handler);
+  }, []);
 
   const sweepRaf = useRef<number>(0);
   const sweepTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -89,36 +252,43 @@ export default function HulyHero() {
   }, []);
 
   useEffect(() => {
+    if (!isDesktop) {
+      stopSweep();
+      return;
+    }
     startSweep();
     return stopSweep;
-  }, [startSweep, stopSweep]);
+  }, [startSweep, stopSweep, isDesktop]);
 
-  /* ── event handlers ───────────────────────────────────────────── */
+  /* ── event handlers (desktop only) ────────────────────────────── */
   const onMouseMove = useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
+      if (!isDesktop) return;
       const mask = maskRef.current;
       if (!mask) return;
       const r = mask.getBoundingClientRect();
       setMask(e.clientX - r.left, e.clientY - r.top);
     },
-    [setMask],
+    [setMask, isDesktop],
   );
 
   const onMouseEnter = useCallback(() => {
+    if (!isDesktop) return;
     hovering.current = true;
     stopSweep();
-  }, [stopSweep]);
+  }, [stopSweep, isDesktop]);
 
   const onMouseLeave = useCallback(() => {
+    if (!isDesktop) return;
     hovering.current = false;
     startSweep();
-  }, [startSweep]);
+  }, [startSweep, isDesktop]);
 
   return (
     <section
       id="top"
       ref={sectionRef}
-      className="relative overflow-hidden h-svh min-h-[600px] sm:min-h-[700px] lg:min-h-[800px] xl:h-[1438px] pt-24 sm:pt-28 md:pt-32 lg:pt-36 xl:pt-[184px]"
+      className="relative overflow-hidden h-svh min-h-[600px] sm:min-h-[700px] md:min-h-[800px] lg:h-[1078px] xl:h-[1438px] pt-20 sm:pt-28 md:pt-32 lg:pt-36 xl:pt-[184px]"
       style={{ background: "#000000" }}
       onMouseMove={onMouseMove}
       onMouseEnter={onMouseEnter}
@@ -134,7 +304,7 @@ export default function HulyHero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0, ease: [0.25, 0.1, 0.25, 1] }}
-          className="relative z-30 text-display-hero font-title max-w-72 sm:max-w-[420px] md:max-w-[520px] lg:max-w-[616px]"
+          className={`relative z-30 text-display-hero font-title ${HERO_TEXT_MAX_W}`}
           style={{
             background:
               "linear-gradient(to bottom right, #ffffff 30%, #d5d8f6 80%, #fdf7fe)",
@@ -155,11 +325,11 @@ export default function HulyHero() {
             delay: 0.15,
             ease: [0.25, 0.1, 0.25, 1],
           }}
-          className="relative z-30 mt-5 sm:mt-6 max-w-88 sm:max-w-104 md:max-w-md text-body-ds"
+          className="relative z-30 mt-3 sm:mt-5 md:mt-6 max-w-88 sm:max-w-104 md:max-w-md text-body-ds"
           style={{ color: "#e5e5e7" }}
         >
-          We look at your day-to-day operations, find the work that&apos;s
-          eating up time and money, and build AI solutions to make them better.
+          We look at your day-to-day operations, find the repetitive work
+          that&apos;s costing you time and money, then build AI that handles it.
         </motion.p>
 
         {/* ─── CTA button ──────────────────────────────────────── */}
@@ -167,9 +337,9 @@ export default function HulyHero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-          className="relative flex justify-start z-50 mt-8 sm:mt-10 md:mt-11"
+          className="relative flex justify-start z-50 mt-6 sm:mt-8 md:mt-10 lg:mt-11"
         >
-          <GlowingButton href="#contact" className="h-11 px-8 text-[13px]">
+          <GlowingButton href="#contact" className="h-11 px-16 text-[13px]">
             Free AI Audit Report
           </GlowingButton>
         </motion.div>
@@ -177,17 +347,15 @@ export default function HulyHero() {
         {/* ─── Hero media stack (overlay + screenshot) ────────── */}
         <div
           ref={maskRef}
-          className="absolute max-w-none w-[200%] sm:w-[180%] md:w-[160%] xl:w-[1574px] left-0 sm:left-3 xl:left-[24px]"
+          className="absolute bottom-0 left-0 w-[140%] xs:w-[135%] sm:w-[130%] md:w-[140%] lg:w-[1220px] xl:left-[24px] xl:w-[1574px] max-w-none aspect-[1.067842]"
           style={{
-            bottom: 0,
-            aspectRatio: "1.067842",
             isolation: "isolate",
             ["--hero-mask-x" as string]: "0px",
             ["--hero-mask-y" as string]: "0px",
           }}
         >
           {/* base glow/video layer (lighten blend) */}
-          <div className="absolute -left-[20%] sm:-left-[25%] xl:-left-[344px] bottom-0 z-0 aspect-[1.335187] w-[140%] sm:w-[150%] xl:w-[1920px] max-w-none mix-blend-lighten before:absolute before:top-0 before:z-10 before:h-20 before:w-full before:bg-linear-to-b before:from-grey-1 before:to-grey-1/0">
+          <div className="absolute -left-[30%] w-[170%] sm:-left-[25%] sm:w-[155%] md:-left-[22%] md:w-[148%] lg:-left-[253px] lg:w-[1620px] xl:-left-[344px] xl:w-[1920px] bottom-0 z-0 aspect-[1.335187] max-w-none mix-blend-lighten">
             <video
               className="absolute inset-0 h-full w-full"
               width={1920}
@@ -196,6 +364,7 @@ export default function HulyHero() {
               loop
               playsInline
               muted
+              preload="metadata"
               style={{ opacity: 1 }}
             >
               <source src="/videos/pages/home/hero/hero.mp4" type="video/mp4" />
@@ -204,17 +373,25 @@ export default function HulyHero() {
                 type="video/webm"
               />
             </video>
-            {/* Side fades — blend video edges into the black background */}
+            {/* Edge fades — blend video edges into the black background */}
             <div className="pointer-events-none absolute inset-0 z-10">
+              {/* Top fade — visible on mobile/tablet only */}
               <div
-                className="absolute inset-y-0 left-0 w-[140px] sm:w-[200px] xl:w-[320px]"
+                className="absolute top-0 left-0 right-0 h-[80px] sm:h-[100px] lg:h-0"
+                style={{
+                  background:
+                    "linear-gradient(to bottom, #000000 0%, rgba(0,0,0,0.7) 40%, transparent 100%)",
+                }}
+              />
+              <div
+                className="absolute inset-y-0 left-0 w-[100px] sm:w-[140px] md:w-[200px] xl:w-[320px]"
                 style={{
                   background:
                     "linear-gradient(to right, #000000 0%, rgba(0,0,0,0.85) 25%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.2) 75%, transparent 100%)",
                 }}
               />
               <div
-                className="absolute inset-y-0 right-0 w-[140px] sm:w-[200px] xl:w-[320px]"
+                className="absolute inset-y-0 right-0 w-[100px] sm:w-[140px] md:w-[200px] xl:w-[320px]"
                 style={{
                   background:
                     "linear-gradient(to left, #000000 0%, rgba(0,0,0,0.85) 25%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.2) 75%, transparent 100%)",
@@ -225,7 +402,7 @@ export default function HulyHero() {
 
           {/* SVG overlay layer — clip-path follows the mask vars */}
           <div
-            className="relative h-full"
+            className="relative h-full hidden lg:block"
             style={{
               mixBlendMode: "overlay",
               clipPath:
@@ -268,27 +445,22 @@ export default function HulyHero() {
             />
           </div>
 
-          {/* app screenshot */}
+          {/* hero illustration */}
           <Image
-            alt="Huly platform screenshot"
-            fetchPriority="high"
+            alt="AI automation dashboard preview"
+            src="/images/hero-illustration.png"
+            className="absolute bottom-[75px] sm:bottom-[85px] md:bottom-[95px] lg:bottom-[133px] xl:bottom-[136px] left-[2%] sm:left-[3%] md:left-[2%] lg:left-[36px] xl:left-[8px] w-[92%] sm:w-[90%] md:w-[76%] lg:w-[873px] xl:w-[1024px] rounded-t sm:rounded-t-md lg:rounded-t-lg xl:rounded-t-[10px] object-cover object-top"
             width={1024}
             height={569}
-            decoding="async"
-            className="absolute rounded-t-[10px] bottom-[60px] sm:bottom-[80px] lg:bottom-[100px] xl:bottom-[141px] left-1 sm:left-2"
-            style={{
-              color: "transparent",
-            }}
-            sizes="(max-width: 640px) 90vw, (max-width: 1024px) 80vw, (max-width: 1280px) 873px, 1024px"
-            src="/images/hero-illustration.jpg"
+            priority
+            fetchPriority="high"
+            sizes="(max-width: 640px) 92vw, (max-width: 768px) 90vw, (max-width: 1024px) 76vw, 1024px"
           />
 
           {/* Bottom gradient vignette — inside isolation context so it layers on top of video */}
           <div
-            className="pointer-events-none absolute bottom-0 left-0 w-full"
+            className="pointer-events-none absolute bottom-0 left-0 z-30 w-full h-[200px] sm:h-[260px] md:h-[300px] lg:h-[340px]"
             style={{
-              zIndex: 30,
-              height: "340px",
               background:
                 "linear-gradient(to bottom, rgba(0,0,0,0) 0%, #000000 50%)",
             }}
@@ -296,51 +468,16 @@ export default function HulyHero() {
         </div>
 
         {/* ─── Feature ticker ──────────────────────────────────── */}
-        <div className="absolute z-30 overflow-hidden bottom-12 sm:bottom-16 lg:bottom-20 xl:bottom-[88px] text-micro sm:text-caption-ds tracking-[-0.02em]">
-          <p
-            className="mb-2 sm:mb-3.5 font-light leading-none will-change-transform"
-            style={{ color: "rgba(255,255,255,0.6)" }}
-          >
-            Everything you need for productive team work:
-          </p>
-          <ul
-            className="flex flex-wrap gap-y-1 shrink-0 font-semibold"
-            style={{ color: "#ffffff", lineHeight: "1.125" }}
-          >
-            {(
-              [
-                "Team Planner",
-                "Project Management",
-                "Virtual Office",
-                "Chat",
-                "Documents",
-                "Inbox",
-              ] as const
-            ).map((item, i) => (
-              <li key={item} className="relative shrink-0">
-                {i > 0 && (
-                  <span
-                    className="relative inline-block rounded-full align-middle"
-                    style={{
-                      width: "3px",
-                      height: "3px",
-                      margin: "0 6px",
-                      background: "rgba(255,255,255,0.3)",
-                    }}
-                  />
-                )}
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
+      </div>
+
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-40 flex justify-center">
+        <StatsBar className="pointer-events-auto" />
       </div>
 
       {/* ─── Bottom gradient vignette (inside section, full width) ── */}
       <div
-        className="pointer-events-none absolute bottom-0 left-0 z-20 w-full"
+        className="pointer-events-none absolute bottom-0 left-0 z-20 w-full h-[200px] sm:h-[260px] md:h-[300px] lg:h-[340px]"
         style={{
-          height: "340px",
           background:
             "linear-gradient(to bottom, rgba(0,0,0,0) 0%, #000000 50%)",
         }}

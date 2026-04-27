@@ -10,7 +10,6 @@ interface WhyJupitexCardProps {
 }
 
 function WhyJupitexCard({
-  cardName,
   title,
   description,
   image,
@@ -24,6 +23,7 @@ function WhyJupitexCard({
           alt={imageAlt}
           fill
           className="object-cover object-center"
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
       </div>
       <div className="px-5 sm:px-6 md:px-8 pt-5 sm:pt-6 pb-6 sm:pb-8 flex-1">
@@ -35,33 +35,6 @@ function WhyJupitexCard({
     </div>
   );
 }
-
-const awards = [
-  {
-    src: "/images/awards/upwork-logo.png",
-    alt: "Upwork Top Rated",
-    width: 90,
-    height: 90,
-  },
-  {
-    src: "/images/awards/upfirms-logo.png",
-    alt: "UpFirms Top Company",
-    width: 100,
-    height: 90,
-  },
-  {
-    src: "/images/awards/clutch-logo.png",
-    alt: "Clutch We Deliver",
-    width: 90,
-    height: 90,
-  },
-  {
-    src: "/images/awards/reliable-company-logo.png",
-    alt: "Reliable Company",
-    width: 90,
-    height: 90,
-  },
-];
 
 const cards: WhyJupitexCardProps[] = [
   {
@@ -85,7 +58,7 @@ const cards: WhyJupitexCardProps[] = [
     title: "Your team owns it, not us",
     description:
       "We don't build something and disappear. We train your team to run it, manage it, and grow with it. You're never dependent on us to keep things running.",
-    image: "/images/Why Jupitex/Team.png",
+    image: "/images/Why Jupitex/team.png",
     imageAlt: "Jupitex project timeline with detailed milestones",
   },
 ];

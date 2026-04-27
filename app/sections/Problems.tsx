@@ -156,7 +156,7 @@ export default function Problems() {
             pointerEvents: activeStep === TOTAL_STEPS - 1 ? "auto" : "none",
           }}
         >
-          <h2 className="problems-gradient-heading pb-[7px] text-center font-title text-display-hero">
+          <h2 className="problems-gradient-heading mx-auto max-w-5xl text-center font-title text-section-heading">
             That&apos;s why we built Jupitex.
           </h2>
 
@@ -177,7 +177,7 @@ export default function Problems() {
           </div>
 
           <div className="mt-4 flex justify-center">
-            <GlowingButton href="#contact" className="h-11 px-8 text-[13px]">
+            <GlowingButton href="#contact" className="h-11 px-16 text-[13px]">
               Free AI Audit Report
             </GlowingButton>
           </div>

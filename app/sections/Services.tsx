@@ -35,6 +35,7 @@ function ServiceCard({
               {description}
             </p>
           </div>
+          
           <div className="relative flex-1 min-h-0 flex items-end justify-center h-32 sm:h-40 md:h-48 lg:h-56">
             <Image
               src={image}
@@ -78,31 +79,11 @@ const services: ServiceCardProps[] = [
     image: "/images/ai and automation.png",
     imageAlt: "AI & Automation",
     subServices: [
-      "LLM Implementation",
-      "AI Strategy",
-      "Prompt Engineering",
-      "Data Analysis",
-      "Workflow Design",
-      "Process Mining",
-      "RPA Solutions",
-      "API Integration",
+     "AI Readiness audit", "Data and Reporting with AI", "AI compliance and Governance","Custom AI Solutions and Integrations"
     ],
   },
 
-  {
-    cardName: "ADD THE RIGHT PEOPLE, FAST",
-    title: "Staff Augmentation",
-    description:
-    "Hiring takes months. You don't have months. We place vetted AI engineers and developers on your team who deliver from day one. Wrong fit? We replace them in 48 hours.",  
-    image: "/images/staff augumentation.png",
-    imageAlt: "Staff Augmentation",
-    subServices: [
-      "Dedicated Teams",
-      "Talent Vetting",
-      "Rapid Onboarding",
-      "Flexible Scaling",
-    ],
-  },
+ 
 
   {
     cardName: "BUILD EXACTLY WHAT YOUR BUSINESS NEEDS",
@@ -112,10 +93,20 @@ const services: ServiceCardProps[] = [
     image: "/images/Development.png",
     imageAlt: "Development",
     subServices: [
-      "Full-Stack Dev",
-      "Cloud Architecture",
-      "UI/UX Design",
-      "Mobile Optimization",
+      "AI integration","Model Training","Business Tools & Automation","Web and Mobile Development"
+    ],
+  },
+
+
+  {
+    cardName: "ADD THE RIGHT PEOPLE, FAST",
+    title: "Staff Augmentation",
+    description:
+    "Hiring takes months. You don't have months. We place vetted AI engineers and developers on your team who deliver from day one. Wrong fit? We replace them in 48 hours.",  
+    image: "/images/staff augumentation.png",
+    imageAlt: "Staff Augmentation",
+    subServices: [
+    "AI Engineers","Software Engineers","Virtual Assistants","IT Support Specialists"
     ],
   },
 ];

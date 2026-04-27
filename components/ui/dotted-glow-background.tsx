@@ -221,6 +221,10 @@ export const DottedGlowBackground = ({
 
       // optional subtle background fade for depth (defaults to 0 = transparent)
       if (backgroundOpacity > 0) {
+        const clampedBackgroundOpacity = Math.min(
+          Math.max(backgroundOpacity, 0),
+          1,
+        );
         const grad = ctx.createRadialGradient(
           width * 0.5,
           height * 0.4,
@@ -229,13 +233,12 @@ export const DottedGlowBackground = ({
           height * 0.5,
           Math.max(width, height) * 0.7,
         );
-        grad.addColorStop(0, "rgba(0,0,0,0)");
-        grad.addColorStop(
-          1,
-          `rgba(0,0,0,${Math.min(Math.max(backgroundOpacity, 0), 1)})`,
-        );
+        grad.addColorStop(0, "transparent");
+        grad.addColorStop(1, resolvedGlowColor);
+        ctx.globalAlpha = clampedBackgroundOpacity;
         ctx.fillStyle = grad as unknown as CanvasGradient;
         ctx.fillRect(0, 0, width, height);
+        ctx.globalAlpha = opacity;
       }
 
       // animate dots
