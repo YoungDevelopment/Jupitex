@@ -103,10 +103,10 @@ function StatItem({
   return (
     <div
       role="listitem"
-      className="flex min-w-0 flex-col items-center text-center"
+      className="flex w-full min-w-0 max-w-36 flex-col items-center text-center sm:max-w-44 lg:max-w-none"
     >
       <div
-        className="font-title text-4xl font-light leading-none tracking-tight tabular-nums whitespace-nowrap sm:text-5xl md:text-6xl"
+        className="font-title text-[clamp(1.75rem,7vw,3.75rem)] font-light leading-none tracking-tight tabular-nums whitespace-nowrap lg:text-6xl"
         style={HERO_HEADLINE_GRADIENT}
       >
         {prefix}
@@ -114,7 +114,7 @@ function StatItem({
         {suffix}
       </div>
       <div
-        className="mt-3 text-sm leading-snug md:text-base"
+        className="mt-2 text-xs leading-snug sm:mt-3 sm:text-sm md:text-base"
         style={{ color: HERO_MUTED, opacity: 0.7 }}
       >
         {label}
@@ -136,7 +136,7 @@ function StatsBar({
     { value: 4, suffix: " weeks", label: "from Audit to Automation" },
     { value: 105, suffix: " hrs", label: "saved per month" },
     { value: 11, suffix: " audits", label: "completed since 2026" },
-    { value: 30, suffix: "k+", label: "system migrations required" },
+    { value: 27, suffix: " +", label: "projects" },
   ],
   className = "",
 }: {
@@ -167,14 +167,12 @@ function StatsBar({
       role="list"
       className={[
         "w-full",
-        HERO_TEXT_MAX_W,
-        "relative h-full max-w-[1280px] px-5 2xs:px-6 sm:px-8 grid grid-cols-4 place-items-center gap-x-60 gap-y-12 justify-items-center items-center",
-        "pb-8 md:pb-10 lg:pb-12",
-        "mx-auto", // Centers horizontally
-        "flex justify-center", // Ensures content is centered horizontally
+        "relative mx-auto grid max-w-[1120px] grid-cols-2 items-start justify-items-center",
+        "gap-x-3 gap-y-6 px-4 2xs:px-5 sm:gap-x-8 sm:gap-y-8 sm:px-6 md:px-8 lg:grid-cols-4 lg:gap-x-10 xl:gap-x-14",
+        "mt-8 sm:mt-20",
+        "pb-5 sm:pb-7 md:pb-10 lg:pb-12",
         className,
       ].join(" ")}
-      style={{ marginLeft: "auto", marginRight: "auto" }}
     >
       {stats.map((s, i) => (
         <StatItem key={i} {...s} start={inView} />
@@ -449,7 +447,7 @@ export default function HulyHero() {
           <Image
             alt="AI automation dashboard preview"
             src="/images/hero-illustration.png"
-            className="absolute bottom-[75px] sm:bottom-[85px] md:bottom-[95px] lg:bottom-[133px] xl:bottom-[136px] left-[2%] sm:left-[3%] md:left-[2%] lg:left-[36px] xl:left-[8px] w-[92%] sm:w-[90%] md:w-[76%] lg:w-[873px] xl:w-[1024px] rounded-t sm:rounded-t-md lg:rounded-t-lg xl:rounded-t-[10px] object-cover object-top"
+            className="absolute bottom-[85px] sm:bottom-[85px] md:bottom-[95px] lg:bottom-[133px] xl:bottom-[136px] left-[1.3%] sm:left-[3%] md:left-[2%] lg:left-[36px] xl:left-[8px] w-[92%] sm:w-[90%] md:w-[76%] lg:w-[873px] xl:w-[1024px] rounded-t sm:rounded-t-md lg:rounded-t-lg xl:rounded-t-[10px] object-cover object-top"
             width={1024}
             height={569}
             priority
