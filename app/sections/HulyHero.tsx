@@ -447,7 +447,7 @@ export default function HulyHero() {
           <Image
             alt="AI automation dashboard preview"
             src="/images/hero-illustration.png"
-            className="absolute bottom-[85px] sm:bottom-[85px] md:bottom-[95px] lg:bottom-[133px] xl:bottom-[136px] left-[1.3%] sm:left-[3%] md:left-[2%] lg:left-[36px] xl:left-[8px] w-[92%] sm:w-[90%] md:w-[76%] lg:w-[873px] xl:w-[1024px] rounded-t sm:rounded-t-md lg:rounded-t-lg xl:rounded-t-[10px] object-cover object-top"
+            className="absolute bottom-[85px] sm:bottom-[80px] md:bottom-[95px] lg:bottom-[133px] xl:bottom-[136px] left-[1.3%] sm:left-[3%] md:left-[2%] lg:left-[36px] xl:left-[8px] w-[92%] sm:w-[90%] md:w-[76%] lg:w-[873px] xl:w-[1024px] rounded-t sm:rounded-t-md lg:rounded-t-lg xl:rounded-t-[10px] object-cover object-top"
             width={1024}
             height={569}
             priority
