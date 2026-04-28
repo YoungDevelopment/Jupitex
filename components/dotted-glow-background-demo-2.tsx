@@ -47,4 +47,3 @@ export default function DottedGlowBackgroundDemoSecond() {
     </div>
   );
 }
-//a0cd3c6b-2d97-4504-868a-9e12aa197712

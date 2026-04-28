@@ -9,90 +9,105 @@ interface Testimonial {
   quote: string;
   name: string;
   role: string;
+  company: string;
   avatar: string;
 }
 
 const testimonials: Testimonial[] = [
   {
     quote:
-      "What a fantastic AI Proactiv AI is, I just love it. It has completely transformed the way I approach problems and develop solutions.",
-    name: "Manu Arora",
-    role: "Tech Innovator & Entrepreneur",
+      "Their AI audit gave us a clear risk map in week one. We fixed model drift and cut failed automations by 38% in a single sprint.",
+    name: "Ayesha Khan",
+    role: "Head of Data & AI, Fintech",
+    company: "NexaLedger",
     avatar: "https://i.pravatar.cc/80?img=32",
   },
   {
-    quote: "Absolutely revolutionary, a game-changer for our industry.",
-    name: "Bob Smith",
-    role: "Industry Analyst",
+    quote:
+      "We hired them for AI services, but the audit became the real unlock. Their team found prompt injection gaps our internal review missed.",
+    name: "Marcus Lee",
+    role: "CTO, Health Platform",
+    company: "CareFlow Health",
     avatar: "https://i.pravatar.cc/80?img=33",
   },
   {
     quote:
-      "The efficiency it brings is unmatched. It's a vital tool that has helped us cut costs and improve our end product significantly.",
-    name: "Eva Green",
-    role: "Operations Director",
+      "Before launch, they stress-tested our assistant across edge cases and compliance scenarios. We shipped with confidence and no critical findings.",
+    name: "Nadia Fernandes",
+    role: "VP Product, SaaS",
+    company: "OrbitDesk",
     avatar: "https://i.pravatar.cc/80?img=44",
   },
   {
     quote:
-      "It has saved us countless hours. Highly recommended for anyone looking to enhance their efficiency and productivity.",
-    name: "Henry Ford",
-    role: "Operations Analyst",
+      "Their AI services team moved from strategy to implementation fast. Governance, monitoring, and handoff docs were all production-ready.",
+    name: "Omar Siddiqui",
+    role: "Engineering Manager, Enterprise Ops",
+    company: "CoreAxis Systems",
     avatar: "https://i.pravatar.cc/80?img=59",
   },
   {
-    quote: "I made a soap with the help of AI, it was so easy to use.",
-    name: "Tyler Durden",
-    role: "Creative Director & Business Owner",
+    quote:
+      "The AI audit surfaced where we were over-automating. We reworked the workflow and reduced support tickets by 27%.",
+    name: "Priya Menon",
+    role: "Customer Experience Director",
+    company: "BrightCart",
     avatar: "https://i.pravatar.cc/80?img=12",
   },
   {
     quote:
-      "I can't imagine going back to how things were before this AI.",
-    name: "Cathy Lee",
-    role: "Product Manager",
+      "From model evaluation to rollout playbooks, their AI services covered everything we needed to scale responsibly.",
+    name: "Daniel Ross",
+    role: "COO, Logistics Tech",
+    company: "RoutePilot",
     avatar: "https://i.pravatar.cc/80?img=45",
   },
   {
     quote:
-      "A robust solution that fits perfectly into our workflow. It has enhanced our team's capabilities and allowed us to tackle more complex projects.",
-    name: "Frank Moore",
-    role: "Project Manager",
+      "They translated technical audit findings into business actions our leadership could actually prioritize. That clarity was invaluable.",
+    name: "Hina Patel",
+    role: "Director of Strategy, Retail",
+    company: "UrbanNest Retail",
     avatar: "https://i.pravatar.cc/80?img=53",
   },
   {
     quote:
-      "A must-have tool for any professional. It's revolutionized the way we approach problem-solving and decision-making.",
-    name: "Ivy Wilson",
-    role: "Business Consultant",
+      "Their team helped us stand up an internal AI review process that now catches quality and compliance issues before release.",
+    name: "Ryan Cooper",
+    role: "Risk & Compliance Lead",
+    company: "SentraPay",
     avatar: "https://i.pravatar.cc/80?img=47",
   },
   {
     quote:
-      "This AI has transformed the way I work! It's like having a brilliant assistant who knows exactly what I need before I even ask.",
-    name: "Alice Johnson",
-    role: "Senior Software Engineer",
+      "The audit report was detailed, actionable, and honest. It highlighted data quality blind spots that were hurting model performance.",
+    name: "Sara Ahmed",
+    role: "Head of Analytics",
+    company: "MetricLoop",
     avatar: "https://i.pravatar.cc/80?img=49",
   },
   {
     quote:
-      "It's like having a superpower! This AI tool has given us the ability to do things we never thought were possible in our field.",
-    name: "David Wright",
-    role: "Research Scientist",
+      "They rebuilt our AI workflow end-to-end with observability in mind. We now track hallucinations, latency, and business impact in one place.",
+    name: "Jason Miller",
+    role: "Principal Architect",
+    company: "StackNorth",
     avatar: "https://i.pravatar.cc/80?img=57",
   },
   {
     quote:
-      "It's incredibly intuitive and easy to use. Even those without technical expertise can leverage its power to improve their workflows.",
-    name: "Grace Hall",
-    role: "Marketing Specialist",
+      "As a non-technical team, we appreciated how clearly they explained model risks and mitigation. The process felt structured and practical.",
+    name: "Lina Qureshi",
+    role: "Marketing Operations Lead",
+    company: "Sparklane Media",
     avatar: "https://i.pravatar.cc/80?img=48",
   },
   {
     quote:
-      "The results are always impressive. This AI has helped us to not only meet but exceed our performance targets.",
-    name: "Jack Brown",
-    role: "Performance Manager",
+      "If you need AI services with governance baked in, this is the team. Their audit-first approach saved us months of rework.",
+    name: "Victor Chen",
+    role: "Founder, B2B SaaS",
+    company: "SignalForge",
     avatar: "https://i.pravatar.cc/80?img=60",
   },
 ];
@@ -119,13 +134,11 @@ function QuoteIcon() {
   );
 }
 
-function TestimonialCard({ quote, name, role, avatar }: Testimonial) {
+function TestimonialCard({ quote, name, role, company, avatar }: Testimonial) {
   return (
     <div className="rounded-2xl sm:rounded-3xl border border-white/10 bg-apple-surface-1 p-4 sm:p-5 md:p-6 transition-all duration-300 hover:bg-apple-surface-4">
       <QuoteIcon />
-      <p className="mt-3 sm:mt-4 text-caption-ds text-white/70">
-        {quote}
-      </p>
+      <p className="mt-3 sm:mt-4 text-caption-ds text-white/70">{quote}</p>
       <div className="mt-4 sm:mt-6 flex items-center gap-3">
         <Image
           src={avatar}
@@ -138,6 +151,7 @@ function TestimonialCard({ quote, name, role, avatar }: Testimonial) {
         <div>
           <p className="text-caption-ds font-semibold text-white">{name}</p>
           <p className="text-micro text-white/50">{role}</p>
+          <p className="text-micro text-white/40">{company}</p>
         </div>
       </div>
     </div>
@@ -183,8 +197,8 @@ export default function Testimonials() {
       sectionId="testimonials"
       bg="bg-black"
       dark
-      title="Loved by thousands of people"
-      description="Here's what some of our users have to say about Jupitex."
+      title="Hear from our clients"
+      description="What teams say after partnering with Jupitix on AI audit, risk, and implementation work."
     >
       <div className="relative max-h-[450px] sm:max-h-[550px] md:max-h-[650px] lg:max-h-[750px] overflow-hidden">
         <div className="flex justify-center gap-4 sm:gap-6">
