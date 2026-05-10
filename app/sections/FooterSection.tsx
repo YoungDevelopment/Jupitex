@@ -1,10 +1,11 @@
 "use client";
 import { Footer } from "@/components/ui/modem-animated-footer";
-import { Twitter, Linkedin, Github, Mail } from "lucide-react";
+// import { Twitter, Linkedin, Github, Mail } from "lucide-react";
 import Image from "next/image";
 import ScrollReveal from "../components/ScrollReveal";
 
 export default function FooterSection() {
+  /* Restore socials later — uncomment import + prop below:
   const socialLinks = [
     {
       icon: <Twitter className="w-5 h-5" />,
@@ -27,6 +28,7 @@ export default function FooterSection() {
       label: "Email",
     },
   ];
+  */
 
   const navLinks = [
     { label: "Problems", href: "#problems" },
@@ -43,7 +45,6 @@ export default function FooterSection() {
       <Footer
         brandName="Jupitex"
         brandDescription="We help teams ship faster with AI, automation, and dedicated engineering—strategy through execution."
-        socialLinks={socialLinks}
         navLinks={navLinks}
         brandIcon={
           <Image

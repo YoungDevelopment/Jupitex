@@ -49,7 +49,7 @@ export const Footer = ({
 
         <div className="relative mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-16 lg:py-20">
           <div
-            className="pointer-events-none absolute bottom-8 left-1/2 -translate-x-1/2 select-none text-center font-title text-[clamp(3.5rem,14vw,10rem)] font-extrabold leading-none tracking-tighter text-white/4"
+            className="footer-brand-watermark pointer-events-none absolute bottom-8 left-1/2 -translate-x-1/2 select-none text-center font-title text-[clamp(3.5rem,14vw,10rem)] font-extrabold leading-none tracking-tighter"
             aria-hidden
           >
             {brandName}
