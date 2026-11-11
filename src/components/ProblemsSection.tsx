@@ -20,19 +20,17 @@ interface ProblemStatement {
 const PROBLEMS_DATA: ProblemStatement[] = [
   {
     index: "01",
-    eyebrow: "PROBLEMS · 01 / MANUAL WORKFLOWS",
+    eyebrow: "PROBLEMS · 01 / MANUAL REVIEW",
     caption:
-      "Hours lost every week stitching spreadsheets, exporting CSVs, and reconciling rows by hand.",
+      "Compliance staff reading SMS and email replies one at a time, hoping the opt-out is not in the pile they skipped.",
     words: [
       { text: "Is" },
       { text: "your" },
       { text: "team" },
       { text: "still" },
-      { text: "working" },
-      { text: "on" },
-      { text: "the" },
+      { text: "reviewing" },
       {
-        text: "reports manually?",
+        text: "every message by hand?",
         badge: { id: "b-manual", statusColor: "amber" },
       },
     ],
@@ -41,14 +39,14 @@ const PROBLEMS_DATA: ProblemStatement[] = [
     index: "02",
     eyebrow: "PROBLEMS · 02 / OPERATIONAL FRICTION",
     caption:
-      "Fragile pipelines and siloed databases turn routine operations into daily fire drills.",
+      "Placement files, dispute queues and remittance statements held together by spreadsheets and whoever remembers to check.",
     words: [
       {
-        text: "Missed Deadlines,",
+        text: "Missed Disputes,",
         badge: { id: "b-deadlines", statusColor: "red" },
       },
       {
-        text: "Database Slowness,",
+        text: "Late Client Reports,",
         badge: { id: "b-db", statusColor: "red" },
       },
       {
@@ -66,7 +64,7 @@ const PROBLEMS_DATA: ProblemStatement[] = [
     index: "03",
     eyebrow: "PROBLEMS · 03 / THE CLARITY GAP",
     caption:
-      "Bridging the gap between knowing AI is the future and deploying a production-grade roadmap.",
+      "Every agency knows the work is repetitive. Few know which part is safe, compliant and worth automating first.",
     words: [
       { text: "You" },
       { text: "know" },
@@ -557,7 +555,7 @@ export default function ProblemsSection() {
       ref={sectionRef}
       id="problems"
       aria-label="Problems"
-      className="relative w-full h-screen min-h-[600px] bg-white select-none overflow-hidden touch-none"
+      className="relative w-full h-screen min-h-[600px] bg-background select-none overflow-hidden touch-none"
     >
       {/* Full-Viewport Centered Stage */}
       <div
@@ -570,10 +568,10 @@ export default function ProblemsSection() {
           style={{
             background:
               activeStep === 0
-                ? "radial-gradient(48% 50% at 10% 25%, rgba(226, 231, 235, 0.65) 0%, rgba(255, 255, 255, 0) 100%), radial-gradient(48% 50% at 90% 75%, rgba(222, 227, 231, 0.65) 0%, rgba(255, 255, 255, 0) 100%)"
+                ? "radial-gradient(48% 50% at 10% 25%, rgba(226, 231, 235, 0.65) 0%, rgba(241, 242, 243, 0) 100%), radial-gradient(48% 50% at 90% 75%, rgba(222, 227, 231, 0.65) 0%, rgba(241, 242, 243, 0) 100%)"
                 : activeStep === 1
-                ? "radial-gradient(50% 52% at 88% 22%, rgba(235, 226, 224, 0.55) 0%, rgba(255, 255, 255, 0) 100%), radial-gradient(48% 50% at 12% 78%, rgba(222, 227, 231, 0.65) 0%, rgba(255, 255, 255, 0) 100%)"
-                : "radial-gradient(52% 54% at 50% 50%, rgba(216, 232, 224, 0.5) 0%, rgba(255, 255, 255, 0) 100%), radial-gradient(45% 50% at 92% 80%, rgba(222, 227, 231, 0.6) 0%, rgba(255, 255, 255, 0) 100%)",
+                ? "radial-gradient(50% 52% at 88% 22%, rgba(235, 226, 224, 0.55) 0%, rgba(241, 242, 243, 0) 100%), radial-gradient(48% 50% at 12% 78%, rgba(222, 227, 231, 0.65) 0%, rgba(241, 242, 243, 0) 100%)"
+                : "radial-gradient(52% 54% at 50% 50%, rgba(216, 232, 224, 0.5) 0%, rgba(241, 242, 243, 0) 100%), radial-gradient(45% 50% at 92% 80%, rgba(222, 227, 231, 0.6) 0%, rgba(241, 242, 243, 0) 100%)",
           }}
         />
 

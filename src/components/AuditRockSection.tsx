@@ -2,451 +2,532 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import SectionWrapper from "@/components/SectionWrapper";
 
 const LOGO_ORANGE = "#FF731E";
 
+export interface TestimonialItem {
+  id: number;
+  quote: string;
+  name: string;
+  role: string;
+  company: string;
+  metric: string;
+  initials: string;
+}
+
+export const TESTIMONIALS: TestimonialItem[] = [
+  {
+    id: 1,
+    quote:
+      "Their AI audit gave us a clear roadmap in week one. We automated compliance checks and cut manual review time by 70%.",
+    name: "Ayesha Khan",
+    role: "Head of Operations",
+    company: "NexaLedger",
+    metric: "70% Faster QA",
+    initials: "AK",
+  },
+  {
+    id: 2,
+    quote:
+      "We hired Jupitex to fix our order bottleneck. Their custom internal tool saved 25 hours a week and helped us scale to 2 new factories.",
+    name: "Marcus Lee",
+    role: "VP of Manufacturing",
+    company: "Label Works",
+    metric: "25 hrs/wk Saved",
+    initials: "ML",
+  },
+  {
+    id: 3,
+    quote:
+      "Instead of generic chatbots, they built automations that plugged straight into our existing CRM with zero downtime for our team.",
+    name: "Nadia Fernandes",
+    role: "VP of Product",
+    company: "OrbitDesk",
+    metric: "4.8x First-Year ROI",
+    initials: "NF",
+  },
+  {
+    id: 4,
+    quote:
+      "Automated QA for our SMS and email workflows eliminated manual compliance bottlenecks and saves us $7,500 every single month.",
+    name: "Omar Siddiqui",
+    role: "Managing Director",
+    company: "Compliance Ops",
+    metric: "$7,500/mo Saved",
+    initials: "OS",
+  },
+  {
+    id: 5,
+    quote:
+      "We saw the exact numbers before spending a dollar. Every workflow was scoped, flow-charted, and delivered on a fixed quote.",
+    name: "Priya Menon",
+    role: "Director of CX",
+    company: "BrightCart",
+    metric: "38% Fewer Tickets",
+    initials: "PM",
+  },
+  {
+    id: 6,
+    quote:
+      "Jupitex didn't just build the system and vanish — they trained our whole staff so we own and run every automation internally.",
+    name: "Daniel Ross",
+    role: "Chief Operating Officer",
+    company: "RoutePilot",
+    metric: "100% Team Adoption",
+    initials: "DR",
+  },
+  {
+    id: 7,
+    quote:
+      "Within three weeks of launching our new site and automated lead-gen workflows, we closed $5,000 in new pipeline automatically.",
+    name: "Hina Patel",
+    role: "Managing Partner",
+    company: "MaxHP LLC",
+    metric: "+$5k New Pipeline",
+    initials: "HP",
+  },
+  {
+    id: 8,
+    quote:
+      "We needed vetted AI engineers fast. Jupitex placed two senior specialists on our team who shipped production code from day one.",
+    name: "Ryan Cooper",
+    role: "VP of Engineering",
+    company: "SentraPay",
+    metric: "48hr Onboarding",
+    initials: "RC",
+  },
+  {
+    id: 9,
+    quote:
+      "Weekly executive reporting used to take our analysts 14 hours. Now it runs in 10 minutes with higher accuracy and zero manual copy-paste.",
+    name: "Sara Ahmed",
+    role: "Head of Analytics",
+    company: "MetricLoop",
+    metric: "14 hrs → 10 mins",
+    initials: "SA",
+  },
+  {
+    id: 10,
+    quote:
+      "If you want AI that actually ships and delivers measurable ROI instead of staying stuck in pilot mode, Jupitex is the team to call.",
+    name: "Victor Chen",
+    role: "Founder & CEO",
+    company: "SignalForge",
+    metric: "+$64k/yr Saved",
+    initials: "VC",
+  },
+];
+
+const CARD_COUNT = TESTIMONIALS.length; // 10 cards
+const ANGLE_STEP = 360 / CARD_COUNT; // 36 degrees between cards
+
+function normalizeAngle(deg: number): number {
+  return ((((deg + 180) % 360) + 360) % 360) - 180;
+}
+
 export default function AuditRockSection() {
-  const sectionRef = useRef<HTMLElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [dialAngle, setDialAngle] = useState(0);
+  const [stageScale, setStageScale] = useState(1);
+  const [stageOffsetY, setStageOffsetY] = useState(0);
+  const [dialConfig, setDialConfig] = useState({
+    radiusX: 540,
+    radiusY: 390,
+    cardWidth: 252,
+    fadeStartAngle: 74,
+    fadeEndAngle: 96,
+  });
 
+  const hoveredRef = useRef<number | null>(null);
+  const onScreenRef = useRef(false);
+  useEffect(() => {
+    hoveredRef.current = hoveredCard;
+  }, [hoveredCard]);
+
+  // Responsive arc radius & 100vh height adaptation so the rotary dial frames the mountain on all displays
+  useEffect(() => {
+    const updateDimensions = () => {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+
+      let radiusX = 540;
+      let radiusY = 390;
+      let cardWidth = 252;
+      let fadeStartAngle = 74;
+      let fadeEndAngle = 96;
+      let rockTop = 305;
+      let rockWidth = 600;
+      let minComfortHeight = 520;
+
+      if (w >= 1280) {
+        radiusX = 540;
+        radiusY = 390;
+        cardWidth = 252;
+        fadeStartAngle = 74;
+        fadeEndAngle = 96;
+        rockTop = 305;
+        rockWidth = 600;
+        minComfortHeight = 520;
+      } else if (w >= 1024) {
+        radiusX = 392;
+        radiusY = 310;
+        cardWidth = 206;
+        fadeStartAngle = 73;
+        fadeEndAngle = 92;
+        rockTop = 295;
+        rockWidth = 540;
+        minComfortHeight = 480;
+      } else if (w >= 640) {
+        radiusX = 365;
+        radiusY = 260;
+        cardWidth = 204;
+        fadeStartAngle = 38;
+        fadeEndAngle = 58;
+        rockTop = 275;
+        rockWidth = 440;
+        minComfortHeight = 450;
+      } else {
+        radiusX = 410;
+        radiusY = 240;
+        cardWidth = 228;
+        fadeStartAngle = 16;
+        fadeEndAngle = 42;
+        rockTop = 250;
+        rockWidth = 340;
+        minComfortHeight = 420;
+      }
+
+      setDialConfig({
+        radiusX,
+        radiusY,
+        cardWidth,
+        fadeStartAngle,
+        fadeEndAngle,
+      });
+
+      const sectionPaddingTop = w >= 1024 ? 96 : w >= 640 ? 80 : 64;
+      const fallbackStageOffsetTop = w >= 1024 ? 252 : w >= 640 ? 228 : 235;
+      const measuredOffsetTop = stageRef.current?.offsetTop;
+      const stageTop =
+        sectionPaddingTop +
+        (measuredOffsetTop && measuredOffsetTop > 0
+          ? measuredOffsetTop
+          : fallbackStageOffsetTop);
+
+      const availableStageHeight = Math.max(300, h - stageTop);
+      const rockHeight = rockWidth * (1033 / 1024);
+      const naturalStageBottom = rockTop + rockHeight - 24;
+
+      let nextScale = 1;
+      if (availableStageHeight < minComfortHeight) {
+        nextScale = Math.max(0.65, availableStageHeight / minComfortHeight);
+      } else if (availableStageHeight > naturalStageBottom && w >= 1024) {
+        const arcSpan = radiusX * 2 + cardWidth;
+        const maxHorizScale = Math.max(1, (w - 80) / arcSpan);
+        const desiredScale = availableStageHeight / naturalStageBottom;
+        nextScale = Math.min(maxHorizScale, desiredScale, 1.35);
+      }
+
+      const nextOffsetY = Math.max(
+        0,
+        Math.round(availableStageHeight - naturalStageBottom * nextScale)
+      );
+
+      setStageScale(nextScale);
+      setStageOffsetY(nextOffsetY);
+    };
+
+    updateDimensions();
+    window.addEventListener("resize", updateDimensions);
+    return () => window.removeEventListener("resize", updateDimensions);
+  }, []);
+
+  // Viewport intersection observer for entrance animation (synced with SectionWrapper)
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setIsVisible(true);
+            observer.disconnect();
           }
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0.01, rootMargin: "360px 0px -40px 0px" }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    if (stageRef.current) {
+      observer.observe(stageRef.current);
     }
     return () => observer.disconnect();
   }, []);
 
-  // Left-to-right staggered card reveal: starts AFTER the rock has smoothly slid up into place
-  const getCardAnimationStyle = (index: number): React.CSSProperties => {
-    const delayMs = 600 + index * 160; // Card 1: 600ms, Card 2: 760ms, Card 3: 920ms, Card 4: 1080ms, Card 5: 1240ms
-    return {
-      opacity: isVisible ? 1 : 0,
-      filter: isVisible ? "blur(0px)" : "blur(8px)",
-      transform: isVisible ? "translateY(0px)" : "translateY(20px)",
-      transitionProperty: "opacity, filter, transform, box-shadow, border-color",
-      transitionDuration: "700ms",
-      transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
-      transitionDelay: isVisible ? `${delayMs}ms` : "0ms",
+  useEffect(() => {
+    const el = stageRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      onScreenRef.current = entry.isIntersecting;
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  // Continuous circular rotation loop
+  useEffect(() => {
+    let rafId = 0;
+    let lastTime = performance.now();
+    let currentSpeed = 5.5; // degrees per second
+    const targetBaseSpeed = 5.5;
+
+    const tick = (now: number) => {
+      const dt = Math.min((now - lastTime) / 1000, 0.1);
+      lastTime = now;
+
+      // Don't spin (or re-render) while the section is off screen
+      if (!onScreenRef.current) {
+        rafId = requestAnimationFrame(tick);
+        return;
+      }
+
+      const targetSpeed = hoveredRef.current !== null ? 0 : targetBaseSpeed;
+      currentSpeed += (targetSpeed - currentSpeed) * Math.min(1, dt * 6);
+
+      if (Math.abs(currentSpeed) > 0.01) {
+        setDialAngle((prev) => (prev + currentSpeed * dt) % 360);
+      }
+
+      rafId = requestAnimationFrame(tick);
     };
+
+    rafId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId);
+  }, []);
+
+  const stepDial = (direction: -1 | 1) => {
+    setDialAngle((prev) => (prev + direction * ANGLE_STEP) % 360);
   };
 
   return (
-    <section
-      ref={sectionRef}
-      id="audit-rock"
-      aria-label="Free AI Automation Audit — Rock Arch View"
-      className="relative w-full h-screen min-h-[740px] max-h-screen overflow-hidden bg-[#f1f2f3] select-none flex flex-col items-center justify-start px-4 sm:px-8 lg:px-10 xl:px-14 pt-16 sm:pt-20 xl:pt-24"
+    <SectionWrapper
+      id="testimonials"
+      ariaLabel="Client Testimonials"
+      subject="CLIENT TESTIMONIALS"
+      className="h-screen min-h-screen max-h-screen !pb-0"
+      containerClassName="h-full"
+      contentClassName="flex-1 flex flex-col items-center !mt-4"
+      background={
+        <div
+          className="pointer-events-none absolute inset-0 z-0"
+          style={{
+            background:
+              "radial-gradient(60% 55% at 50% 0%, rgba(255, 255, 255, 0.7) 0%, rgba(241, 242, 243, 0) 100%), radial-gradient(42% 48% at 92% 78%, rgba(255, 115, 30, 0.04) 0%, rgba(241, 242, 243, 0) 100%)",
+          }}
+        />
+      }
+      title={
+        <>
+          <span className="text-[#8e9296]">What our clients say about</span>
+          <span className="inline-flex items-center px-3.5 sm:px-4 py-1.5 rounded-[16px] bg-white border border-black/[0.06] shadow-[0_4px_14px_rgba(0,0,0,0.04)]">
+            <Image
+              src="/JupitexLogos/nav_logo_light.png"
+              alt="Jupitex"
+              width={125}
+              height={35}
+              className="h-[22px] sm:h-[27px] lg:h-[30px] w-auto object-contain"
+            />
+          </span>
+        </>
+      }
+      description={
+        <>
+          Real outcomes from teams that partnered with us to{" "}
+          <span className="text-[#090909] font-medium">
+            automate operations and put AI to work
+          </span>{" "}
+          — delivered with measurable ROI.
+        </>
+      }
     >
-      {/* Subtle Ambient Mist */}
-      <div
-        className="pointer-events-none absolute inset-0 z-0"
-        style={{
-          background:
-            "radial-gradient(60% 55% at 50% 0%, rgba(255, 255, 255, 0.7) 0%, rgba(241, 242, 243, 0) 100%), radial-gradient(42% 48% at 92% 78%, rgba(255, 115, 30, 0.04) 0%, rgba(255, 255, 255, 0) 100%)",
-        }}
-      />
+      {/* Subtle Dial Controls */}
+      <div className="flex items-center gap-3 shrink-0">
+        <button
+          type="button"
+          aria-label="Rotate testimonials counter-clockwise"
+          onClick={() => stepDial(-1)}
+          className="w-8 h-8 rounded-full bg-white border border-black/[0.08] hover:border-[#FF731E]/50 flex items-center justify-center text-[#0a0a0a] text-xs shadow-xs transition-all hover:scale-105 active:scale-95 cursor-pointer"
+        >
+          ←
+        </button>
+        <span className="text-[12.5px] font-medium tracking-[-0.01em] text-[#55585c]">
+          <span className="[@media(hover:none)]:hidden">Hover any card to pause</span>
+          <span className="[@media(hover:hover)]:hidden">Use the arrows to browse</span>
+        </span>
+        <button
+          type="button"
+          aria-label="Rotate testimonials clockwise"
+          onClick={() => stepDial(1)}
+          className="w-8 h-8 rounded-full bg-white border border-black/[0.08] hover:border-[#FF731E]/50 flex items-center justify-center text-[#0a0a0a] text-xs shadow-xs transition-all hover:scale-105 active:scale-95 cursor-pointer"
+        >
+          →
+        </button>
+      </div>
 
       {/* =====================================================================
-          MAIN CONTENT CONTAINER (Larger, more readable, more spacious)
+          UNIFIED STAGE: ROTATING ARC CARDS (STRAIGHT) & MOUNTAIN IN BETWEEN
          ===================================================================== */}
-      <div className="relative z-20 w-full max-w-[1420px] mx-auto flex flex-col items-center">
-        {/* 1. EDITORIAL HEADER */}
+      <div
+        ref={stageRef}
+        className="relative w-full flex-1 min-h-[540px] sm:min-h-[580px] lg:min-h-[620px] mt-6 sm:mt-8 xl:mt-9 origin-top"
+        style={{
+          transform:
+            stageScale !== 1 || stageOffsetY !== 0
+              ? `translate3d(0, ${stageOffsetY}px, 0) scale(${stageScale.toFixed(3)})`
+              : undefined,
+        }}
+      >
+        {/* THE MOUNTAIN / ROCK IN BETWEEN */}
         <div
-          className="flex flex-col items-center text-center transition-all duration-700"
+          className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-[250px] sm:top-[275px] lg:top-[295px] xl:top-[305px] z-10 w-[340px] sm:w-[440px] lg:w-[540px] xl:w-[600px] transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
           style={{
             opacity: isVisible ? 1 : 0,
-            filter: isVisible ? "none" : "blur(10px)",
-            transform: isVisible ? "translateY(0px)" : "translateY(14px)",
+            transform: isVisible
+              ? "translate3d(0, 0px, 0)"
+              : "translate3d(0, 140px, 0)",
+            transitionDelay: "100ms",
           }}
         >
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/95 border border-black/[0.06] text-[11px] sm:text-[11.5px] font-semibold tracking-[0.06em] text-[#0a0a0a] uppercase shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
-            <span
-              className="w-1.5 h-1.5 rounded-full"
-              style={{ backgroundColor: LOGO_ORANGE }}
-            />
-            <span>FREE AI AUTOMATION AUDIT</span>
-          </div>
-
-          <h2 className="mt-3.5 sm:mt-4 flex flex-wrap items-center justify-center gap-x-3.5 gap-y-2 text-[clamp(1.85rem,3.5vw,2.95rem)] font-medium tracking-[-0.038em] leading-[1.12]">
-            <span className="text-[#8e9296]">That is why we built</span>
-            <span className="inline-flex items-center px-4 py-1.5 rounded-[16px] bg-white border border-black/[0.06] shadow-[0_4px_14px_rgba(0,0,0,0.04)]">
-              <Image
-                src="/JupitexLogos/nav_logo_light.png"
-                alt="Jupitex"
-                width={125}
-                height={35}
-                className="h-[22px] sm:h-[27px] lg:h-[30px] w-auto object-contain"
-                priority
-              />
-            </span>
-          </h2>
-
-          <p className="mt-3 max-w-[650px] text-[14.5px] sm:text-[16px] font-normal leading-[1.55] tracking-[-0.01em] text-[#55585c] px-2">
-            We&apos;ll look at how your business runs and show you{" "}
-            <span className="text-[#090909] font-medium">
-              exactly what&apos;s worth automating
-            </span>{" "}
-            — and how much time and money each change saves.
-          </p>
-
-          {/* Lead-in line: "How our AI audit looks like" */}
-          <p className="mt-4 sm:mt-5 text-[13.5px] sm:text-[14.5px] font-semibold tracking-[-0.015em] text-[#090909]">
-            How our AI audit looks like
-          </p>
+          <Image
+            src="/Audit-bare.png"
+            alt="Jupitex Foundation Rock"
+            width={1024}
+            height={1033}
+            className="w-full h-auto object-contain select-none"
+            sizes="(max-width: 640px) 340px, (max-width: 1024px) 440px, 600px"
+          />
         </div>
 
-        {/* =====================================================================
-            2. UNIFIED STAGE: LARGER, HIGH-READABILITY CARDS & EMBRACED ROCK
-           ===================================================================== */}
-        <div className="relative w-full mt-8 sm:mt-10 xl:mt-11">
-          {/* THE ROCK: Slides in from the bottom with comfortable breathing room below Card 3 */}
-          <div
-            className="hidden lg:block pointer-events-none absolute left-1/2 -translate-x-1/2 top-[315px] xl:top-[325px] z-10 w-[550px] xl:w-[610px] transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
-            style={{
-              opacity: isVisible ? 1 : 0,
-              transform: isVisible
-                ? "translate3d(0, 0px, 0)"
-                : "translate3d(0, 160px, 0)",
-              transitionDelay: "100ms",
-            }}
-          >
-            <Image
-              src="/Audit-bare.png"
-              alt="Jupitex Foundation Rock"
-              width={1024}
-              height={1033}
-              className="w-full h-auto object-contain select-none"
-              priority
-            />
-          </div>
+        {/* 10 ROTATING TESTIMONIAL CARDS ON THE CIRCULAR ARC (STRAIGHT, NO TILT) */}
+        <div
+          className="relative z-20 w-full h-full transition-opacity duration-700"
+          style={{ opacity: isVisible ? 1 : 0 }}
+        >
+          {TESTIMONIALS.map((item, index) => {
+            const rawAngle = index * ANGLE_STEP + dialAngle;
+            const angle = normalizeAngle(rawAngle); // [-180, 180]
+            const absAngle = Math.abs(angle);
+            const rad = (angle * Math.PI) / 180;
 
-          {/* 5 EQUAL-SIZE CARDS: Bigger font, high readability, spacious internal padding */}
-          <div className="relative z-20 w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-4.5 xl:gap-5.5 items-start">
-            {/* -----------------------------------------------------------------
-                CARD 01 (Far Left - Beside Rock Base)
-               ----------------------------------------------------------------- */}
-            <div
-              onMouseEnter={() => setHoveredCard(1)}
-              onMouseLeave={() => setHoveredCard(null)}
-              style={getCardAnimationStyle(0)}
-              className="lg:mt-[270px] xl:mt-[285px] w-full min-h-[238px] xl:min-h-[248px] rounded-[20px] bg-white border border-black/[0.05] hover:border-[#FF731E]/40 p-5 xl:p-6 flex flex-col justify-between gap-3.5 shadow-[0_10px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_16px_38px_rgba(0,0,0,0.08)]"
-            >
-              <div>
-                <div className="flex items-center gap-3">
-                  <span
-                    className="w-7 h-7 rounded-full text-[12px] font-bold flex items-center justify-center transition-colors duration-300 shrink-0"
-                    style={{
-                      backgroundColor:
-                        hoveredCard === 1 ? LOGO_ORANGE : "rgba(10,10,10,0.07)",
-                      color: hoveredCard === 1 ? "#ffffff" : "#0a0a0a",
-                    }}
-                  >
-                    1
-                  </span>
-                  <h3 className="text-[15.5px] xl:text-[16.5px] font-semibold tracking-[-0.02em] text-[#090909] leading-snug">
-                    Scope with Owners
-                  </h3>
-                </div>
+            // Circular dial coordinates relative to top peak center
+            const x = dialConfig.radiusX * Math.sin(rad);
+            const y = dialConfig.radiusY * (1 - Math.cos(rad));
 
-                <p className="mt-2 text-[12.5px] xl:text-[13.5px] leading-[1.55] text-[#55595e]">
-                  Align with leadership on core goals, bottlenecks, and target outcomes.
-                </p>
-              </div>
+            // Cards within the active arc window are visible; cards cycling underneath fade out smoothly
+            let cardOpacity = 0;
+            if (absAngle <= dialConfig.fadeStartAngle) {
+              cardOpacity = 1;
+            } else if (absAngle <= dialConfig.fadeEndAngle) {
+              cardOpacity = Math.max(
+                0,
+                1 -
+                  (absAngle - dialConfig.fadeStartAngle) /
+                    Math.max(1, dialConfig.fadeEndAngle - dialConfig.fadeStartAngle)
+              );
+            }
 
-              {/* Graphic Area */}
-              <div className="pt-3 border-t border-black/[0.05] flex flex-col justify-center gap-2">
-                <div className="flex items-center gap-3 px-3.5 py-2 rounded-xl bg-[#f8f9fa] border border-black/[0.04]">
-                  <span
-                    className="w-4.5 h-4.5 rounded-full flex items-center justify-center text-[9.5px] font-bold text-white shrink-0"
-                    style={{ backgroundColor: LOGO_ORANGE }}
-                  >
-                    ✓
-                  </span>
-                  <span className="text-[12px] xl:text-[12.5px] font-medium text-[#121212]">
-                    Eliminate manual reporting
-                  </span>
-                </div>
+            const isHovered = hoveredCard === item.id;
+            const scale = isHovered
+              ? 1.05
+              : Math.max(0.9, 1.02 - (absAngle / 180) * 0.14);
+            const zIndex = isHovered
+              ? 50
+              : Math.max(1, Math.round(35 - absAngle / 5));
 
-                <div className="flex items-center gap-3 px-3.5 py-2 rounded-xl bg-[#f8f9fa] border border-black/[0.04]">
-                  <span
-                    className="w-4.5 h-4.5 rounded-full flex items-center justify-center text-[9.5px] font-bold shrink-0 transition-colors duration-300"
-                    style={{
-                      backgroundColor:
-                        hoveredCard === 1 ? LOGO_ORANGE : "rgba(10,10,10,0.1)",
-                      color: hoveredCard === 1 ? "#ffffff" : "#0a0a0a",
-                    }}
-                  >
-                    ✓
-                  </span>
-                  <span className="text-[12px] xl:text-[12.5px] font-medium text-[#121212]">
-                    Save 15+ hrs every week
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* -----------------------------------------------------------------
-                CARD 02 (Mid Left - Upper Left Slope of Rock)
-               ----------------------------------------------------------------- */}
-            <div
-              onMouseEnter={() => setHoveredCard(2)}
-              onMouseLeave={() => setHoveredCard(null)}
-              style={getCardAnimationStyle(1)}
-              className="lg:mt-[135px] xl:mt-[142px] w-full min-h-[238px] xl:min-h-[248px] rounded-[20px] bg-white border border-black/[0.05] hover:border-[#FF731E]/40 p-5 xl:p-6 flex flex-col justify-between gap-3.5 shadow-[0_10px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_16px_38px_rgba(0,0,0,0.08)]"
-            >
-              <div>
-                <div className="flex items-center gap-3">
-                  <span
-                    className="w-7 h-7 rounded-full text-[12px] font-bold flex items-center justify-center transition-colors duration-300 shrink-0"
-                    style={{
-                      backgroundColor:
-                        hoveredCard === 2 ? LOGO_ORANGE : "rgba(10,10,10,0.07)",
-                      color: hoveredCard === 2 ? "#ffffff" : "#0a0a0a",
-                    }}
-                  >
-                    2
-                  </span>
-                  <h3 className="text-[15.5px] xl:text-[16.5px] font-semibold tracking-[-0.02em] text-[#090909] leading-snug">
-                    Map Flowcharts
-                  </h3>
-                </div>
-
-                <p className="mt-2 text-[12.5px] xl:text-[13.5px] leading-[1.55] text-[#55595e]">
-                  Work with your team to turn daily operations into clear visual flowcharts.
-                </p>
-              </div>
-
-              {/* Graphic Area */}
-              <div className="pt-3 border-t border-black/[0.05] flex flex-col justify-center">
-                <div
-                  className="rounded-xl bg-[#f8f9fa] border border-black/[0.04] px-3 py-2.5 flex items-center justify-between gap-2"
-                  style={{
-                    backgroundImage:
-                      "radial-gradient(rgba(10,10,10,0.06) 1px, transparent 1px)",
-                    backgroundSize: "10px 10px",
-                  }}
-                >
-                  <div className="px-3 py-1.5 rounded-md bg-white border border-black/[0.07] text-[11.5px] xl:text-[12px] font-medium text-[#121212] shrink-0">
-                    Input
-                  </div>
-
-                  <div className="flex-1 h-[1.5px] bg-black/15 relative flex items-center justify-center">
-                    <span
-                      className="w-1.5 h-1.5 rounded-full"
-                      style={{ backgroundColor: LOGO_ORANGE }}
-                    />
-                  </div>
-
-                  <div
-                    className="px-3 py-1.5 rounded-md text-[11.5px] xl:text-[12px] font-semibold text-white shrink-0"
-                    style={{ backgroundColor: LOGO_ORANGE }}
-                  >
-                    AI Flow
-                  </div>
-
-                  <div className="flex-1 h-[1.5px] bg-black/15 relative flex items-center justify-center">
-                    <span className="w-1.5 h-1.5 rounded-full bg-black/30" />
-                  </div>
-
-                  <div className="px-3 py-1.5 rounded-md bg-[#0a0a0a] text-[11.5px] xl:text-[12px] font-medium text-white shrink-0">
-                    Done
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* -----------------------------------------------------------------
-                CARD 03 (Center Peak - Directly Above Rock Peak)
-               ----------------------------------------------------------------- */}
-            <div
-              onMouseEnter={() => setHoveredCard(3)}
-              onMouseLeave={() => setHoveredCard(null)}
-              style={getCardAnimationStyle(2)}
-              className="lg:mt-0 w-full min-h-[238px] xl:min-h-[248px] rounded-[20px] bg-white border border-black/[0.05] hover:border-[#FF731E]/40 p-5 xl:p-6 flex flex-col justify-between gap-3.5 shadow-[0_10px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_16px_38px_rgba(0,0,0,0.08)]"
-            >
-              <div>
-                <div className="flex items-center gap-3">
-                  <span
-                    className="w-7 h-7 rounded-full text-[12px] font-bold flex items-center justify-center transition-colors duration-300 shrink-0"
-                    style={{
-                      backgroundColor:
-                        hoveredCard === 3 ? LOGO_ORANGE : "rgba(10,10,10,0.07)",
-                      color: hoveredCard === 3 ? "#ffffff" : "#0a0a0a",
-                    }}
-                  >
-                    3
-                  </span>
-                  <h3 className="text-[15.5px] xl:text-[16.5px] font-semibold tracking-[-0.02em] text-[#090909] leading-snug">
-                    Evaluate Cost &amp; ROI
-                  </h3>
-                </div>
-
-                <p className="mt-2 text-[12.5px] xl:text-[13.5px] leading-[1.55] text-[#55595e]">
-                  See what is worth automating, how long it takes, and the exact ROI.
-                </p>
-              </div>
-
-              {/* Graphic Area */}
-              <div className="pt-3 border-t border-black/[0.05] flex flex-col justify-center gap-2.5">
-                <div className="space-y-1">
-                  <div className="flex justify-between text-[11.5px] xl:text-[12px] text-[#7c7f82]">
-                    <span>Manual Process</span>
-                    <span>14 hrs / wk</span>
-                  </div>
-                  <div className="w-full h-1.5 rounded-full bg-black/[0.08]" />
-                </div>
-
-                <div className="space-y-1">
-                  <div className="flex justify-between items-center text-[12px] xl:text-[12.5px] font-semibold">
-                    <span className="text-[#090909]">Automated</span>
-                    <span style={{ color: LOGO_ORANGE }}>10m · 4.8x ROI</span>
-                  </div>
-                  <div className="w-full h-1.5 rounded-full bg-black/[0.06] overflow-hidden">
+            return (
+              <div
+                key={item.id}
+                data-testimonial-card={item.id}
+                onMouseEnter={() => setHoveredCard(item.id)}
+                onMouseLeave={() => setHoveredCard(null)}
+                style={{
+                  width: `${dialConfig.cardWidth}px`,
+                  left: "50%",
+                  top: "0px",
+                  transform: `translate3d(calc(-50% + ${x.toFixed(1)}px), ${y.toFixed(1)}px, 0) scale(${scale.toFixed(3)})`,
+                  opacity: cardOpacity,
+                  zIndex,
+                  pointerEvents: cardOpacity > 0.15 ? "auto" : "none",
+                }}
+                className="
+                  absolute min-h-[215px] xl:min-h-[228px] rounded-[20px] bg-card
+                  border border-black/[0.06] hover:border-[#FF731E]/50
+                  p-4 sm:p-5 flex flex-col justify-between gap-3
+                  shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:shadow-[0_18px_42px_rgba(0,0,0,0.11)]
+                  transition-[border-color,box-shadow] duration-300 will-change-transform
+                "
+              >
+                {/* Top Row: Stars & Outcome Badge */}
+                <div>
+                  <div className="flex items-center justify-between gap-2">
                     <div
-                      className="h-full rounded-full transition-all duration-500"
-                      style={{
-                        width: hoveredCard === 3 ? "24%" : "18%",
-                        backgroundColor: LOGO_ORANGE,
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* -----------------------------------------------------------------
-                CARD 04 (Mid Right - Upper Right Slope of Rock)
-               ----------------------------------------------------------------- */}
-            <div
-              onMouseEnter={() => setHoveredCard(4)}
-              onMouseLeave={() => setHoveredCard(null)}
-              style={getCardAnimationStyle(3)}
-              className="lg:mt-[135px] xl:mt-[142px] w-full min-h-[238px] xl:min-h-[248px] rounded-[20px] bg-white border border-black/[0.05] hover:border-[#FF731E]/40 p-5 xl:p-6 flex flex-col justify-between gap-3.5 shadow-[0_10px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_16px_38px_rgba(0,0,0,0.08)]"
-            >
-              <div>
-                <div className="flex items-center gap-3">
-                  <span
-                    className="w-7 h-7 rounded-full text-[12px] font-bold flex items-center justify-center transition-colors duration-300 shrink-0"
-                    style={{
-                      backgroundColor:
-                        hoveredCard === 4 ? LOGO_ORANGE : "rgba(10,10,10,0.07)",
-                      color: hoveredCard === 4 ? "#ffffff" : "#0a0a0a",
-                    }}
-                  >
-                    4
-                  </span>
-                  <h3 className="text-[15.5px] xl:text-[16.5px] font-semibold tracking-[-0.02em] text-[#090909] leading-snug">
-                    Review with Team
-                  </h3>
-                </div>
-
-                <p className="mt-2 text-[12.5px] xl:text-[13.5px] leading-[1.55] text-[#55595e]">
-                  Walk through the findings with your team and refine workflows together.
-                </p>
-              </div>
-
-              {/* Graphic Area */}
-              <div className="pt-3 border-t border-black/[0.05] flex flex-col justify-center gap-2">
-                <div className="flex items-center justify-between gap-2.5 px-3 py-1.5 rounded-lg bg-[#f8f9fa] border border-black/[0.04]">
-                  <span className="text-[11.5px] xl:text-[12px] font-medium text-[#55585c]">
-                    &ldquo;Add manager approval&rdquo;
-                  </span>
-                  <span className="text-[10.5px] font-semibold px-2 py-0.5 rounded bg-white border border-black/[0.06] text-[#121212] shrink-0">
-                    Team
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-lg bg-[#f8f9fa] border border-black/[0.04]">
-                  <span
-                    className="w-4.5 h-4.5 rounded-full flex items-center justify-center text-[9.5px] font-bold text-white shrink-0"
-                    style={{ backgroundColor: LOGO_ORANGE }}
-                  >
-                    ✓
-                  </span>
-                  <span className="text-[11.5px] xl:text-[12px] font-medium text-[#121212]">
-                    Adjusted in blueprint
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* -----------------------------------------------------------------
-                CARD 05 (Far Right - Beside Rock Base)
-               ----------------------------------------------------------------- */}
-            <div
-              onMouseEnter={() => setHoveredCard(5)}
-              onMouseLeave={() => setHoveredCard(null)}
-              style={getCardAnimationStyle(4)}
-              className="sm:col-span-2 lg:col-span-1 lg:mt-[270px] xl:mt-[285px] w-full min-h-[238px] xl:min-h-[248px] rounded-[20px] bg-white border border-black/[0.05] hover:border-[#FF731E]/40 p-5 xl:p-6 flex flex-col justify-between gap-3.5 shadow-[0_10px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_16px_38px_rgba(0,0,0,0.08)]"
-            >
-              <div>
-                <div className="flex items-center gap-3">
-                  <span
-                    className="w-7 h-7 rounded-full text-[12px] font-bold flex items-center justify-center text-white shrink-0"
-                    style={{ backgroundColor: LOGO_ORANGE }}
-                  >
-                    5
-                  </span>
-                  <h3 className="text-[15.5px] xl:text-[16.5px] font-semibold tracking-[-0.02em] text-[#090909] leading-snug">
-                    Final Presentation
-                  </h3>
-                </div>
-
-                <p className="mt-2 text-[12.5px] xl:text-[13.5px] leading-[1.55] text-[#55595e]">
-                  Present everything that can be automated, exact build cost, and ROI.
-                </p>
-              </div>
-
-              {/* Graphic Area */}
-              <div className="pt-3 border-t border-black/[0.05] flex items-center">
-                <div className="w-full grid grid-cols-3 gap-1.5 text-center">
-                  <div className="rounded-lg bg-[#f8f9fa] border border-black/[0.04] py-2 px-1">
-                    <div className="text-[10px] text-[#7c7f82]">Scope</div>
-                    <div className="text-[11.5px] xl:text-[12px] font-semibold text-[#090909] mt-0.5">
-                      6 Flows
-                    </div>
-                  </div>
-
-                  <div className="rounded-lg bg-[#f8f9fa] border border-black/[0.04] py-2 px-1">
-                    <div className="text-[10px] text-[#7c7f82]">Cost</div>
-                    <div className="text-[11.5px] xl:text-[12px] font-semibold text-[#090909] mt-0.5">
-                      Fixed
-                    </div>
-                  </div>
-
-                  <div
-                    className="rounded-lg border py-2 px-1"
-                    style={{
-                      backgroundColor: "rgba(255, 115, 30, 0.06)",
-                      borderColor: "rgba(255, 115, 30, 0.24)",
-                    }}
-                  >
-                    <div className="text-[10px] text-[#5c6064]">ROI</div>
-                    <div
-                      className="text-[11.5px] xl:text-[12px] font-semibold mt-0.5"
+                      className="flex items-center gap-0.5 text-[12px]"
                       style={{ color: LOGO_ORANGE }}
+                      aria-label="5 out of 5 stars"
                     >
-                      +$64k/yr
+                      <span>★</span>
+                      <span>★</span>
+                      <span>★</span>
+                      <span>★</span>
+                      <span>★</span>
+                    </div>
+                    <span
+                      className="px-2.5 py-0.5 rounded-full text-[10.5px] font-semibold tracking-[-0.01em] shrink-0"
+                      style={{
+                        backgroundColor: isHovered
+                          ? LOGO_ORANGE
+                          : "rgba(255, 115, 30, 0.09)",
+                        color: isHovered ? "#ffffff" : LOGO_ORANGE,
+                      }}
+                    >
+                      {item.metric}
+                    </span>
+                  </div>
+
+                  {/* Quote */}
+                  <p className="mt-2.5 text-[12.5px] xl:text-[13px] leading-[1.52] text-[#2c3035] line-clamp-4">
+                    &ldquo;{item.quote}&rdquo;
+                  </p>
+                </div>
+
+                {/* Author Footer */}
+                <div className="pt-2.5 border-t border-black/[0.06] flex items-center gap-2.5">
+                  <div
+                    className="w-8 h-8 rounded-full flex items-center justify-center text-[11px] font-bold shrink-0 transition-colors duration-300"
+                    style={{
+                      backgroundColor: isHovered
+                        ? LOGO_ORANGE
+                        : "rgba(10, 10, 10, 0.07)",
+                      color: isHovered ? "#ffffff" : "#0a0a0a",
+                    }}
+                  >
+                    {item.initials}
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-[13px] font-semibold tracking-[-0.015em] text-[#090909] truncate">
+                      {item.name}
+                    </div>
+                    <div className="text-[11px] text-[#686c70] truncate">
+                      {item.role} · {item.company}
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
       </div>
-    </section>
+    </SectionWrapper>
   );
 }

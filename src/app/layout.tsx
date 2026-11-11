@@ -10,9 +10,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Jupitex — A New Standard in Wealth Management",
+  title: "Jupitex | AI and automation for debt collection agencies",
   description:
-    "Take full control of your assets with a unified platform for investing, tracking, and growing your portfolio in real time.",
+    "Jupitex automates the repetitive work inside debt collection agencies: compliance QA, placement intake, client reporting and more. Start with a free AI audit.",
   icons: {
     icon: [
       {
@@ -36,7 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
-      <body className="min-h-full bg-white text-[#0a0a0a] font-sans selection:bg-black selection:text-white">
+      <body className="min-h-full bg-background text-[#0a0a0a] font-sans selection:bg-black selection:text-white">
         {children}
       </body>
     </html>

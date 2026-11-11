@@ -1,66 +1,25 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
+import SectionWrapper from "@/components/SectionWrapper";
+import { useSpotlight } from "@/lib/hooks";
+import { scrollToId } from "@/lib/site";
 
 const LOGO_ORANGE = "#FF731E";
 
 export default function AuditSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-  const [bookingModalOpen, setBookingModalOpen] = useState(false);
-  const [bookingSubmitted, setBookingSubmitted] = useState(false);
-  const [bookingEmail, setBookingEmail] = useState("");
-  const [bookingCompany, setBookingCompany] = useState("");
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-    return () => observer.disconnect();
-  }, []);
+  const gridRef = useSpotlight<HTMLDivElement>();
 
   return (
-    <section
-      ref={sectionRef}
-      id="audit"
-      aria-label="Free AI Automation Audit"
-      className="relative w-full min-h-dvh bg-white select-none flex flex-col items-center justify-center px-4 sm:px-8 lg:px-14 py-10 sm:py-12"
-    >
-      {/* Centered Content Wrapper */}
-      <div className="relative z-10 w-full max-w-[1120px] mx-auto flex flex-col items-center">
-        {/* =====================================================================
-            1. EDITORIAL HEADER
-           ===================================================================== */}
-        <div
-          className="flex flex-col items-center text-center transition-all duration-700"
-          style={{
-            opacity: isVisible ? 1 : 0,
-            filter: isVisible ? "none" : "blur(10px)",
-            transform: isVisible ? "translateY(0px)" : "translateY(14px)",
-          }}
-        >
-          <div className="inline-flex items-center gap-2.5 px-3.5 sm:px-4 py-1.5 rounded-full bg-[#ececed] border border-black/[0.06] text-[11px] sm:text-[11.5px] font-semibold tracking-[0.06em] text-[#0a0a0a] uppercase">
-            <span
-              className="w-2 h-2 rounded-full"
-              style={{ backgroundColor: LOGO_ORANGE }}
-            />
-            <span>FREE AI AUTOMATION AUDIT</span>
-          </div>
-
-          <h2 className="mt-4 sm:mt-5 flex flex-wrap items-center justify-center gap-x-3 sm:gap-x-3.5 gap-y-2 text-[clamp(1.85rem,4.2vw,3.2rem)] font-medium tracking-[-0.038em] leading-[1.14]">
+    <>
+      <SectionWrapper
+        id="audit"
+        ariaLabel="Free AI Automation Audit"
+        subject="FREE AI AUTOMATION AUDIT"
+        title={
+          <>
             <span className="text-[#8e9296]">That is why we built</span>
             <span className="inline-flex items-center px-3.5 sm:px-4 py-1.5 rounded-[16px] bg-white border border-black/[0.07] shadow-[0_6px_20px_rgba(0,0,0,0.05)]">
               <Image
@@ -69,26 +28,25 @@ export default function AuditSection() {
                 width={120}
                 height={34}
                 className="h-[24px] sm:h-[30px] lg:h-[34px] w-auto object-contain"
-                priority
               />
             </span>
-          </h2>
-
-          <p className="mt-3.5 sm:mt-4 max-w-[650px] text-[15px] sm:text-[17px] font-normal leading-[1.6] tracking-[-0.01em] text-[#55585c] px-2">
-            We&apos;ll look at how your business runs and show you{" "}
+          </>
+        }
+        description={
+          <>
+            We&apos;ll look at how your agency runs and show you{" "}
             <span className="text-[#090909] font-medium">
               exactly what&apos;s worth automating
             </span>{" "}
             — and how much time and money each change saves.
-          </p>
-
+          </>
+        }
+      >
+        <div className="flex flex-col items-center text-center">
           <button
             type="button"
-            onClick={() => {
-              setBookingModalOpen(true);
-              setBookingSubmitted(false);
-            }}
-            className="group relative mt-6 sm:mt-7 h-[50px] sm:h-[52px] pl-[11px] pr-[24px] sm:pr-[26px] rounded-full bg-[#0a0a0a] text-white flex items-center gap-3 sm:gap-3.5 text-[14.5px] sm:text-[15px] font-medium tracking-[-0.01em] hover:bg-[#1a1a1a] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-[0_14px_34px_rgba(10,10,10,0.16)] cursor-pointer"
+            onClick={() => scrollToId("contact")}
+            className="group relative h-[50px] sm:h-[52px] pl-[11px] pr-[24px] sm:pr-[26px] rounded-full bg-[#0a0a0a] text-white flex items-center gap-3 sm:gap-3.5 text-[14.5px] sm:text-[15px] font-medium tracking-[-0.01em] hover:bg-[#1a1a1a] active:scale-[0.97] transition-[background-color,transform] duration-200 shadow-[0_14px_34px_rgba(10,10,10,0.16)] cursor-pointer"
           >
             <span
               className="w-[30px] h-[30px] sm:w-[32px] sm:h-[32px] rounded-full flex items-center justify-center shrink-0 transition-transform duration-500 group-hover:rotate-90"
@@ -101,7 +59,7 @@ export default function AuditSection() {
                 />
               </svg>
             </span>
-            <span>Book Free AI and Automation</span>
+            <span>Book your free AI audit</span>
             <svg
               width="14"
               height="14"
@@ -122,7 +80,7 @@ export default function AuditSection() {
           {/* Lead-in line: "How our AI audit looks like" */}
           <div className="mt-6 sm:mt-7 inline-flex items-center gap-3 text-[13.5px] sm:text-[15px] font-medium tracking-[-0.015em] text-[#090909]">
             <span className="w-6 sm:w-8 h-[1px] bg-black/15" />
-            <span>How our AI audit looks like</span>
+            <span>What the audit looks like, step by step</span>
             <span className="w-6 sm:w-8 h-[1px] bg-black/15" />
           </div>
         </div>
@@ -131,12 +89,8 @@ export default function AuditSection() {
             2. RESPONSIVE BENTO GRID (ALL WHITE CARDS, 20PX RADIUS, SOFT SHADOW)
            ===================================================================== */}
         <div
-          className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 sm:gap-5 lg:gap-6 mt-6 sm:mt-8 transition-all duration-700 delay-100"
-          style={{
-            opacity: isVisible ? 1 : 0,
-            filter: isVisible ? "none" : "blur(8px)",
-            transform: isVisible ? "translateY(0px)" : "translateY(16px)",
-          }}
+          ref={gridRef}
+          className="spot-group text-left w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 sm:gap-5 lg:gap-6 mt-6 sm:mt-8"
         >
           {/* -------------------------------------------------------------------
               CARD 01: Scope with Business Owners
@@ -144,7 +98,7 @@ export default function AuditSection() {
           <div
             onMouseEnter={() => setHoveredCard(1)}
             onMouseLeave={() => setHoveredCard(null)}
-            className="sm:col-span-1 lg:col-span-2 rounded-[20px] bg-white border border-black/[0.06] hover:border-[#FF731E]/40 p-5 sm:p-6 lg:p-7 flex flex-col justify-between shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)] transition-all duration-300"
+            className="sm:col-span-1 lg:col-span-2 spot-card rounded-[20px] bg-card border border-black/[0.06] p-5 sm:p-6 lg:p-7 flex flex-col justify-between shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)] transition-shadow duration-300"
           >
             <div className="space-y-2.5">
               <div className="flex items-center gap-3">
@@ -178,7 +132,7 @@ export default function AuditSection() {
                   ✓
                 </span>
                 <span className="text-[13px] font-medium text-[#121212]">
-                  Eliminate manual reporting
+                  Cut manual compliance review
                 </span>
               </div>
 
@@ -206,7 +160,7 @@ export default function AuditSection() {
           <div
             onMouseEnter={() => setHoveredCard(2)}
             onMouseLeave={() => setHoveredCard(null)}
-            className="sm:col-span-1 lg:col-span-2 rounded-[20px] bg-white border border-black/[0.06] hover:border-[#FF731E]/40 p-5 sm:p-6 lg:p-7 flex flex-col justify-between shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)] transition-all duration-300"
+            className="sm:col-span-1 lg:col-span-2 spot-card rounded-[20px] bg-card border border-black/[0.06] p-5 sm:p-6 lg:p-7 flex flex-col justify-between shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)] transition-shadow duration-300"
           >
             <div className="space-y-2.5">
               <div className="flex items-center gap-3">
@@ -241,12 +195,12 @@ export default function AuditSection() {
                 }}
               >
                 <div className="px-2.5 sm:px-3 py-2 rounded-lg bg-white border border-black/[0.07] text-[12px] font-medium text-[#121212] shrink-0">
-                  Input
+                  Reply
                 </div>
 
                 <div className="flex-1 h-[1.5px] bg-black/15 relative flex items-center justify-center min-w-[12px]">
                   <span
-                    className="w-2 h-2 rounded-full"
+                    className="wire-dot w-2 h-2 rounded-full"
                     style={{ backgroundColor: LOGO_ORANGE }}
                   />
                 </div>
@@ -255,15 +209,15 @@ export default function AuditSection() {
                   className="px-3 sm:px-3.5 py-2 rounded-lg text-[12px] font-semibold text-white shadow-xs shrink-0"
                   style={{ backgroundColor: LOGO_ORANGE }}
                 >
-                  AI Flow
+                  AI QA
                 </div>
 
                 <div className="flex-1 h-[1.5px] bg-black/15 relative flex items-center justify-center min-w-[12px]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-black/30" />
+                  <span className="wire-dot w-1.5 h-1.5 rounded-full bg-black/30" />
                 </div>
 
                 <div className="px-2.5 sm:px-3 py-2 rounded-lg bg-[#0a0a0a] text-[12px] font-medium text-white shrink-0">
-                  Done
+                  Logged
                 </div>
               </div>
             </div>
@@ -275,7 +229,7 @@ export default function AuditSection() {
           <div
             onMouseEnter={() => setHoveredCard(3)}
             onMouseLeave={() => setHoveredCard(null)}
-            className="sm:col-span-1 lg:col-span-2 rounded-[20px] bg-white border border-black/[0.06] hover:border-[#FF731E]/40 p-5 sm:p-6 lg:p-7 flex flex-col justify-between shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)] transition-all duration-300"
+            className="sm:col-span-1 lg:col-span-2 spot-card rounded-[20px] bg-card border border-black/[0.06] p-5 sm:p-6 lg:p-7 flex flex-col justify-between shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)] transition-shadow duration-300"
           >
             <div className="space-y-2.5">
               <div className="flex items-center gap-3">
@@ -333,7 +287,7 @@ export default function AuditSection() {
           <div
             onMouseEnter={() => setHoveredCard(4)}
             onMouseLeave={() => setHoveredCard(null)}
-            className="sm:col-span-1 lg:col-span-3 rounded-[20px] bg-white border border-black/[0.06] hover:border-[#FF731E]/40 p-5 sm:p-6 lg:p-7 flex flex-col justify-between shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)] transition-all duration-300"
+            className="sm:col-span-1 lg:col-span-3 spot-card rounded-[20px] bg-card border border-black/[0.06] p-5 sm:p-6 lg:p-7 flex flex-col justify-between shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)] transition-shadow duration-300"
           >
             <div className="space-y-2.5">
               <div className="flex items-center gap-3">
@@ -386,7 +340,7 @@ export default function AuditSection() {
           <div
             onMouseEnter={() => setHoveredCard(5)}
             onMouseLeave={() => setHoveredCard(null)}
-            className="sm:col-span-2 lg:col-span-3 rounded-[20px] bg-white border border-black/[0.06] hover:border-[#FF731E]/40 p-5 sm:p-6 lg:p-7 flex flex-col justify-between shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)] transition-all duration-300"
+            className="sm:col-span-2 lg:col-span-3 spot-card rounded-[20px] bg-card border border-black/[0.06] p-5 sm:p-6 lg:p-7 flex flex-col justify-between shadow-[0_8px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)] transition-shadow duration-300"
           >
             <div className="space-y-2.5">
               <div className="flex flex-wrap items-center justify-between gap-2">
@@ -407,7 +361,7 @@ export default function AuditSection() {
               </div>
 
               <p className="text-[14px] sm:text-[14.5px] leading-[1.6] text-[#5c6064]">
-                Present everything that can be automated, exact build cost, and your projected ROI.
+                Present everything that can be automated, the fixed build cost, and your projected ROI.
               </p>
             </div>
 
@@ -445,127 +399,7 @@ export default function AuditSection() {
             </div>
           </div>
         </div>
-      </div>
-
-      {/* =====================================================================
-          4. MINIMALIST BOOKING MODAL
-         ===================================================================== */}
-      {bookingModalOpen && (
-        <div
-          onClick={() => setBookingModalOpen(false)}
-          className="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 animate-[subtleFadeIn_0.2s_ease-out]"
-        >
-          <div
-            onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-[420px] rounded-[20px] bg-white border border-black/10 p-6 sm:p-7 shadow-[0_24px_64px_rgba(0,0,0,0.18)]"
-          >
-            <button
-              type="button"
-              aria-label="Close modal"
-              onClick={() => setBookingModalOpen(false)}
-              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-[#f4f5f6] hover:bg-black/10 flex items-center justify-center text-[#121212] transition-colors cursor-pointer"
-            >
-              ✕
-            </button>
-
-            <div className="flex items-center gap-2.5">
-              <Image
-                src="/JupitexLogos/nav_logo_light.png"
-                alt="Jupitex"
-                width={80}
-                height={22}
-                className="h-[22px] w-auto object-contain"
-              />
-              <span
-                className="px-2.5 py-0.5 rounded-full text-[10.5px] font-semibold uppercase tracking-[0.04em] text-white"
-                style={{ backgroundColor: LOGO_ORANGE }}
-              >
-                Free Audit
-              </span>
-            </div>
-
-            {bookingSubmitted ? (
-              <div className="py-7 text-center space-y-3">
-                <div
-                  className="w-12 h-12 rounded-full flex items-center justify-center mx-auto text-xl font-semibold text-white"
-                  style={{ backgroundColor: LOGO_ORANGE }}
-                >
-                  ✓
-                </div>
-                <h3 className="text-[20px] font-medium tracking-[-0.02em] text-[#090909]">
-                  Audit Request Received
-                </h3>
-                <p className="text-[13.5px] text-[#686c70] max-w-[300px] mx-auto">
-                  We&apos;ll reach out shortly to schedule Milestone 01 with
-                  your team.
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setBookingModalOpen(false)}
-                  className="mt-2 px-5 py-2 rounded-full bg-[#0a0a0a] text-white text-[13px] font-medium cursor-pointer"
-                >
-                  Done
-                </button>
-              </div>
-            ) : (
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setBookingSubmitted(true);
-                }}
-                className="mt-5 space-y-4"
-              >
-                <div>
-                  <h3 className="text-[20px] font-medium tracking-[-0.025em] text-[#090909]">
-                    Book Your Free AI Audit
-                  </h3>
-                  <p className="text-[13px] text-[#686c70] mt-1">
-                    Get a complete 5-milestone automation roadmap &amp; ROI
-                    breakdown.
-                  </p>
-                </div>
-
-                <div className="space-y-3">
-                  <div>
-                    <label className="block text-[11px] font-medium text-[#121212] mb-1">
-                      Work Email
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      value={bookingEmail}
-                      onChange={(e) => setBookingEmail(e.target.value)}
-                      placeholder="you@company.com"
-                      className="w-full h-10 px-3.5 rounded-xl bg-[#f7f8f9] border border-black/10 text-[13px] text-[#090909] focus:outline-none focus:border-black/30"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[11px] font-medium text-[#121212] mb-1">
-                      Company Name
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={bookingCompany}
-                      onChange={(e) => setBookingCompany(e.target.value)}
-                      placeholder="Acme Corp"
-                      className="w-full h-10 px-3.5 rounded-xl bg-[#f7f8f9] border border-black/10 text-[13px] text-[#090909] focus:outline-none focus:border-black/30"
-                    />
-                  </div>
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full h-11 rounded-full bg-[#0a0a0a] hover:bg-[#1c1c1c] text-white text-[13.5px] font-medium transition-colors flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  <span>Confirm Free Audit</span>
-                  <span style={{ color: LOGO_ORANGE }}>→</span>
-                </button>
-              </form>
-            )}
-          </div>
-        </div>
-      )}
-    </section>
+      </SectionWrapper>
+    </>
   );
 }
