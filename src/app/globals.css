@@ -288,3 +288,33 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ─── How we work: moss spreading up the rock ───────────────────── */
+@property --moss-r {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+.process-rock {
+  container-type: inline-size;
+}
+.process-rock__img {
+  /* The rock sinks into the page instead of ending on a hard cut */
+  -webkit-mask-image: linear-gradient(to bottom, #000 80%, rgba(0, 0, 0, 0) 99%);
+  mask-image: linear-gradient(to bottom, #000 80%, rgba(0, 0, 0, 0) 99%);
+}
+.process-moss {
+  -webkit-mask-image: radial-gradient(
+    circle var(--moss-r) at 28% 104%,
+    #000 0%,
+    #000 58%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  mask-image: radial-gradient(
+    circle var(--moss-r) at 28% 104%,
+    #000 0%,
+    #000 58%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  transition: --moss-r 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+}

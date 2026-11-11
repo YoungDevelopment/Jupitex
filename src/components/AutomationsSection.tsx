@@ -2,18 +2,18 @@
 
 import { useEffect, useRef, useState } from "react";
 import SectionWrapper from "@/components/SectionWrapper";
-import { useInView, usePrefersReducedMotion, useSpotlight } from "@/lib/hooks";
+import AutomationStage, { AUTOMATION_SCENES } from "@/components/stageshow/AutomationStage";
+import { usePrefersReducedMotion, useSpotlight } from "@/lib/hooks";
 import { ACCENT, WORKFLOWS, scrollToId } from "@/lib/site";
 
-const STEP_MS = 1000; // time each pipeline step takes to light up
-const HOLD_MS = 3200; // pause on a finished pipeline before moving on
+const HOLD_MS = 3400; // pause on a finished story before moving to the next workflow
 
 export default function AutomationsSection() {
   const [active, setActive] = useState(0);
-  const [step, setStep] = useState(0); // how many steps are lit
+  const [step, setStep] = useState(0); // which of the four beats the animation has reached
+  const [done, setDone] = useState(false);
   const [paused, setPaused] = useState(false);
   const [autoplay, setAutoplay] = useState(true); // off for good once the visitor picks one
-  const [viewRef, inView] = useInView<HTMLDivElement>(false);
   const reduce = usePrefersReducedMotion();
   const spotRef = useSpotlight<HTMLDivElement>();
   const tabsRef = useRef<HTMLDivElement>(null);
@@ -22,20 +22,16 @@ export default function AutomationsSection() {
   const total = workflow.steps.length;
   const litSteps = reduce ? total : step;
 
-  // Lights the steps one at a time, then (while autoplay is on) advances to the next workflow.
+  // Once a story has finished (and nobody is reading it), move to the next workflow.
   useEffect(() => {
-    if (reduce || !inView || paused) return;
-    if (step < total) {
-      const t = window.setTimeout(() => setStep((s) => s + 1), step === 0 ? 450 : STEP_MS);
-      return () => window.clearTimeout(t);
-    }
-    if (!autoplay) return;
+    if (!done || !autoplay || paused || reduce) return;
     const t = window.setTimeout(() => {
       setActive((a) => (a + 1) % WORKFLOWS.length);
       setStep(0);
+      setDone(false);
     }, HOLD_MS);
     return () => window.clearTimeout(t);
-  }, [step, total, inView, paused, autoplay, reduce]);
+  }, [done, autoplay, paused, reduce]);
 
   // On phones the picker is a horizontal strip: keep the active workflow in view
   // (scrolls the strip only, never the page).
@@ -44,16 +40,15 @@ export default function AutomationsSection() {
     if (!strip || strip.scrollWidth <= strip.clientWidth) return;
     const tab = strip.querySelectorAll<HTMLElement>("[role=tab]")[active];
     if (!tab) return;
-    strip.scrollTo({
-      left: tab.offsetLeft - 20,
-      behavior: reduce ? "auto" : "smooth",
-    });
+    strip.scrollTo({ left: tab.offsetLeft - 20, behavior: reduce ? "auto" : "smooth" });
   }, [active, reduce]);
 
   const select = (index: number) => {
     setAutoplay(false);
+    if (index === active) return;
     setActive(index);
     setStep(0);
+    setDone(false);
   };
 
   const onTabKeyDown = (e: React.KeyboardEvent) => {
@@ -83,7 +78,7 @@ export default function AutomationsSection() {
       }
       description={
         <>
-          Five places collection agencies lose the most hours. Pick one to see how it runs{" "}
+          Five places collection agencies lose the most hours. Pick one to watch how it runs{" "}
           <span className="text-[#090909] font-medium">once it is automated</span>, and what
           stays with your people.
         </>
@@ -91,10 +86,7 @@ export default function AutomationsSection() {
       className="!min-h-0"
     >
       <div
-        ref={(node) => {
-          viewRef.current = node;
-          spotRef.current = node;
-        }}
+        ref={spotRef}
         className="spot-group grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 lg:gap-6 text-left"
       >
         {/* Workflow picker */}
@@ -104,7 +96,7 @@ export default function AutomationsSection() {
           aria-label="Workflows"
           aria-orientation="vertical"
           onKeyDown={onTabKeyDown}
-          className="lg:col-span-5 flex lg:flex-col gap-2 overflow-x-auto lg:overflow-visible -mx-5 px-5 sm:mx-0 sm:px-0 pb-1 lg:pb-0 snap-x scroll-px-5 sm:scroll-px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="lg:col-span-4 flex lg:flex-col gap-2 overflow-x-auto lg:overflow-visible -mx-5 px-5 sm:mx-0 sm:px-0 pb-1 lg:pb-0 snap-x scroll-px-5 sm:scroll-px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {WORKFLOWS.map((w, i) => {
             const isActive = i === active;
@@ -118,7 +110,7 @@ export default function AutomationsSection() {
                 aria-controls="workflow-panel"
                 tabIndex={isActive ? 0 : -1}
                 onClick={() => select(i)}
-                className={`group relative shrink-0 snap-start w-[240px] sm:w-[280px] lg:w-full text-left rounded-[16px] border px-4 py-3.5 lg:px-5 lg:py-4 cursor-pointer transition-[background-color,border-color,box-shadow] duration-300 ${
+                className={`group relative shrink-0 snap-start w-[240px] sm:w-[280px] lg:w-full text-left rounded-[16px] border px-4 py-3.5 lg:px-5 lg:py-4 cursor-pointer transition-[background-color,border-color,box-shadow] duration-200 ${
                   isActive
                     ? "bg-card border-black/[0.08] shadow-[0_8px_30px_rgba(0,0,0,0.05)]"
                     : "bg-transparent border-transparent hover:bg-white/60 hover:border-black/[0.05]"
@@ -126,21 +118,21 @@ export default function AutomationsSection() {
               >
                 <div className="flex items-baseline gap-3.5">
                   <span
-                    className="text-[12px] font-medium tabular-nums transition-colors duration-300"
+                    className="text-[12px] font-medium tabular-nums transition-colors duration-200"
                     style={{ color: isActive ? ACCENT : "#a2a6aa" }}
                   >
                     0{i + 1}
                   </span>
                   <div className="min-w-0">
                     <div
-                      className={`text-[15px] sm:text-[16px] font-medium tracking-[-0.02em] transition-colors duration-300 ${
+                      className={`text-[15px] sm:text-[16px] font-medium tracking-[-0.02em] transition-colors duration-200 ${
                         isActive ? "text-[#090909]" : "text-[#55585c] group-hover:text-[#090909]"
                       }`}
                     >
                       {w.name}
                     </div>
                     <div
-                      className="grid transition-[grid-template-rows,opacity] duration-300 ease-out"
+                      className="grid transition-[grid-template-rows,opacity] duration-300 ease-[cubic-bezier(0.23,1,0.32,1)]"
                       style={{
                         gridTemplateRows: isActive ? "1fr" : "0fr",
                         opacity: isActive ? 1 : 0,
@@ -153,16 +145,12 @@ export default function AutomationsSection() {
                   </div>
                 </div>
 
-                {/* Autoplay timer: fills while this workflow is on screen */}
+                {/* Autoplay timer: follows the story as it plays */}
                 {isActive && autoplay && !reduce && (
                   <span className="absolute left-5 right-5 bottom-0 h-[1.5px] rounded-full bg-black/[0.06] overflow-hidden">
                     <span
-                      className="block h-full origin-left rounded-full transition-transform ease-linear"
-                      style={{
-                        backgroundColor: ACCENT,
-                        transform: `scaleX(${Math.min(1, step / total)})`,
-                        transitionDuration: `${STEP_MS}ms`,
-                      }}
+                      className="block h-full origin-left rounded-full transition-transform duration-[1300ms] ease-linear"
+                      style={{ backgroundColor: ACCENT, transform: `scaleX(${Math.min(1, step / total)})` }}
                     />
                   </span>
                 )}
@@ -178,103 +166,100 @@ export default function AutomationsSection() {
           aria-labelledby={`tab-${workflow.id}`}
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
-          className="spot-card lg:col-span-7 rounded-[20px] bg-card border border-black/[0.06] shadow-[0_8px_30px_rgba(0,0,0,0.05)] p-5 sm:p-7 lg:p-8 flex flex-col"
+          className="spot-card lg:col-span-8 rounded-[20px] bg-card border border-black/[0.06] shadow-[0_8px_30px_rgba(0,0,0,0.05)] p-4 sm:p-5 lg:p-6 flex flex-col"
         >
-          <div key={workflow.id} className="flex flex-col flex-1 animate-[stepIn_0.45s_var(--ease-out)]">
-            {/* Today */}
-            <div className="rounded-[14px] bg-[#f8f9fa] border border-black/[0.05] px-4 py-3.5">
-              <div className="text-[11.5px] font-medium text-[#8e9296]">How it runs today</div>
-              <p className="mt-1 text-[14px] leading-[1.55] text-[#3d4044]">{workflow.today}</p>
-            </div>
+          {/* The animated story. Remounted per workflow: each one starts from its own first frame. */}
+          <div
+            key={workflow.id}
+            className="animate-[fadeIn_0.35s_ease-out]"
+            role="img"
+            aria-label={`Animation: ${workflow.steps.map((s) => s.title).join(", then ")}.`}
+          >
+            <AutomationStage
+              scene={AUTOMATION_SCENES[workflow.id]}
+              onStep={setStep}
+              onDone={() => setDone(true)}
+            />
+          </div>
 
-            {/* Automated pipeline */}
-            <div className="mt-6 flex items-center gap-3 text-[11.5px] font-medium text-[#8e9296]">
-              <span>Once it is automated</span>
-              <span className="flex-1 h-px bg-black/[0.07]" />
-              <span className="tabular-nums text-[#55585c]">
-                {Math.min(litSteps, total)} / {total}
-              </span>
-            </div>
-
-            <ol className="mt-4 relative">
-              {/* Wire behind the nodes, filling as steps complete */}
-              <span className="absolute left-[13px] top-3.5 bottom-3.5 w-[1.5px] bg-black/[0.08]" />
-              <span
-                className="absolute left-[13px] top-3.5 bottom-3.5 w-[1.5px] origin-top transition-transform duration-700 ease-out"
-                style={{
-                  backgroundColor: ACCENT,
-                  transform: `scaleY(${Math.max(0, Math.min(1, (litSteps - 1) / (total - 1)))})`,
-                }}
-              />
-
-              {workflow.steps.map((s, i) => {
-                const lit = i < litSteps;
-                const current = i === litSteps - 1 && litSteps < total;
-                return (
-                  <li key={s.title} className="relative flex gap-4 pb-5 last:pb-0">
+          {/* The same four beats, in words */}
+          <ol className="mt-5 sm:mt-6 grid grid-cols-1 sm:grid-cols-4 gap-x-5 gap-y-4 px-1 sm:px-2">
+            {workflow.steps.map((s, i) => {
+              const lit = i < litSteps;
+              return (
+                <li key={s.title} className="relative flex sm:block gap-3.5">
+                  <div className="flex sm:items-center gap-2.5 sm:mb-2.5 shrink-0">
                     <span
-                      className="relative z-10 mt-0.5 w-7 h-7 rounded-full flex items-center justify-center text-[12px] font-semibold shrink-0 transition-[background-color,color,transform] duration-500"
+                      className="w-6 h-6 rounded-full flex items-center justify-center text-[11.5px] font-semibold shrink-0 transition-[background-color,color] duration-300"
                       style={{
                         backgroundColor: lit ? ACCENT : "#eceeef",
                         color: lit ? "#ffffff" : "#8e9296",
-                        transform: current ? "scale(1.12)" : "scale(1)",
                       }}
                     >
                       {i + 1}
                     </span>
-                    <div
-                      className="min-w-0 transition-opacity duration-500"
-                      style={{ opacity: lit ? 1 : 0.42 }}
-                    >
-                      <div className="text-[15px] sm:text-[16px] font-medium tracking-[-0.02em] text-[#090909]">
-                        {s.title}
-                      </div>
-                      <p className="mt-0.5 text-[13.5px] sm:text-[14px] leading-[1.5] text-[#5c6064]">
-                        {s.detail}
-                      </p>
+                    {/* Wire to the next step */}
+                    {i < total - 1 && (
+                      <span className="hidden sm:block relative flex-1 h-[1.5px] bg-black/[0.08] overflow-hidden rounded-full">
+                        <span
+                          className="absolute inset-0 origin-left transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]"
+                          style={{
+                            backgroundColor: ACCENT,
+                            transform: `scaleX(${i < litSteps - 1 ? 1 : 0})`,
+                          }}
+                        />
+                      </span>
+                    )}
+                  </div>
+                  <div
+                    className="min-w-0 transition-opacity duration-300"
+                    style={{ opacity: lit ? 1 : 0.45 }}
+                  >
+                    <div className="text-[14.5px] font-medium tracking-[-0.015em] text-[#090909]">
+                      {s.title}
                     </div>
-                  </li>
-                );
-              })}
-            </ol>
+                    <p className="mt-0.5 text-[13px] leading-[1.5] text-[#5c6064]">{s.detail}</p>
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
 
-            {/* What stays human + proof */}
-            <div className="mt-6 pt-5 border-t border-black/[0.06] flex flex-wrap items-end justify-between gap-x-6 gap-y-4">
-              <div className="max-w-[360px]">
-                <div className="text-[11.5px] font-medium text-[#8e9296]">Stays with your team</div>
-                <p className="mt-1 text-[14px] leading-[1.5] text-[#121212]">
-                  {workflow.staysWithTeam}
-                </p>
-              </div>
-
+          {/* Before, what stays human, and proof */}
+          <div className="mt-5 sm:mt-6 pt-5 px-1 sm:px-2 border-t border-black/[0.06] grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+            <div>
+              <div className="text-[12px] font-medium text-[#8e9296]">How it runs today</div>
+              <p className="mt-1 text-[13.5px] leading-[1.55] text-[#3d4044]">{workflow.today}</p>
+            </div>
+            <div>
+              <div className="text-[12px] font-medium text-[#8e9296]">Stays with your team</div>
+              <p className="mt-1 text-[13.5px] leading-[1.55] text-[#121212]">
+                {workflow.staysWithTeam}
+              </p>
               {workflow.proof ? (
                 <button
                   type="button"
                   onClick={() => scrollToId("our-work")}
-                  className="group text-left rounded-[14px] border px-4 py-2.5 cursor-pointer transition-colors duration-200 hover:bg-[#FF731E]/[0.1]"
-                  style={{
-                    backgroundColor: "rgba(255, 115, 30, 0.06)",
-                    borderColor: "rgba(255, 115, 30, 0.22)",
-                  }}
+                  className="group mt-3 block text-left text-[13px] leading-[1.5] text-[#3d4044] cursor-pointer"
                 >
-                  <div className="text-[18px] font-medium tracking-[-0.02em] text-[#090909] tabular-nums">
+                  <span className="font-medium text-[#090909] tabular-nums whitespace-nowrap">
                     {workflow.proof.figure}
-                  </div>
-                  <div className="text-[12px] text-[#5c6064] flex items-center gap-1.5">
-                    <span>{workflow.proof.label}</span>
-                    <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
-                  </div>
+                  </span>{" "}
+                  <span className="border-b border-black/20 group-hover:border-black/60 transition-colors duration-200">
+                    {workflow.proof.label}
+                  </span>
+                  <span className="inline-block ml-1.5 transition-transform duration-200 group-hover:translate-x-0.5">→</span>
                 </button>
               ) : (
                 <button
                   type="button"
                   onClick={() => scrollToId("contact")}
-                  className="group flex items-center gap-1.5 text-[13.5px] font-medium text-[#090909] cursor-pointer"
+                  className="group mt-3 inline-flex items-center gap-1.5 text-[13px] font-medium text-[#090909] cursor-pointer"
                 >
-                  <span className="border-b border-black/25 group-hover:border-black transition-colors duration-200">
+                  <span className="border-b border-black/20 group-hover:border-black/60 transition-colors duration-200">
                     Scope this in your audit
                   </span>
-                  <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                  <span className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
                 </button>
               )}
             </div>

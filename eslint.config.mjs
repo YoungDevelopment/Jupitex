@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Vendored stageshow kit (MIT): kept as shipped
+    "src/components/stageshow/kit/**",
   ]),
 ]);
 
