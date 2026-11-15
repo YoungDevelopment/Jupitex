@@ -23,8 +23,7 @@ const SPRING = springEasing(0.5);
 const SPRING_FALLBACK = "cubic-bezier(0.34, 1.56, 0.64, 1)";
 
 /**
- * A pill nav that arrives once the hero (which has its own nav) and the full-screen problems
- * slides have scrolled away: it falls in as a droplet holding just the logo, splats, and
+ * The site nav: a pill that arrives on load as a droplet holding just the logo, splats, and
  * spreads into the full bar. Highlights the section currently on screen.
  */
 export default function FloatingNav() {
@@ -93,8 +92,8 @@ export default function FloatingNav() {
 
     const update = () => {
       raf = 0;
-      // Stay out of the way through the hero and the full-screen problems slides
-      const next = window.scrollY > window.innerHeight * 1.5;
+      // This is the site's only nav, so it is up from the first screen (the hero included)
+      const next = true;
       if (next !== isShown) {
         isShown = next;
         if (next) show();

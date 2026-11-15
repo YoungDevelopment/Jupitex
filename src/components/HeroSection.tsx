@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import DashboardPreview from "./DashboardPreview";
-import { HERO, NAV_LINKS, scrollToId } from "@/lib/site";
+import { HERO, scrollToId } from "@/lib/site";
 import { type Box, type Point, prefersReducedMotion, sweepAt, sweepPath } from "@/lib/flashlight";
 import { artSrcSet } from "@/lib/images";
 
@@ -51,55 +51,6 @@ function Star({ size = 9, fill = "#0a0a0a" }: { size?: number; fill?: string }) 
     <svg width={size} height={size} viewBox="0 0 10 10" fill="none" aria-hidden>
       <path d="M5 1L6.1 3.9L9 5L6.1 6.1L5 9L3.9 6.1L1 5L3.9 3.9L5 1Z" fill={fill} />
     </svg>
-  );
-}
-
-function Logo({ className }: { className: string }) {
-  return (
-    <a href="#" aria-label="Jupitex home" className="flex items-center shrink-0">
-      <img src="/JupitexLogos/nav_logo_light.png" alt="Jupitex" className={className} />
-    </a>
-  );
-}
-
-function NavLinks({ className, onNavigate }: { className: string; onNavigate?: () => void }) {
-  return (
-    <>
-      {NAV_LINKS.map((item) => (
-        <a
-          key={item.id}
-          href={`#${item.id}`}
-          onClick={(e) => {
-            e.preventDefault();
-            onNavigate?.();
-            scrollToId(item.id);
-          }}
-          className={className}
-        >
-          {item.label}
-        </a>
-      ))}
-    </>
-  );
-}
-
-function NavCta({ compact = false }: { compact?: boolean }) {
-  return (
-    <a
-      href="#contact"
-      onClick={(e) => {
-        e.preventDefault();
-        scrollToId("contact");
-      }}
-      className={`group h-[34px] pl-[7px] rounded-full bg-[#0a0a0a] text-white flex items-center font-medium tracking-[-0.01em] hover:bg-[#1e1e1e] active:scale-[0.97] transition-[background-color,transform] duration-200 shadow-xs shrink-0 ${
-        compact ? "pr-[13px] gap-[7px] text-[11.5px]" : "pr-[15px] gap-[8px] text-[12px]"
-      }`}
-    >
-      <span className="w-[18px] h-[18px] rounded-full bg-white flex items-center justify-center shrink-0 transition-transform duration-500 group-hover:rotate-90">
-        <Star />
-      </span>
-      <span>Free audit</span>
-    </a>
   );
 }
 
@@ -198,7 +149,6 @@ export default function HeroSection() {
   const [topScale, setTopScale] = useState(1);
   const [copyRoom, setCopyRoom] = useState(MIN_COPY_ROOM);
   const [mobileDashScale, setMobileDashScale] = useState(0.64);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Flashlight position in the 1428 x 928 reference coordinate system.
   // Lives in refs and is written to CSS variables, so moving it never re-renders React.
@@ -404,9 +354,6 @@ export default function HeroSection() {
   const r4 = reveal(360, 700);
   const r5 = reveal(480, 700);
 
-  const navLinkClass =
-    "text-[11px] font-medium tracking-[0.04em] uppercase text-[#121212] hover:text-black/55 transition-colors duration-200";
-
   return (
     <section
       onMouseMove={(e) => handlePointerMove(e.clientX, e.clientY)}
@@ -441,13 +388,8 @@ export default function HeroSection() {
            ===================================================================== */}
         {viewportMode === "desktop" && (
           <>
-            <header className="relative z-30 w-full h-[68px] px-[44px] flex items-center justify-between shrink-0">
-              <Logo className="h-[26px] w-auto object-contain" />
-              <nav aria-label="Primary" className="flex items-center gap-[29px] translate-x-[6px]">
-                <NavLinks className={navLinkClass} />
-              </nav>
-              <NavCta />
-            </header>
+            {/* Room for the site nav (FloatingNav), which floats over the hero */}
+            <div aria-hidden className="w-full h-[68px] shrink-0" />
 
             {/* Center Hero Heading & Subtitle */}
             <div
@@ -567,13 +509,8 @@ export default function HeroSection() {
            ===================================================================== */}
         {viewportMode === "tablet" && (
           <div className="relative z-20 flex flex-col h-full">
-            <header className="w-full h-[68px] px-7 flex items-center justify-between shrink-0">
-              <Logo className="h-[24px] w-auto object-contain" />
-              <nav aria-label="Primary" className="flex items-center gap-6">
-                <NavLinks className={navLinkClass} />
-              </nav>
-              <NavCta />
-            </header>
+            {/* Room for the site nav (FloatingNav), which floats over the hero */}
+            <div aria-hidden className="w-full h-[68px] shrink-0" />
 
             <div className="flex-1 px-8 flex flex-col items-center justify-center text-center z-20">
               <div
@@ -638,42 +575,8 @@ export default function HeroSection() {
            ===================================================================== */}
         {viewportMode === "mobile" && (
           <div className="relative z-20 flex flex-col h-full">
-            <header className="relative w-full h-[64px] px-5 flex items-center justify-between shrink-0 z-50">
-              <Logo className="h-[22px] w-auto object-contain" />
-
-              <div className="flex items-center gap-2.5 shrink-0">
-                <NavCta compact />
-                <button
-                  type="button"
-                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  aria-label="Toggle menu"
-                  aria-expanded={mobileMenuOpen}
-                  className="w-[34px] h-[34px] rounded-full border border-black/10 bg-white/90 flex items-center justify-center text-[#121212] cursor-pointer active:scale-95 transition-transform duration-150"
-                >
-                  <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden>
-                    <path
-                      d={mobileMenuOpen ? "M4 4L12 12M12 4L4 12" : "M2.5 5.5H13.5M2.5 10.5H13.5"}
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                </button>
-              </div>
-
-              {/* Dropdown overlays the hero without moving the text */}
-              {mobileMenuOpen && (
-                <nav
-                  aria-label="Primary"
-                  className="absolute top-[64px] left-5 right-5 p-4 rounded-2xl bg-card border border-black/8 shadow-[0_16px_40px_rgba(0,0,0,0.12)] flex flex-col gap-3 z-50 animate-[stepIn_0.25s_var(--ease-out)]"
-                >
-                  <NavLinks
-                    onNavigate={() => setMobileMenuOpen(false)}
-                    className="text-[11px] font-semibold tracking-[0.04em] uppercase text-[#121212] py-1"
-                  />
-                </nav>
-              )}
-            </header>
+            {/* Room for the site nav (FloatingNav), which floats over the hero */}
+            <div aria-hidden className="w-full h-[64px] shrink-0" />
 
             <div className="flex-1 px-4 flex flex-col items-center justify-center text-center z-20">
               <div
