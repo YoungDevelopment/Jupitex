@@ -49,7 +49,6 @@ export default function WhyJupitexSection() {
           <span>choose Jupitex</span>
         </>
       }
-      className="!min-h-0"
       description="Three things agencies ask before they let anyone near their collection system."
     >
       <div ref={containerRef}>

@@ -205,7 +205,6 @@ export default function OurWorkSection() {
           <span>already delivered</span>
         </>
       }
-      className="!min-h-0"
       description="Selected projects, starting with a collection agency that stopped reviewing replies by hand."
     >
       <div className="flex w-full flex-col gap-6 sm:gap-8">

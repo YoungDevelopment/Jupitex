@@ -60,7 +60,10 @@ export default function SectionWrapper({
       id={id}
       aria-label={ariaLabel}
       className={cn(
-        "relative w-full min-h-screen overflow-hidden bg-background select-none flex flex-col items-center justify-start px-5 sm:px-8 lg:px-14 py-16 sm:py-20 lg:py-24",
+        // One rhythm for every section: the same side gutters and the same top/bottom space,
+        // so the gap between any two sections (and before the footer) is identical.
+        // Sections size to their content; full-screen ones opt in with min-h-screen.
+        "relative w-full overflow-hidden bg-background select-none flex flex-col items-center justify-start px-5 sm:px-8 lg:px-14 py-16 sm:py-20",
         className
       )}
     >

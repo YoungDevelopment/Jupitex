@@ -16,7 +16,7 @@ export default function AuditSection() {
         subject="FREE AI AUTOMATION AUDIT"
         // The snap from the problems slides lands on this section's top, under the floating nav:
         // leave room for the nav, and keep the whole section to one screen on desktop
-        className="!pt-[84px] sm:!pt-[92px] lg:!pt-[76px] lg:!pb-7"
+        className="min-h-screen !pt-[84px] sm:!pt-[92px] lg:!pt-[76px] lg:!pb-7"
         contentClassName="!mt-6 sm:!mt-7 lg:!mt-5"
         title={
           <>

@@ -91,7 +91,7 @@ export default function BookCallSection() {
     >
       <div
         id="my-cal-inline-30min"
-        style={{ width: "100%", height: "100%", overflow: "scroll" }}
+        style={{ width: "100%", overflow: "auto" }}
       />
     </SectionWrapper>
   );

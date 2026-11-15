@@ -53,7 +53,6 @@ export default function ServicesSection() {
         </>
       }
       description="Everything an agency needs to put AI to work, from the first audit to the people who keep it running."
-      className="!min-h-0"
     >
       <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
         {services.map((service, i) => (

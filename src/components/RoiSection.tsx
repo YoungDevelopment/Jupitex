@@ -207,7 +207,6 @@ export default function RoiSection() {
         </>
       }
       description="Move the sliders, or type your own numbers. The audit replaces these guesses with numbers measured from your own workflows."
-      className="!min-h-0"
     >
       <div
         ref={stageRef}
