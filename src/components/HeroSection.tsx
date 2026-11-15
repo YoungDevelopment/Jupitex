@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import DashboardPreview from "./DashboardPreview";
 import { HERO, NAV_LINKS, scrollToId } from "@/lib/site";
+import { type Box, type Point, prefersReducedMotion, sweepAt, sweepPath } from "@/lib/flashlight";
 
 // Fill 100% edge-to-edge on all laptop and desktop screens; only cap when crossing ultrawide (> 1920px)
 const ULTRAWIDE_LIMIT = 1920;
@@ -18,19 +19,27 @@ const RIGHT_ROCK_BOX = { left: 909, top: -4, width: 1060, height: 791 }; // rela
 const COPY_BLOCK_HEIGHT = 306;
 const MIN_COPY_ROOM = 310;
 
-// Where the flashlight rests when nobody is steering it (stage coordinates)
-const REST = { x: 1315, y: 512 };
+// Flashlight radius per rock, in stage px
+const LEFT_RADIUS = 250;
+const RIGHT_RADIUS = 260;
+
+// The part of each rock that is actually on screen (stage coordinates): the sweep crosses this
+const LEFT_VISIBLE: Box = { x0: 0, y0: 400, x1: 278, y1: 928 };
+const RIGHT_VISIBLE: Box = { x0: 909, y0: 396, x1: 1428, y1: 928 };
 
 type Mode = "mobile" | "tablet" | "desktop";
 
-/** The flashlight is a mask whose centre is read from CSS variables set on the stage. */
-function flashlightMask(radius: number, x: string, y: string): React.CSSProperties {
-  const g = `radial-gradient(circle ${radius}px at var(${x}) var(${y}), rgba(0,0,0,1) 0%, rgba(0,0,0,0.92) 42%, rgba(0,0,0,0.4) 72%, rgba(0,0,0,0) 100%)`;
+/**
+ * The flashlight is a mask whose centre and radius are read from CSS variables set on the
+ * stage. Radius 0 (the default) means the light is off and the rock shows bare.
+ */
+function flashlightMask(x: string, y: string, r: string): React.CSSProperties {
+  const g = `radial-gradient(circle var(${r}, 0px) at var(${x}, 0px) var(${y}, 0px), rgba(0,0,0,1) 0%, rgba(0,0,0,0.92) 42%, rgba(0,0,0,0.4) 72%, rgba(0,0,0,0) 100%)`;
   return { maskImage: g, WebkitMaskImage: g };
 }
 
-const LEFT_MASK = flashlightMask(250, "--lx", "--ly");
-const RIGHT_MASK = flashlightMask(260, "--rx", "--ry");
+const LEFT_MASK = flashlightMask("--lx", "--ly", "--lr");
+const RIGHT_MASK = flashlightMask("--rx", "--ry", "--rr");
 
 function Star({ size = 9, fill = "#0a0a0a" }: { size?: number; fill?: string }) {
   return (
@@ -182,9 +191,13 @@ export default function HeroSection() {
 
   // Flashlight position in the 1428 x 928 reference coordinate system.
   // Lives in refs and is written to CSS variables, so moving it never re-renders React.
-  const targetPos = useRef({ ...REST });
-  const currentPos = useRef({ ...REST });
+  const targetPos = useRef<Point>({ x: 0, y: 0 });
+  const currentPos = useRef<Point>({ x: 0, y: 0 });
+  // How lit the pointer's light is: 0 = off (rocks bare), 1 = full radius
+  const targetOn = useRef(0);
+  const currentOn = useRef(0);
   const rafRef = useRef(0);
+  const sweepRaf = useRef(0); // the one-off reveal on load; the pointer takes over and cancels it
   const modeRef = useRef<Mode>("desktop");
   const bottomOffsetRef = useRef(0);
 
@@ -242,15 +255,23 @@ export default function HeroSection() {
     return () => window.removeEventListener("resize", updateLayout);
   }, []);
 
-  // Writes the flashlight centre into CSS variables, in each rock's local coordinates.
-  const paint = () => {
+  // Writes each rock's light (stage coordinates + radius) into CSS variables, in the rock's local coordinates.
+  const paintRocks = (l: Point, lr: number, r: Point, rr: number) => {
     const el = stageRef.current;
     if (!el) return;
-    const { x, y } = currentPos.current;
-    el.style.setProperty("--lx", `${(x - LEFT_ROCK_BOX.left).toFixed(1)}px`);
-    el.style.setProperty("--ly", `${(y - 400 - LEFT_ROCK_BOX.top).toFixed(1)}px`);
-    el.style.setProperty("--rx", `${(x - RIGHT_ROCK_BOX.left).toFixed(1)}px`);
-    el.style.setProperty("--ry", `${(y - 400 - RIGHT_ROCK_BOX.top).toFixed(1)}px`);
+    el.style.setProperty("--lx", `${(l.x - LEFT_ROCK_BOX.left).toFixed(1)}px`);
+    el.style.setProperty("--ly", `${(l.y - 400 - LEFT_ROCK_BOX.top).toFixed(1)}px`);
+    el.style.setProperty("--lr", `${lr.toFixed(1)}px`);
+    el.style.setProperty("--rx", `${(r.x - RIGHT_ROCK_BOX.left).toFixed(1)}px`);
+    el.style.setProperty("--ry", `${(r.y - 400 - RIGHT_ROCK_BOX.top).toFixed(1)}px`);
+    el.style.setProperty("--rr", `${rr.toFixed(1)}px`);
+  };
+
+  // The pointer's light: one point over both rocks, swelling on and shrinking off.
+  const paint = () => {
+    const p = currentPos.current;
+    const on = currentOn.current;
+    paintRocks(p, LEFT_RADIUS * on, p, RIGHT_RADIUS * on);
   };
 
   // Eases toward the target and stops the loop once it has settled.
@@ -259,40 +280,68 @@ export default function HeroSection() {
     const tick = () => {
       const dx = targetPos.current.x - currentPos.current.x;
       const dy = targetPos.current.y - currentPos.current.y;
-      if (Math.abs(dx) > 0.08 || Math.abs(dy) > 0.08) {
+      const dOn = targetOn.current - currentOn.current;
+      if (Math.abs(dx) > 0.08 || Math.abs(dy) > 0.08 || Math.abs(dOn) > 0.002) {
         currentPos.current.x += dx * 0.16;
         currentPos.current.y += dy * 0.16;
+        currentOn.current += dOn * 0.12;
         paint();
         rafRef.current = requestAnimationFrame(tick);
       } else {
+        currentOn.current = targetOn.current;
+        paint();
         rafRef.current = 0;
       }
     };
     rafRef.current = requestAnimationFrame(tick);
   };
 
+  const stopSweep = () => {
+    if (sweepRaf.current) cancelAnimationFrame(sweepRaf.current);
+    sweepRaf.current = 0;
+  };
+
+  // Once the copy has settled, the light crosses each rock once, each in its own random direction.
+  useEffect(() => {
+    if (!mounted || prefersReducedMotion()) return;
+    const timer = window.setTimeout(() => {
+      const left = sweepPath(LEFT_VISIBLE, LEFT_RADIUS);
+      const right = sweepPath(RIGHT_VISIBLE, RIGHT_RADIUS);
+      const RIGHT_LAG = 450; // the two passes overlap, not in lockstep
+      const start = performance.now();
+      const step = (now: number) => {
+        const l = sweepAt(left, now - start);
+        const r = sweepAt(right, now - start - RIGHT_LAG);
+        paintRocks(
+          l ?? left[left.length - 1],
+          l ? LEFT_RADIUS : 0,
+          r ?? right[0],
+          r && now - start >= RIGHT_LAG ? RIGHT_RADIUS : 0
+        );
+        if (l || r || now - start < RIGHT_LAG) {
+          sweepRaf.current = requestAnimationFrame(step);
+        } else {
+          // the glimpse is over: hand the light to the pointer, if there is one
+          sweepRaf.current = 0;
+          currentPos.current = { ...targetPos.current };
+          currentOn.current = 0;
+          paint();
+          startLoop();
+        }
+      };
+      sweepRaf.current = requestAnimationFrame(step);
+    }, 700);
+    return () => {
+      window.clearTimeout(timer);
+      stopSweep();
+    };
+    // paint/startLoop only touch refs
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mounted]);
+
   useEffect(() => {
     paint();
-
-    // No pointer to steer it (phones, tablets): let the light wander slowly over the moss
-    // while the hero is on screen, so the reveal is still alive.
-    const noHover = window.matchMedia("(hover: none)").matches;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let drift = 0;
-    if (noHover && !reduce) {
-      drift = window.setInterval(() => {
-        if (window.scrollY > window.innerHeight * 0.8) return;
-        const t = performance.now() / 1000;
-        targetPos.current = {
-          x: 1180 + Math.sin(t * 0.45) * 190,
-          y: 610 + Math.cos(t * 0.6) * 130,
-        };
-        startLoop();
-      }, 120);
-    }
-
     return () => {
-      if (drift) window.clearInterval(drift);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       rafRef.current = 0;
     };
@@ -317,11 +366,18 @@ export default function HeroSection() {
         y: 400 + Math.max(0, (normY - 0.45) / 0.55) * 528,
       };
     }
+    targetOn.current = 1;
+    // the glimpse always plays out; the pointer takes the light once it has finished
+    if (sweepRaf.current) return;
+    // switching on from dark: light up where the pointer is, don't fly in from where it last was
+    if (currentOn.current < 0.05) currentPos.current = { ...targetPos.current };
     startLoop();
   };
 
+  // Pointer gone (or finger lifted): the light dims out where it is
   const handlePointerLeave = () => {
-    targetPos.current = { ...REST };
+    targetOn.current = 0;
+    if (sweepRaf.current) return; // the glimpse ends dark by itself
     startLoop();
   };
 
@@ -348,6 +404,8 @@ export default function HeroSection() {
           handlePointerMove(e.touches[0].clientX, e.touches[0].clientY);
         }
       }}
+      onTouchEnd={handlePointerLeave}
+      onTouchCancel={handlePointerLeave}
       onMouseLeave={handlePointerLeave}
       className="relative w-full h-screen min-h-[680px] overflow-hidden select-none bg-background flex justify-center"
     >

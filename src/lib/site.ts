@@ -37,9 +37,9 @@ export interface Workflow {
   id: string;
   name: string;
   blurb: string;
-  today: string;
   steps: { title: string; detail: string }[];
-  staysWithTeam: string;
+  /** How we set it up, in plain words: three short lines */
+  howWeAutomate: string[];
   proof?: { figure: string; label: string };
 }
 
@@ -48,8 +48,6 @@ export const WORKFLOWS: Workflow[] = [
     id: "compliance-qa",
     name: "Compliance QA on SMS and email",
     blurb: "Every consumer reply is read, not a sample of them.",
-    today:
-      "A compliance lead spot-checks a slice of replies by hand and hopes the opt-out or dispute is in the slice.",
     steps: [
       {
         title: "Reply arrives",
@@ -69,15 +67,17 @@ export const WORKFLOWS: Workflow[] = [
         detail: "The decision and the reason are saved against the account.",
       },
     ],
-    staysWithTeam: "Anything flagged gets a human decision before the next contact.",
+    howWeAutomate: [
+      "We connect to the SMS and email tools you already use, so every reply comes in on its own.",
+      "We teach it your compliance rules: what counts as an opt-out, a dispute or a cease request.",
+      "Anything risky stops contact at once and goes to your compliance lead to decide.",
+    ],
     proof: { figure: "$7,500 / mo", label: "saved in legal fees at Compliance Ops" },
   },
   {
     id: "placements",
     name: "Placement file intake",
     blurb: "New business loaded the morning it arrives.",
-    today:
-      "Every client sends a different spreadsheet. Someone re-maps columns, fixes dates and keys accounts in before a collector can touch them.",
     steps: [
       {
         title: "File lands",
@@ -96,14 +96,16 @@ export const WORKFLOWS: Workflow[] = [
         detail: "Accounts created in your collection system, ready to work.",
       },
     ],
-    staysWithTeam: "Your team reviews a short exceptions list instead of the whole file.",
+    howWeAutomate: [
+      "We save each client's file layout once, so every new file is read the same way.",
+      "Missing or wrong data is caught before it reaches your system, not after.",
+      "Clean accounts load on their own. Your team only checks the short list of problems.",
+    ],
   },
   {
     id: "client-reporting",
     name: "Client reporting and remittance",
     blurb: "Statements that build and send themselves.",
-    today:
-      "Month-end means exporting payments, splitting them per client in Excel and emailing statements one at a time.",
     steps: [
       {
         title: "Schedule fires",
@@ -122,14 +124,16 @@ export const WORKFLOWS: Workflow[] = [
         detail: "Delivered to the client and filed where your team can find it.",
       },
     ],
-    staysWithTeam: "Finance approves the remittance totals before anything goes out.",
+    howWeAutomate: [
+      "We set up each client's report format and schedule one time.",
+      "On the day, the numbers come straight from your collection system. No exports, no Excel.",
+      "Finance gives the totals a quick OK, then every statement sends itself.",
+    ],
   },
   {
     id: "disputes",
     name: "Dispute and validation handling",
     blurb: "No dispute sits unseen in an inbox.",
-    today:
-      "Disputes arrive by letter, email and portal. Pausing the account and pulling documents depends on who noticed and when.",
     steps: [
       {
         title: "Dispute detected",
@@ -148,14 +152,16 @@ export const WORKFLOWS: Workflow[] = [
         detail: "Lands with compliance, with the deadline on it.",
       },
     ],
-    staysWithTeam: "Nothing is sent to a consumer without a person approving it.",
+    howWeAutomate: [
+      "We watch every place disputes arrive: mail, email, the portal and call notes.",
+      "The moment one is found, contact on that account stops.",
+      "Documents are gathered and a reply is drafted, ready for your team to approve before the deadline.",
+    ],
   },
   {
     id: "payment-follow-up",
     name: "Payment plan follow-up",
     blurb: "Promises to pay that do not fall through.",
-    today:
-      "Collectors keep promise dates in notes and sticky reminders. Broken promises surface days late, if at all.",
     steps: [
       {
         title: "Promise recorded",
@@ -174,6 +180,10 @@ export const WORKFLOWS: Workflow[] = [
         detail: "Missed promises go back on the right desk the same day.",
       },
     ],
-    staysWithTeam: "Collectors handle the conversation. The system handles the calendar.",
+    howWeAutomate: [
+      "Every promise to pay is picked up and put on a calendar. No sticky notes.",
+      "Consumers get a reminder before the due date, inside your contact rules.",
+      "If the payment does not post, the collector gets a task that same day.",
+    ],
   },
 ];
