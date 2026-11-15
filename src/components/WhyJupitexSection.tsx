@@ -2,23 +2,32 @@
 
 import SectionWrapper from "@/components/SectionWrapper";
 import FeatureCard, { type FeatureCardProps } from "@/components/FeatureCard";
-import { useSpotlight } from "@/lib/hooks";
+import { useCardThrow } from "@/lib/useCardThrow";
 
 const cards: FeatureCardProps[] = [
   {
-    tile: "integrations",
+    image: "/images/Why Jupitex/Integrations.png",
+    imageAlt: "Jupitex integrations with the tools agencies already use",
+    imageWidth: 800,
+    imageHeight: 720,
     title: "No need to change your systems",
     description:
       "We build around the collection software, dialer and messaging tools you already run. No migrations, no starting from scratch.",
   },
   {
-    tile: "numbers",
+    image: "/images/Why Jupitex/ROI.png",
+    imageAlt: "Dashboard showing measurable ROI",
+    imageWidth: 800,
+    imageHeight: 720,
     title: "You see the numbers before you spend a dollar",
     description:
       "Before any work begins, you get a clear breakdown: what it costs, what it saves, and how long it takes. No vague promises.",
   },
   {
-    tile: "handover",
+    image: "/images/Why Jupitex/team.png",
+    imageAlt: "A team reviewing the automations they run",
+    imageWidth: 800,
+    imageHeight: 720,
     title: "Your team owns it, not us",
     description:
       "We don't build something and disappear. We train your team to run it, manage it, and grow with it. You're never dependent on us.",
@@ -26,7 +35,9 @@ const cards: FeatureCardProps[] = [
 ];
 
 export default function WhyJupitexSection() {
-  const gridRef = useSpotlight<HTMLDivElement>();
+  // Thrown onto the table one by one, then snapped out into place together
+  const { containerRef, cardRef, cardStyle } = useCardThrow();
+
   return (
     <SectionWrapper
       id="why-jupitex"
@@ -41,10 +52,19 @@ export default function WhyJupitexSection() {
       className="!min-h-0"
       description="Three things agencies ask before they let anyone near their collection system."
     >
-      <div ref={gridRef} className="spot-group grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-        {cards.map((card) => (
-          <FeatureCard key={card.tile} {...card} />
-        ))}
+      <div ref={containerRef}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+          {cards.map((card, i) => (
+            <div
+              key={card.title}
+              ref={cardRef(i)}
+              className="relative flex rounded-3xl shadow-[0_18px_50px_rgba(0,0,0,0)] hover:shadow-[0_18px_50px_rgba(0,0,0,0.12)] origin-[50%_80%] will-change-transform motion-reduce:!opacity-100 motion-reduce:!transform-none"
+              style={cardStyle(i)}
+            >
+              <FeatureCard {...card} className="flex-1" />
+            </div>
+          ))}
+        </div>
       </div>
     </SectionWrapper>
   );
