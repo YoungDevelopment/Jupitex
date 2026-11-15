@@ -209,10 +209,11 @@
   animation-play-state: running;
 }
 
+/* Phones: the tag rides the node's top edge so it never covers the label */
 .ax-flag-pos {
-  right: 8px;
-  top: 50%;
-  transform: translateY(-50%);
+  right: 10px;
+  top: 0;
+  transform: translateY(-55%);
 }
 .ax-flag {
   opacity: 0;

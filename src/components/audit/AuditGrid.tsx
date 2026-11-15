@@ -238,7 +238,7 @@ function FlowPicture() {
                   </span>
                 )}
                 <div
-                  className="ax-node relative flex items-center gap-2.5 rounded-xl bg-white border border-black/[0.07] pl-2 pr-3 py-2 lg:shrink-0 lg:whitespace-nowrap"
+                  className="ax-node relative flex items-center gap-2.5 rounded-xl bg-white border border-black/[0.07] pl-2 pr-3 py-2 lg:min-w-0 xl:shrink-0 xl:whitespace-nowrap"
                   style={{ "--n": i } as React.CSSProperties}
                   data-slow={n.slow || undefined}
                 >
@@ -316,7 +316,7 @@ function ReturnPicture({ start, run }: { start: boolean; run: number }) {
 
   return (
     <div className="h-full flex flex-col justify-center px-5 sm:px-6 py-4">
-      <div className="flex items-start justify-between gap-3">
+      <div className="flex items-start flex-wrap justify-between gap-x-3 gap-y-2">
         <div>
           <div className="text-[12.5px] text-[#7c7f82]">Return in year one</div>
           <div className="mt-1 text-[46px] xl:text-[40px] font-semibold leading-none tracking-[-0.04em] text-[#090909] whitespace-nowrap">

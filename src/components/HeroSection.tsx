@@ -407,7 +407,7 @@ export default function HeroSection() {
       onTouchEnd={handlePointerLeave}
       onTouchCancel={handlePointerLeave}
       onMouseLeave={handlePointerLeave}
-      className="relative w-full h-screen min-h-[680px] overflow-hidden select-none bg-background flex justify-center"
+      className="relative w-full h-screen h-svh min-h-[680px] overflow-hidden select-none bg-background flex justify-center"
     >
       {/* Full-bleed side mist across the entire viewport */}
       <div

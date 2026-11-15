@@ -60,7 +60,12 @@ export default function ServicesSection() {
           <div
             key={service.title}
             ref={cardRef(i)}
-            className="relative rounded-3xl shadow-[0_18px_50px_rgba(0,0,0,0)] hover:shadow-[0_18px_50px_rgba(0,0,0,0.12)] origin-[50%_80%] will-change-transform motion-reduce:!opacity-100 motion-reduce:!transform-none"
+            className={`${
+              // 2-column tablets: centre the odd card out instead of leaving it stranded on the left
+              i === services.length - 1 && services.length % 2 === 1
+                ? "md:max-lg:col-span-2 md:max-lg:justify-self-center md:max-lg:w-[calc(50%-10px)]"
+                : ""
+            } relative rounded-3xl shadow-[0_18px_50px_rgba(0,0,0,0)] hover:shadow-[0_18px_50px_rgba(0,0,0,0.12)] origin-[50%_80%] will-change-transform motion-reduce:!opacity-100 motion-reduce:!transform-none`}
             style={cardStyle(i)}
           >
             <FeatureCard {...service} imagePosition="bottom" className="h-full" />
