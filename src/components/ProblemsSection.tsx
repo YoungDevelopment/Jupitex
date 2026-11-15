@@ -215,6 +215,17 @@ export default function ProblemsSection() {
       const isAtTopOfAudit =
         scrollY >= auditTop - vh * 0.35 && scrollY <= auditTop + 80;
 
+      // Just glided into the audit: swallow the rest of that swipe's trackpad momentum, so it
+      // doesn't carry the page on past the section's top. A fresh swipe scrolls normally.
+      if (
+        isAtTopOfAudit &&
+        e.deltaY > 0 &&
+        (now < lockUntilRef.current || gestureConsumedRef.current)
+      ) {
+        e.preventDefault();
+        return;
+      }
+
       if (!isInHero && !isInProblems && !(isAtTopOfAudit && e.deltaY < 0)) {
         return;
       }
