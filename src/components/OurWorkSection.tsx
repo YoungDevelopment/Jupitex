@@ -3,13 +3,13 @@ import SectionWrapper from "@/components/SectionWrapper";
 
 /** Fills the graphic column edge-to-edge without block-by-block pixel animation. */
 const CaseStudyImage = ({ src, alt }: { src: string; alt: string }) => (
-  <div className="relative h-full w-full min-h-[min(22rem,60vw)] min-w-0 overflow-hidden">
+  <div className="relative h-full w-full min-h-[min(22rem,60vw)] aspect-[16/10] lg:aspect-auto min-w-0 overflow-hidden">
     <Image
       src={src}
       alt={alt}
       fill
       className="object-cover object-center"
-      sizes="(max-width: 768px) 100vw, 50vw"
+      sizes="(max-width: 1023px) 100vw, 50vw"
     />
   </div>
 );
@@ -52,14 +52,13 @@ const CaseStudyCard = ({
   imageAlt,
   imageRight = false,
 }: CaseStudy) => {
+  // Image always leads on phones and tablets; the zigzag only appears once there is room for two columns.
   const graphicPanel = (
     <div
-      className="h-full min-h-0 min-w-0 p-0"
-      style={{
-        background: "var(--card)",
-        borderRight: imageRight ? "none" : "0.5px solid #fff",
-        borderLeft: imageRight ? "0.5px solid rgba(0, 0, 0, 0.08)" : "none",
-      }}
+      className={`h-full min-h-0 min-w-0 p-0 border-b border-black/[0.08] lg:border-b-0 ${
+        imageRight ? "lg:order-last lg:border-l" : ""
+      }`}
+      style={{ background: "var(--card)" }}
     >
       <CaseStudyImage src={imageSrc} alt={imageAlt} />
     </div>
@@ -133,25 +132,15 @@ const CaseStudyCard = ({
 
   return (
     <div
-      className="grid overflow-hidden"
+      className="grid grid-cols-1 lg:grid-cols-2 overflow-hidden"
       style={{
-        gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
         border: "0.5px solid rgba(0, 0, 0, 0.08)",
         borderRadius: "1.25rem",
         background: "var(--card)",
       }}
     >
-      {imageRight ? (
-        <>
-          {copyPanel}
-          {graphicPanel}
-        </>
-      ) : (
-        <>
-          {graphicPanel}
-          {copyPanel}
-        </>
-      )}
+      {graphicPanel}
+      {copyPanel}
     </div>
   );
 };

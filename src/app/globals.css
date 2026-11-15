@@ -26,6 +26,16 @@ body {
   overflow-x: clip;
 }
 
+/* iOS Safari zooms the whole page into any field under 16px. Touch screens only, so
+   desktop keeps the tighter type the design calls for. */
+@media (pointer: coarse) {
+  input:not([type="range"]):not([type="checkbox"]):not([type="radio"]),
+  textarea,
+  select {
+    font-size: max(16px, 1em);
+  }
+}
+
 @keyframes blurFadeIn {
   0% {
     opacity: 0;

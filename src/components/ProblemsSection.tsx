@@ -581,12 +581,12 @@ export default function ProblemsSection() {
       ref={sectionRef}
       id="problems"
       aria-label="Problems"
-      className="relative w-full h-screen min-h-[600px] bg-background select-none overflow-hidden touch-none"
+      className="relative w-full h-screen h-dvh min-h-[340px] bg-background select-none overflow-hidden touch-none"
     >
       {/* Full-Viewport Centered Stage */}
       <div
         ref={stageRef}
-        className="relative w-full h-full flex flex-col items-center justify-between px-6 sm:px-12 lg:px-20 py-8 sm:py-11"
+        className="relative w-full h-full flex flex-col items-center justify-between px-6 sm:px-12 lg:px-20 py-8 sm:py-11 [@media(max-height:500px)]:py-4"
       >
         {/* 1. First-Draft Subtle Ambient Radial Gradient Background */}
         <div
@@ -639,7 +639,7 @@ export default function ProblemsSection() {
             ).toFixed(1)}px, 0)`,
           }}
         >
-          <div className="relative w-full max-w-[960px] min-h-[260px] sm:min-h-[300px] flex items-center justify-center">
+          <div className="relative w-full max-w-[960px] min-h-[min(260px,45svh)] sm:min-h-[min(300px,50svh)] flex items-center justify-center">
             {PROBLEMS_DATA.map((slide, sIdx) => {
               const dist = displayStepFloat - sIdx;
               const absDist = Math.abs(dist);
@@ -718,7 +718,7 @@ export default function ProblemsSection() {
                   </div>
 
                   {/* Main Centered Morphing Sentence — Word-by-Word Staggered Fade-In & Fade-Out */}
-                  <h2 className="flex flex-wrap items-center justify-center gap-x-[0.28em] gap-y-2.5 sm:gap-y-3.5 text-[clamp(1.95rem,6.4vw,4.25rem)] font-medium tracking-[-0.038em] leading-[1.12] sm:leading-[1.09] max-w-[940px]">
+                  <h2 className="flex flex-wrap items-center justify-center gap-x-[0.28em] gap-y-2.5 sm:gap-y-3.5 text-[clamp(1.5rem,min(max(1.95rem,6.4vw),9.5svh),4.25rem)] font-medium tracking-[-0.038em] leading-[1.12] sm:leading-[1.09] max-w-[940px]">
                     {slide.words.map((word, wIdx) => {
                       const totalWords = slide.words.length;
                       const wordNorm = wIdx / Math.max(1, totalWords - 1);
