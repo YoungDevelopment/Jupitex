@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import { ChevronDown, ArrowUp } from "lucide-react";
 import Image from "next/image";
 import SectionWrapper from "@/components/SectionWrapper";
+import { artSrcSet } from "@/lib/images";
 
 /* ─── FAQ Data ─────────────────────────────────────────────────── */
 const faqs = [
@@ -434,10 +435,13 @@ export default function FaqChatSection() {
     const noHover = window.matchMedia("(hover: none)").matches;
     let scrollRaf = 0;
 
-    const stageVisible = () => {
-      const r = stageRef.current?.getBoundingClientRect();
-      return !!r && r.bottom > 0 && r.top < window.innerHeight;
-    };
+    // Tracked by an observer, so pointer moves and the drift timer never force a layout read
+    let visible = false;
+    const visibility = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+    });
+    if (stageRef.current) visibility.observe(stageRef.current);
+    const stageVisible = () => visible;
 
     const updateParallax = () => {
       scrollRaf = 0;
@@ -493,6 +497,7 @@ export default function FaqChatSection() {
     window.addEventListener("resize", paintLight);
 
     return () => {
+      visibility.disconnect();
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       window.removeEventListener("pointermove", onPointerMove);
@@ -597,12 +602,20 @@ export default function FaqChatSection() {
               <div ref={woodRef} className="absolute inset-0">
                 <img
                   src="/wood/wood-bare.webp"
+                  srcSet={artSrcSet("/wood/wood-bare")}
+                  sizes="max(100vw, 760px)"
+                  loading="lazy"
+                  decoding="async"
                   alt=""
                   draggable={false}
                   className="absolute inset-0 w-full h-full object-contain"
                 />
                 <img
                   src="/wood/wood-green.webp"
+                  srcSet={artSrcSet("/wood/wood-green")}
+                  sizes="max(100vw, 760px)"
+                  loading="lazy"
+                  decoding="async"
                   alt=""
                   draggable={false}
                   className="absolute inset-0 w-full h-full object-contain"

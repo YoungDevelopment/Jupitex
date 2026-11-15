@@ -1,5 +1,5 @@
 import type { CSSProperties, HTMLAttributes, ReactNode } from 'react'
-import { Bar } from '../window'
+import { Bar } from '../bar'
 import './Row.css'
 
 export interface RowProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {

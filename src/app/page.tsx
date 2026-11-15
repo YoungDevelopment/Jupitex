@@ -3,7 +3,7 @@ import ProblemsSection from "@/components/ProblemsSection";
 import AuditSection from "@/components/AuditSection";
 import AutomationsSection from "@/components/AutomationsSection";
 import RoiSection from "@/components/RoiSection";
-// import ProcessSection from "@/components/ProcessSection";
+
 import ServicesSection from "@/components/ServicesSection";
 import WhyJupitexSection from "@/components/WhyJupitexSection";
 import OurWorkSection from "@/components/OurWorkSection";
@@ -25,7 +25,6 @@ export default function Home() {
         <AuditSection />
         <AutomationsSection />
         <RoiSection />
-        {/* <ProcessSection /> hidden for now */}
         <ServicesSection />
         <WhyJupitexSection />
         <OurWorkSection />

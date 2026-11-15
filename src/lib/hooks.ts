@@ -2,69 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 
-/**
- * Flashlight borders: tracks the pointer over a container and gives every
- * `.spot-card` inside it `--mx` / `--my` (pointer position in the card's own
- * coordinates). The CSS in globals.css draws the light. No React re-renders.
- */
-export function useSpotlight<T extends HTMLElement>() {
-  const ref = useRef<T>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el || !window.matchMedia("(hover: hover)").matches) return;
-
-    let raf = 0;
-    let x = 0;
-    let y = 0;
-
-    const apply = () => {
-      raf = 0;
-      el.querySelectorAll<HTMLElement>(".spot-card").forEach((card) => {
-        const r = card.getBoundingClientRect();
-        card.style.setProperty("--mx", `${(x - r.left).toFixed(1)}px`);
-        card.style.setProperty("--my", `${(y - r.top).toFixed(1)}px`);
-      });
-    };
-
-    const onMove = (e: PointerEvent) => {
-      x = e.clientX;
-      y = e.clientY;
-      if (!raf) raf = requestAnimationFrame(apply);
-    };
-
-    el.addEventListener("pointermove", onMove);
-    return () => {
-      el.removeEventListener("pointermove", onMove);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, []);
-
-  return ref;
-}
-
-/** True once the element has entered the viewport (stays true unless `once` is false). */
-export function useInView<T extends HTMLElement>(once = true, rootMargin = "0px") {
-  const ref = useRef<T>(null);
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setInView(entry.isIntersecting);
-        if (entry.isIntersecting && once) observer.disconnect();
-      },
-      { threshold: 0.15, rootMargin }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [once, rootMargin]);
-
-  return [ref, inView] as const;
-}
-
 export function usePrefersReducedMotion() {
   const [reduce, setReduce] = useState(false);
   useEffect(() => {

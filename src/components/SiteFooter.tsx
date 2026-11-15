@@ -60,7 +60,8 @@ export default function SiteFooter() {
 
     const onScroll = () => {
       measure();
-      if (!raf) raf = requestAnimationFrame(tick);
+      // far from the footer the target sits at 0: nothing to repaint
+      if (!raf && target !== current) raf = requestAnimationFrame(tick);
     };
 
     measure();

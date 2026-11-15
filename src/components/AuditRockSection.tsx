@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
 import SectionWrapper from "@/components/SectionWrapper";
 import { type Box, prefersReducedMotion, sweepAt, sweepPath } from "@/lib/flashlight";
+import { artSrcSet } from "@/lib/images";
 
 const LOGO_ORANGE = "#FF731E";
 
@@ -125,6 +126,8 @@ export const TESTIMONIALS: TestimonialItem[] = [
  * These offsets line the new canvas up with where the old rock was drawn.
  */
 const ROCK_CANVAS: React.CSSProperties = { left: "-17.05%", top: "0%", width: "134.1%" };
+// 134.1% of the rock column (340 / 440 / 540 / 600px)
+const AUDIT_ROCK_SIZES = "(min-width: 1280px) 805px, (min-width: 1024px) 725px, (min-width: 640px) 590px, 456px";
 
 /** Flashlight over the moss, like the hero's rocks: centre and radius come from CSS variables (radius 0 = off). */
 const AUDIT_MASK: React.CSSProperties = (() => {
@@ -195,7 +198,6 @@ export default function AuditRockSection() {
   const rockRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-  const [dialAngle, setDialAngle] = useState(0);
   const [stageScale, setStageScale] = useState(1);
   const [stageOffsetY, setStageOffsetY] = useState(0);
   const [dialConfig, setDialConfig] = useState({
@@ -207,11 +209,57 @@ export default function AuditRockSection() {
     angleStep: 45,
   });
 
+  // The dial turns every frame, so its angle and the card placement live outside React state:
+  // re-rendering this whole section 60 times a second is what made it heavy.
+  const angleRef = useRef(0);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const configRef = useRef(dialConfig);
   const hoveredRef = useRef<number | null>(null);
   const onScreenRef = useRef(false);
-  useEffect(() => {
+
+  /** Writes each card's place on the arc straight to the DOM. */
+  const placeCards = useCallback(() => {
+    const cfg = configRef.current;
+    const period = cfg.angleStep * CARD_COUNT;
+    for (let index = 0; index < CARD_COUNT; index++) {
+      const el = cardRefs.current[index];
+      if (!el) continue;
+      const angle = normalizeAngle(index * cfg.angleStep + angleRef.current, period); // [-period/2, period/2)
+      const absAngle = Math.abs(angle);
+      const rad = (angle * Math.PI) / 180;
+
+      // Circular dial coordinates relative to top peak center
+      const x = cfg.radiusX * Math.sin(rad);
+      const y = cfg.radiusY * (1 - Math.cos(rad));
+
+      // Cards within the active arc window are visible; cards cycling underneath fade out smoothly
+      let cardOpacity = 0;
+      if (absAngle <= cfg.fadeStartAngle) {
+        cardOpacity = 1;
+      } else if (absAngle <= cfg.fadeEndAngle) {
+        cardOpacity = Math.max(
+          0,
+          1 - (absAngle - cfg.fadeStartAngle) / Math.max(1, cfg.fadeEndAngle - cfg.fadeStartAngle)
+        );
+      }
+
+      const isHovered = hoveredRef.current === TESTIMONIALS[index].id;
+      const scale = isHovered ? 1.05 : arcScale(absAngle);
+      const zIndex = isHovered ? 50 : Math.max(1, Math.round(35 - absAngle / 5));
+
+      el.style.transform = `translate3d(calc(-50% + ${x.toFixed(1)}px), ${y.toFixed(1)}px, 0) scale(${scale.toFixed(3)})`;
+      el.style.opacity = cardOpacity.toFixed(3);
+      el.style.zIndex = String(zIndex);
+      el.style.pointerEvents = cardOpacity > 0.15 ? "auto" : "none";
+    }
+  }, []);
+
+  // Re-place after every render that changes the arc or the hovered card
+  useLayoutEffect(() => {
+    configRef.current = dialConfig;
     hoveredRef.current = hoveredCard;
-  }, [hoveredCard]);
+    placeCards();
+  }, [dialConfig, hoveredCard, placeCards]);
 
   // Responsive arc radius & 100vh height adaptation so the rotary dial frames the mountain on all displays
   useEffect(() => {
@@ -343,16 +391,6 @@ export default function AuditRockSection() {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    const el = stageRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      onScreenRef.current = entry.isIntersecting;
-    });
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
   // Flashlight on the rock: dark until the pointer is over the stage; one sweep across the
   // rock the first time it is on screen. Lives in refs and CSS variables, never re-renders React.
   useEffect(() => {
@@ -472,10 +510,12 @@ export default function AuditRockSection() {
     };
   }, []);
 
-  // Continuous circular rotation loop
+  // Continuous circular rotation loop: runs only while the stage is on screen
   useEffect(() => {
+    const el = stageRef.current;
+    if (!el) return;
     let rafId = 0;
-    let lastTime = performance.now();
+    let lastTime = 0;
     let currentSpeed = 5.5; // degrees per second
     const targetBaseSpeed = 5.5;
 
@@ -483,9 +523,9 @@ export default function AuditRockSection() {
       const dt = Math.min((now - lastTime) / 1000, 0.1);
       lastTime = now;
 
-      // Don't spin (or re-render) while the section is off screen
+      // Off screen: stop entirely; the observer restarts it
       if (!onScreenRef.current) {
-        rafId = requestAnimationFrame(tick);
+        rafId = 0;
         return;
       }
 
@@ -494,15 +534,26 @@ export default function AuditRockSection() {
 
       if (Math.abs(currentSpeed) > 0.01) {
         // unbounded; normalizeAngle wraps it to the dial's own loop length
-        setDialAngle((prev) => prev + currentSpeed * dt);
+        angleRef.current += currentSpeed * dt;
+        placeCards();
       }
 
       rafId = requestAnimationFrame(tick);
     };
 
-    rafId = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafId);
-  }, []);
+    const observer = new IntersectionObserver(([entry]) => {
+      onScreenRef.current = entry.isIntersecting;
+      if (entry.isIntersecting && !rafId) {
+        lastTime = performance.now();
+        rafId = requestAnimationFrame(tick);
+      }
+    });
+    observer.observe(el);
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(rafId);
+    };
+  }, [placeCards]);
 
   return (
     <SectionWrapper
@@ -570,12 +621,20 @@ export default function AuditRockSection() {
             >
               <img
                 src="/rocks/audit-bare.webp"
+                srcSet={artSrcSet("/rocks/audit-bare")}
+                sizes={AUDIT_ROCK_SIZES}
+                loading="lazy"
+                decoding="async"
                 alt="Jupitex Foundation Rock"
                 draggable={false}
                 className="absolute inset-0 w-full h-full select-none"
               />
               <img
                 src="/rocks/audit-green.webp"
+                srcSet={artSrcSet("/rocks/audit-green")}
+                sizes={AUDIT_ROCK_SIZES}
+                loading="lazy"
+                decoding="async"
                 alt=""
                 aria-hidden
                 draggable={false}
@@ -592,40 +651,15 @@ export default function AuditRockSection() {
           style={{ opacity: isVisible ? 1 : 0 }}
         >
           {TESTIMONIALS.map((item, index) => {
-            const period = dialConfig.angleStep * CARD_COUNT;
-            const rawAngle = index * dialConfig.angleStep + dialAngle;
-            const angle = normalizeAngle(rawAngle, period); // [-period/2, period/2)
-            const absAngle = Math.abs(angle);
-            const rad = (angle * Math.PI) / 180;
-
-            // Circular dial coordinates relative to top peak center
-            const x = dialConfig.radiusX * Math.sin(rad);
-            const y = dialConfig.radiusY * (1 - Math.cos(rad));
-
-            // Cards within the active arc window are visible; cards cycling underneath fade out smoothly
-            let cardOpacity = 0;
-            if (absAngle <= dialConfig.fadeStartAngle) {
-              cardOpacity = 1;
-            } else if (absAngle <= dialConfig.fadeEndAngle) {
-              cardOpacity = Math.max(
-                0,
-                1 -
-                  (absAngle - dialConfig.fadeStartAngle) /
-                    Math.max(1, dialConfig.fadeEndAngle - dialConfig.fadeStartAngle)
-              );
-            }
-
             const isHovered = hoveredCard === item.id;
-            const scale = isHovered
-              ? 1.05
-              : arcScale(absAngle);
-            const zIndex = isHovered
-              ? 50
-              : Math.max(1, Math.round(35 - absAngle / 5));
 
+            // transform, opacity, z-index and pointer-events are written by placeCards()
             return (
               <div
                 key={item.id}
+                ref={(node) => {
+                  cardRefs.current[index] = node;
+                }}
                 data-testimonial-card={item.id}
                 onMouseEnter={() => setHoveredCard(item.id)}
                 onMouseLeave={() => setHoveredCard(null)}
@@ -633,10 +667,6 @@ export default function AuditRockSection() {
                   width: `${dialConfig.cardWidth}px`,
                   left: "50%",
                   top: "0px",
-                  transform: `translate3d(calc(-50% + ${x.toFixed(1)}px), ${y.toFixed(1)}px, 0) scale(${scale.toFixed(3)})`,
-                  opacity: cardOpacity,
-                  zIndex,
-                  pointerEvents: cardOpacity > 0.15 ? "auto" : "none",
                 }}
                 className="
                   absolute min-h-[215px] xl:min-h-[228px] rounded-[20px] bg-card

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 
 interface WordToken {
   text: string;
@@ -509,17 +509,21 @@ export default function ProblemsSection() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [animateWindowScrollTo, goToStep]);
 
-  // 60fps animation loop for smooth text fade-in/fade-out morphing & scroll impulse decay
+  // Animation loop for smooth text fade-in/fade-out morphing & scroll impulse decay.
+  // It sleeps once everything has settled and wakes on the input events that move a target
+  // (all target writes happen inside wheel / touch / key / click handlers).
   useEffect(() => {
-    let rafId: number;
+    let rafId = 0;
 
     const tick = () => {
       const ds = targetStepFloatRef.current - currentStepFloatRef.current;
       const df = targetEntryFadeRef.current - currentEntryFadeRef.current;
+      let moving = false;
 
       if (Math.abs(ds) > 0.0008) {
         currentStepFloatRef.current += ds * 0.11;
         setDisplayStepFloat(currentStepFloatRef.current);
+        moving = true;
       } else if (currentStepFloatRef.current !== targetStepFloatRef.current) {
         currentStepFloatRef.current = targetStepFloatRef.current;
         setDisplayStepFloat(currentStepFloatRef.current);
@@ -528,6 +532,7 @@ export default function ProblemsSection() {
       if (Math.abs(df) > 0.001) {
         currentEntryFadeRef.current += df * 0.1;
         setEntryFade(currentEntryFadeRef.current);
+        moving = true;
       } else if (currentEntryFadeRef.current !== targetEntryFadeRef.current) {
         currentEntryFadeRef.current = targetEntryFadeRef.current;
         setEntryFade(currentEntryFadeRef.current);
@@ -536,16 +541,26 @@ export default function ProblemsSection() {
       if (scrollImpulseRef.current > 0.005) {
         scrollImpulseRef.current *= 0.9;
         setScrollImpulse(scrollImpulseRef.current);
+        moving = true;
       } else if (scrollImpulseRef.current !== 0) {
         scrollImpulseRef.current = 0;
         setScrollImpulse(0);
       }
 
-      rafId = requestAnimationFrame(tick);
+      rafId = moving ? requestAnimationFrame(tick) : 0;
     };
 
-    rafId = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafId);
+    const wake = () => {
+      if (!rafId) rafId = requestAnimationFrame(tick);
+    };
+    const events = ["wheel", "touchmove", "touchend", "keydown", "click", "scroll"] as const;
+    events.forEach((type) => window.addEventListener(type, wake, { passive: true }));
+    wake();
+
+    return () => {
+      events.forEach((type) => window.removeEventListener(type, wake));
+      cancelAnimationFrame(rafId);
+    };
   }, []);
 
   const triggerPulse = (id: string) => {

@@ -2,7 +2,18 @@
 
 import { useEffect, useMemo, useRef } from "react";
 import { FileSpreadsheet, CalendarClock, MessageSquareText, ScanText, NotebookPen } from "lucide-react";
-import { Stage, Bar, Badge, Check, Collapse, Connector, Count, Roll, Row, Avatar, type Act } from "./kit";
+// Direct imports (not the kit barrel) so only these parts and their CSS ship.
+import { Stage } from "./kit/stage";
+import type { Act } from "./kit/act";
+import { Bar } from "./kit/bar";
+import { Badge } from "./kit/controls/Badge";
+import { Avatar } from "./kit/parts/Avatar";
+import { Check } from "./kit/parts/Check";
+import { Row } from "./kit/parts/Row";
+import { Collapse } from "./kit/motion/Collapse";
+import { Connector } from "./kit/motion/Connector";
+import { Count } from "./kit/motion/Count";
+import { Roll } from "./kit/motion/Roll";
 import "./automation-stage.css";
 
 /**

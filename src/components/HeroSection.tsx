@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import DashboardPreview from "./DashboardPreview";
 import { HERO, NAV_LINKS, scrollToId } from "@/lib/site";
 import { type Box, type Point, prefersReducedMotion, sweepAt, sweepPath } from "@/lib/flashlight";
+import { artSrcSet } from "@/lib/images";
 
 // Fill 100% edge-to-edge on all laptop and desktop screens; only cap when crossing ultrawide (> 1920px)
 const ULTRAWIDE_LIMIT = 1920;
@@ -40,6 +41,10 @@ function flashlightMask(x: string, y: string, r: string): React.CSSProperties {
 
 const LEFT_MASK = flashlightMask("--lx", "--ly", "--lr");
 const RIGHT_MASK = flashlightMask("--rx", "--ry", "--rr");
+
+// Rendered rock widths per layout (see RIGHT_ROCK_BOX / LEFT_ROCK_BOX and the stage scales below)
+const RIGHT_ROCK_SIZES = "(max-width: 767px) 600px, (max-width: 1023px) 830px, min(74vw, 1425px)";
+const LEFT_ROCK_SIZES = "min(50vw, 950px)";
 
 function Star({ size = 9, fill = "#0a0a0a" }: { size?: number; fill?: string }) {
   return (
@@ -149,12 +154,18 @@ function RightRock() {
     <>
       <img
         src="/rocks/rock-right-bare.webp"
+        srcSet={artSrcSet("/rocks/rock-right-bare")}
+        sizes={RIGHT_ROCK_SIZES}
+        fetchPriority="high"
         alt=""
         draggable={false}
         className="absolute inset-0 w-full h-full object-contain"
       />
       <img
         src="/rocks/rock-right-green.webp"
+        srcSet={artSrcSet("/rocks/rock-right-green")}
+        sizes={RIGHT_ROCK_SIZES}
+        decoding="async"
         alt=""
         draggable={false}
         className="absolute inset-0 w-full h-full object-contain"
@@ -503,12 +514,17 @@ export default function HeroSection() {
                 >
                   <img
                     src="/rocks/rock-left-bare.webp"
+                    srcSet={artSrcSet("/rocks/rock-left-bare")}
+                    sizes={LEFT_ROCK_SIZES}
                     alt=""
                     draggable={false}
                     className="absolute inset-0 w-full h-full object-contain"
                   />
                   <img
                     src="/rocks/rock-left-green.webp"
+                    srcSet={artSrcSet("/rocks/rock-left-green")}
+                    sizes={LEFT_ROCK_SIZES}
+                    decoding="async"
                     alt=""
                     draggable={false}
                     className="absolute inset-0 w-full h-full object-contain"
