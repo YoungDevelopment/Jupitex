@@ -19,7 +19,7 @@ export const HERO = {
   eyebrow: "AI & automation for collection agencies",
   titleMuted: "Less manual work.",
   titleStrong: "More accounts resolved.",
-  body: "We automate the repetitive work inside debt collection agencies: compliance review, placements and client reporting. It starts with a free audit.",
+  body: "We review your daily work, find what’s worth automating and hand you a plan with time and cost savings. Even if you don’t hire us, the process map is yours.",
   primaryCta: "Book the free audit",
   secondaryCta: "See what we automate",
 };

@@ -125,7 +125,7 @@ function HeroActions({ style }: { style: React.CSSProperties }) {
           e.preventDefault();
           scrollToId("automations");
         }}
-        className="group flex items-center gap-1.5 text-[14px] font-medium tracking-[-0.01em] text-[#3d4044] hover:text-[#0a0a0a] transition-colors duration-200"
+        className="group flex items-center gap-1.5 text-[14px] font-medium tracking-[-0.01em] text-[#0a0a0a] hover:opacity-70 transition-colors duration-200"
       >
         <span>{HERO.secondaryCta}</span>
         <svg
@@ -461,7 +461,7 @@ export default function HeroSection() {
             >
               <div
                 style={r1}
-                className="text-[11px] font-medium tracking-[0.045em] text-[#7c7f82] uppercase"
+                className="text-[11px] font-medium tracking-[0.045em] text-[#0a0a0a] uppercase"
               >
                 {HERO.eyebrow}
               </div>
@@ -469,7 +469,7 @@ export default function HeroSection() {
               <h1 className="mt-[8px] flex flex-col items-center">
                 <span
                   style={r2}
-                  className="block text-[62px] font-medium tracking-[-0.038em] leading-[1.05] text-[#c7cacd]"
+                  className="block text-[62px] font-medium tracking-[-0.038em] leading-[1.05] text-[#0a0a0a]"
                 >
                   {HERO.titleMuted}
                 </span>
@@ -483,7 +483,7 @@ export default function HeroSection() {
 
               <p
                 style={r4}
-                className="mt-[16px] max-w-[500px] text-[14.8px] font-normal leading-[1.46] tracking-[-0.01em] text-[#8a8e92]"
+                className="mt-[16px] max-w-[500px] text-[14.8px] font-normal leading-[1.46] tracking-[-0.01em] text-[#0a0a0a]"
               >
                 {HERO.body}
               </p>
@@ -578,14 +578,14 @@ export default function HeroSection() {
             <div className="flex-1 px-8 flex flex-col items-center justify-center text-center z-20">
               <div
                 style={r1}
-                className="text-[11.5px] font-medium tracking-[0.05em] text-[#7c7f82] uppercase"
+                className="text-[11.5px] font-medium tracking-[0.05em] text-[#0a0a0a] uppercase"
               >
                 {HERO.eyebrow}
               </div>
               <h1 className="mt-3 flex flex-col items-center">
                 <span
                   style={r2}
-                  className="block text-[clamp(3.2rem,6.4vw,4.1rem)] font-medium tracking-[-0.038em] leading-[1.04] text-[#c7cacd] whitespace-nowrap"
+                  className="block text-[clamp(3.2rem,6.4vw,4.1rem)] font-medium tracking-[-0.038em] leading-[1.04] text-[#0a0a0a] whitespace-nowrap"
                 >
                   {HERO.titleMuted}
                 </span>
@@ -598,7 +598,7 @@ export default function HeroSection() {
               </h1>
               <p
                 style={r4}
-                className="mt-5 max-w-[500px] text-[15.5px] font-normal leading-[1.48] tracking-[-0.01em] text-[#8a8e92]"
+                className="mt-5 max-w-[500px] text-[15.5px] font-normal leading-[1.48] tracking-[-0.01em] text-[#0a0a0a]"
               >
                 {HERO.body}
               </p>
@@ -678,14 +678,14 @@ export default function HeroSection() {
             <div className="flex-1 px-4 flex flex-col items-center justify-center text-center z-20">
               <div
                 style={r1}
-                className="text-[11px] font-medium tracking-[0.055em] text-[#7c7f82] uppercase"
+                className="text-[11px] font-medium tracking-[0.055em] text-[#0a0a0a] uppercase"
               >
                 {HERO.eyebrow}
               </div>
               <h1 className="mt-2.5 flex flex-col items-center">
                 <span
                   style={r2}
-                  className="block text-[clamp(2.1rem,8.6vw,3.2rem)] font-medium tracking-[-0.038em] leading-[1.04] text-[#c7cacd]"
+                  className="block text-[clamp(2.1rem,8.6vw,3.2rem)] font-medium tracking-[-0.038em] leading-[1.04] text-[#0a0a0a]"
                 >
                   {HERO.titleMuted}
                 </span>
@@ -698,7 +698,7 @@ export default function HeroSection() {
               </h1>
               <p
                 style={r4}
-                className="mt-4 max-w-[345px] text-[14px] sm:text-[15px] font-normal leading-[1.5] tracking-[-0.01em] text-[#7c8085]"
+                className="mt-4 max-w-[345px] text-[14px] sm:text-[15px] font-normal leading-[1.5] tracking-[-0.01em] text-[#0a0a0a]"
               >
                 {HERO.body}
               </p>
