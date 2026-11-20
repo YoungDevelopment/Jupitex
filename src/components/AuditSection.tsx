@@ -34,11 +34,14 @@ export default function AuditSection() {
         }
         description={
           <>
-            We&apos;ll look at how your agency runs and show you{" "}
+            Ninety minutes of your team&apos;s time, no access to your systems,
+            and an NDA before we start. You get a written roadmap of{" "}
             <span className="text-[#090909] font-medium">
-              exactly what&apos;s worth automating
-            </span>{" "}
-            — and how much time and money each change saves.
+              what&apos;s worth automating
+            </span>
+            , what each change saves and a fixed price for each. If we can&apos;t
+            find 10 staff hours a month to save, we&apos;ll tell you, and we
+            won&apos;t pitch you anything.
           </>
         }
       >
@@ -59,7 +62,7 @@ export default function AuditSection() {
                 />
               </svg>
             </span>
-            <span>Book your free AI audit</span>
+            <span>Book your free 90-minute audit</span>
             <svg
               width="14"
               height="14"

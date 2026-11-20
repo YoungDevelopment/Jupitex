@@ -9,60 +9,57 @@ import { artSrcSet } from "@/lib/images";
 /* ─── FAQ Data ─────────────────────────────────────────────────── */
 const faqs = [
   {
-    question: "Will automation put our compliance at risk?",
+    question: "What exactly do you automate?",
     answer:
-      "It is built the other way round. Your compliance rules are written into every workflow, each decision is logged against the account, and anything sensitive, like a dispute or a cease request, goes to a person before the next contact.",
+      "Back-office work that never contacts consumers: client remittance reports, payment posting and reconciliation, placement file intake, dispute paperwork and review of consumer replies. We start with whichever one costs your team the most hours.",
+  },
+  {
+    question: "How much of our time does the free audit take?",
+    answer:
+      "Ninety minutes in total: a 30-minute intro with you and a 60-minute walkthrough with the person who does the work. You get a written roadmap within 10 business days.",
+  },
+  {
+    question: "Do you need access to our systems or debtor data?",
+    answer:
+      "Not for the audit. We sign an NDA first, never log in to your systems, and the walkthrough can be done on test or masked accounts so no debtor data is shown.",
+  },
+  {
+    question: "Is the audit just a sales pitch?",
+    answer:
+      "The process map is yours to keep whether you hire us or not. If we can't find at least 10 staff hours a month worth saving, we will tell you so and won't pitch you anything.",
+  },
+  {
+    question: "What does it cost after the audit?",
+    answer:
+      "Every workflow gets a fixed price in your roadmap. A first workflow is typically $1,500, larger ones $2,500 to $7,500, then $399 a month for hosting, monitoring and changes, cancel anytime.",
+  },
+  {
+    question: "What if it doesn't work?",
+    answer:
+      "You pay half up front. The second half is due only after the workflow runs side by side with your team through one month-end and the numbers match. If they don't, we refund the first half.",
   },
   {
     question: "Do we have to replace our collection software?",
     answer:
-      "No. We build around the collection system, dialer and messaging tools you already use. No migrations, no starting from scratch.",
+      "No. We build around the collection software you already use. No migrations and no new system for your team to learn.",
   },
   {
-    question:
-      "How is Jupitex different from every other AI company out there?",
+    question: "Will automation put our compliance at risk?",
     answer:
-      "We don't just build AI — we build AI that actually gets used. Most firms hand off a prototype and disappear. We stay through adoption, training, and optimization to make sure it delivers real ROI.",
+      "We start with back-office work that never contacts consumers. Your finance and compliance leads review every workflow before it goes live, and every step is logged so you can show your clients' auditors what happened.",
   },
   {
-    question: "How do I know if we're ready for AI?",
+    question: "What happens if Jupitex isn't around?",
     answer:
-      "You're ready if you have clear pain points, repetitive work, or untapped data slowing things down. We'll help you figure out what's worth automating — and what's not.",
-  },
-  {
-    question: "What happens after you deliver?",
-    answer:
-      "We don't hand off and vanish. We train your people, monitor how it's used, and refine until it runs smoothly without us.",
-  },
-  {
-    question: "How much internal time will this take?",
-    answer:
-      "We know that you hired us to get things off of your team's plate. So, we keep your team's involvement focused and efficient — just enough to capture what matters, then we do the rest.",
-  },
-  {
-    question: "How long until we see real results?",
-    answer:
-      "You'll typically see a working pilot within weeks, not months. We move fast, test early, and scale only once it's proven.",
-  },
-  {
-    question:
-      "We don't have clean data or a big tech team — can we still do this?",
-    answer:
-      "Yes. We work with what you have, design around your existing collection system, and handle the technical lift so your team can stay on accounts.",
-  },
-  {
-    question:
-      "We've already tried AI and it didn't work. Why would this be any different?",
-    answer:
-      "Most teams fail because they start with the wrong use cases or stop at the prototype. We focus only on what's worth building and stay through adoption — so it actually ships and delivers.",
+      "You own what we build, with full documentation, and we train your team to run it. It keeps working without us.",
   },
 ];
 
 const SUGGESTIONS = [
-  "What can you automate for a collection agency?",
-  "How does the free audit work?",
-  "Will this work with our collection software?",
-  "How do I get started?",
+  "What back-office work can you automate?",
+  "How does the free 90-minute audit work?",
+  "Do you need access to our data?",
+  "What does it cost after the audit?",
 ];
 
 /* ─── Safe Lightweight Markdown Renderer ───────────────────────── */

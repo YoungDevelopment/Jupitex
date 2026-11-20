@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState, type ReactNode } from "react"
 import {
   Check,
   Clock3,
-  MessageSquareText,
+  FileSpreadsheet,
   NotebookPen,
   ShieldAlert,
   Forward,
@@ -135,9 +135,9 @@ function Tile({
 /* ───────────────────────── 1 · goals ───────────────────────── */
 
 const GOALS = [
-  { label: "Cut manual compliance review", hours: 7 },
-  { label: "Speed up placement intake", hours: 5 },
-  { label: "Send client reports on time", hours: 4 },
+  { label: "Send client reports on time", hours: 7 },
+  { label: "Stop re-keying payments", hours: 5 },
+  { label: "Speed up placement intake", hours: 4 },
 ];
 
 function GoalsPicture({ start }: { start: boolean }) {
@@ -209,10 +209,10 @@ function GoalsPicture({ start }: { start: boolean }) {
 /* ───────────────────────── 2 · flowchart ───────────────────────── */
 
 const NODES = [
-  { icon: MessageSquareText, label: "Reply arrives", meta: "SMS or email" },
-  { icon: UserRound, label: "Collector reads it", meta: "4 min each" },
-  { icon: ShieldAlert, label: "Checks for disputes", meta: "6 min each", slow: true },
-  { icon: NotebookPen, label: "Notes the account", meta: "1 min each" },
+  { icon: FileSpreadsheet, label: "Exports payments", meta: "10 min each" },
+  { icon: UserRound, label: "Rebuilds statement", meta: "35 min each", slow: true },
+  { icon: ShieldAlert, label: "Checks the totals", meta: "15 min each" },
+  { icon: NotebookPen, label: "Emails the client", meta: "5 min each" },
 ];
 
 function FlowPicture() {
@@ -265,8 +265,8 @@ function FlowPicture() {
                           <Forward className="w-3.5 h-3.5" strokeWidth={2} />
                         </span>
                         <span>
-                          <span className="block text-[12px] font-semibold leading-[1.3] text-[#121212]">Escalates to compliance</span>
-                          <span className="block text-[11px] leading-[1.3] text-[#8e9296]">1 in 12 replies</span>
+                          <span className="block text-[12px] font-semibold leading-[1.3] text-[#121212]">Totals off? Starts again</span>
+                          <span className="block text-[11px] leading-[1.3] text-[#8e9296]">1 in 8 statements</span>
                         </span>
                       </span>
                     </span>
@@ -286,7 +286,7 @@ function FlowPicture() {
       <div className="ax-flow__foot flex items-center gap-2 px-4 sm:px-6 pb-4 lg:absolute lg:left-0 lg:bottom-0 lg:pb-3.5 text-[11.5px] text-[#5c6064]">
         <Clock3 className="w-3.5 h-3.5" strokeWidth={2} />
         <span>
-          <span className="font-semibold text-[#121212]">11 min</span> per reply · 1,200 replies a day
+          Example: <span className="font-semibold text-[#121212]">65 min</span> per client · 40 clients a month
         </span>
       </div>
     </div>
@@ -318,7 +318,7 @@ function ReturnPicture({ start, run }: { start: boolean; run: number }) {
     <div className="h-full flex flex-col justify-center px-5 sm:px-6 py-4">
       <div className="flex items-start flex-wrap justify-between gap-x-3 gap-y-2">
         <div>
-          <div className="text-[12.5px] text-[#7c7f82]">Return in year one</div>
+          <div className="text-[12.5px] text-[#7c7f82]">Example: return in year one</div>
           <div className="mt-1 text-[46px] xl:text-[40px] font-semibold leading-none tracking-[-0.04em] text-[#090909] whitespace-nowrap">
             <Tween value={roi} decimals={1} duration={1300} suffix="×" className="tabular-nums" />
           </div>
@@ -383,14 +383,14 @@ function ReviewPicture({ start, run }: { start: boolean; run: number }) {
         <div className="min-w-0 flex-1">
           <div className="flex items-baseline gap-1.5 text-[12px]">
             <span className="font-semibold text-[#121212]">Sara</span>
-            <span className="text-[#8e9296]">Compliance lead</span>
+            <span className="text-[#8e9296]">Finance lead</span>
           </div>
           <div className="ax-bubble mt-1.5 inline-grid rounded-2xl rounded-tl-md bg-white border border-black/[0.06] shadow-[0_6px_18px_rgba(0,0,0,0.05)]" data-phase={phase}>
             <span className="ax-bubble__typing col-start-1 row-start-1 flex items-center gap-1 px-3.5 py-3">
               <i /> <i /> <i />
             </span>
             <span className="ax-bubble__text col-start-1 row-start-1 px-3.5 py-2.5 text-[13px] leading-[1.45] text-[#121212]">
-              Keep a manager sign-off before anything sends.
+              Keep a finance sign-off before statements go out.
             </span>
           </div>
         </div>
@@ -449,7 +449,7 @@ function RoadmapPicture({ start, run }: { start: boolean; run: number }) {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/JupitexLogos/tab-logo-dark.png" alt="" className="w-[11px] h-[11px] object-contain" />
               </span>
-              <span className="text-[13px] font-semibold text-[#090909]">Automation roadmap</span>
+              <span className="text-[13px] font-semibold text-[#090909]">Example roadmap</span>
             </div>
             <ul className="mt-2">
               {rows.map(([label, v], i) => (
@@ -529,8 +529,8 @@ export default function AuditGrid() {
       <Tile
         index={0}
         step={1}
-        title="Scope it with your owners"
-        body="We sit down with leadership and agree on the goals, the bottlenecks and what success looks like."
+        title="A 30-minute intro with you"
+        body="We agree on which back-office work costs you the most time, and what a good result looks like."
         tone="sage"
         className="lg:col-span-2"
         pictureClassName="h-[210px] lg:h-[180px] xl:h-auto"
@@ -541,8 +541,8 @@ export default function AuditGrid() {
       <Tile
         index={1}
         step={2}
-        title="Map how the work runs today"
-        body="We follow each process with your team and draw it out step by step, so the slow parts are plain to see."
+        title="A 60-minute walkthrough"
+        body="The person who does the work shows us how it runs today. Test or masked accounts are fine, and we never log in to your systems."
         tone="blue"
         className="lg:col-span-4"
         pictureClassName="ax-dots lg:h-[180px] xl:h-auto"
@@ -553,8 +553,8 @@ export default function AuditGrid() {
       <Tile
         index={2}
         step={3}
-        title="Price it and prove the return"
-        body="Every idea gets a build cost, the hours it saves and the return, so you only pick what pays."
+        title="Every task priced and measured"
+        body="Each idea gets a fixed price, the hours it saves each month and the payback, so you only pick what pays."
         tone="moss"
         className="lg:col-span-2"
         pictureClassName="h-[210px] lg:h-[180px] xl:h-auto"
@@ -566,8 +566,8 @@ export default function AuditGrid() {
       <Tile
         index={3}
         step={4}
-        title="Shape it with your team"
-        body="Your collectors and compliance leads review every change, and we adjust it to how they work."
+        title="Checked by your team"
+        body="Your finance and compliance leads review the plan before anything is built, and we adjust it to how they work."
         tone="teal"
         className="lg:col-span-2"
         pictureClassName="h-[210px] lg:h-[180px] xl:h-auto"
@@ -579,8 +579,8 @@ export default function AuditGrid() {
       <Tile
         index={4}
         step={5}
-        title="Leave with a clear roadmap"
-        body="One presentation for your stakeholders: what to automate, the fixed price and the return to expect."
+        title="Your roadmap in 10 business days"
+        body="A written plan: what to automate first, the fixed price and the return to expect. The process map is yours, even if you never hire us."
         tone="amber"
         className="sm:col-span-2 lg:col-span-2"
         pictureClassName="h-[210px] lg:h-[180px] xl:h-auto"

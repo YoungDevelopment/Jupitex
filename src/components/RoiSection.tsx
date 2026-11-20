@@ -218,7 +218,7 @@ export default function RoiSection() {
           style={whiteStyle}
         >
           <Slider
-            label="People doing repetitive work"
+            label="People doing repetitive back-office work"
             value={people}
             min={1}
             max={60}

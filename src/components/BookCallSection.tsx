@@ -87,7 +87,7 @@ export default function BookCallSection() {
           <span>the free audit</span>
         </>
       }
-      description="Pick a time that works for you. Thirty minutes with our team, and you leave knowing what is worth automating first."
+      description="Pick a time for the 30-minute intro. If there is back-office work worth automating, we book the 60-minute walkthrough with your team. NDA first, no access to your systems."
     >
       <div
         id="my-cal-inline-30min"

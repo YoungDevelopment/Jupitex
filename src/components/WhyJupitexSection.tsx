@@ -12,7 +12,7 @@ const cards: FeatureCardProps[] = [
     imageHeight: 720,
     title: "No need to change your systems",
     description:
-      "We build around the collection software, dialer and messaging tools you already run. No migrations, no starting from scratch.",
+      "We build around the collection software you already run. No migrations, no new system to learn, and your vendor stays your vendor.",
   },
   {
     image: "/images/Why Jupitex/ROI.png",
@@ -21,7 +21,7 @@ const cards: FeatureCardProps[] = [
     imageHeight: 720,
     title: "You see the numbers before you spend a dollar",
     description:
-      "Before any work begins, you get a clear breakdown: what it costs, what it saves, and how long it takes. No vague promises.",
+      "Every task in your roadmap comes with a fixed price, the hours it saves each month and the payback. No hourly billing, no vague promises.",
   },
   {
     image: "/images/Why Jupitex/team.png",
@@ -30,7 +30,7 @@ const cards: FeatureCardProps[] = [
     imageHeight: 720,
     title: "Your team owns it, not us",
     description:
-      "We don't build something and disappear. We train your team to run it, manage it, and grow with it. You're never dependent on us.",
+      "You own what we build, with full documentation. We train your team to run it, so you are never stuck if we are not around.",
   },
 ];
 

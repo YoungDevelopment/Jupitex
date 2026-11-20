@@ -20,37 +20,37 @@ interface ProblemStatement {
 const PROBLEMS_DATA: ProblemStatement[] = [
   {
     index: "01",
-    eyebrow: "PROBLEMS · 01 / MANUAL REVIEW",
+    eyebrow: "PROBLEMS · 01 / MONTH-END",
     caption:
-      "Compliance staff reading SMS and email replies one at a time, hoping the opt-out is not in the pile they skipped.",
+      "Someone exports the payments, rebuilds each client's statement in a spreadsheet and checks the totals twice. Every month.",
     words: [
       { text: "Is" },
       { text: "your" },
       { text: "team" },
       { text: "still" },
-      { text: "reviewing" },
+      { text: "building" },
       {
-        text: "every message by hand?",
+        text: "client reports by hand?",
         badge: { id: "b-manual", statusColor: "amber" },
       },
     ],
   },
   {
     index: "02",
-    eyebrow: "PROBLEMS · 02 / OPERATIONAL FRICTION",
+    eyebrow: "PROBLEMS · 02 / BACK-OFFICE FRICTION",
     caption:
-      "Placement files, dispute queues and remittance statements held together by spreadsheets and whoever remembers to check.",
+      "Placement files, payment batches and remittance statements held together by spreadsheets and whoever remembers to check.",
     words: [
       {
-        text: "Missed Disputes,",
+        text: "Late Remittances,",
         badge: { id: "b-deadlines", statusColor: "red" },
       },
       {
-        text: "Late Client Reports,",
+        text: "Re-keyed Payments,",
         badge: { id: "b-db", statusColor: "red" },
       },
       {
-        text: "Human Errors",
+        text: "Messy Placements",
         badge: { id: "b-errors", statusColor: "amber" },
       },
       { text: "—" },
@@ -64,12 +64,12 @@ const PROBLEMS_DATA: ProblemStatement[] = [
     index: "03",
     eyebrow: "PROBLEMS · 03 / THE CLARITY GAP",
     caption:
-      "Every agency knows the work is repetitive. Few know which part is safe, compliant and worth automating first.",
+      "Every agency knows the work is repetitive. Few know which back-office task to automate first, and what it would pay back.",
     words: [
       { text: "You" },
       { text: "know" },
       {
-        text: "AI and Automation",
+        text: "automation",
         badge: { id: "b-ai", statusColor: "emerald" },
       },
       { text: "is" },

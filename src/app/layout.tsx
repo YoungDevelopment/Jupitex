@@ -10,9 +10,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Jupitex | AI and automation for debt collection agencies",
+  title: "Jupitex | Back-office automation for debt collection agencies",
   description:
-    "Jupitex automates the repetitive work inside debt collection agencies: compliance QA, placement intake, client reporting and more. Start with a free AI audit.",
+    "Jupitex automates the back-office work inside debt collection agencies: client remittance reports, payment posting and placement intake. Start with a free 90-minute audit.",
   icons: {
     icon: [
       {

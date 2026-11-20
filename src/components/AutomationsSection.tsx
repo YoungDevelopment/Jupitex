@@ -104,14 +104,14 @@ export default function AutomationsSection() {
       subject="WHAT WE AUTOMATE"
       title={
         <>
-          <span className="text-[#8e9296]">The work your agency repeats</span>
-          <span>every single day</span>
+          <span className="text-[#8e9296]">The back-office work</span>
+          <span>your team repeats every week</span>
         </>
       }
       description={
         <>
-          Five places collection agencies lose the most hours. Pick one to watch
-          how it runs{" "}
+          Five jobs where collection agencies lose the most staff hours. None
+          of them send anything to consumers. Pick one to see how it runs{" "}
           <span className="text-[#090909] font-medium">
             once it is automated
           </span>

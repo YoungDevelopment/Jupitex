@@ -10,10 +10,10 @@ const services: FeatureCardProps[] = [
     imageAlt: "AI and automation",
     imageWidth: 800,
     imageHeight: 760,
-    title: "AI Transformation Services",
+    title: "Back-Office Automation",
     description:
-      "We find the tasks eating your collectors' time, rank them by return, and automate the ones worth it.",
-    items: ["Readiness Audit", "AI Reporting", "Governance", "Custom AI"],
+      "We find the back-office tasks eating your team's hours, rank them by payback and automate the ones worth it.",
+    items: ["Free Audit", "Client Reporting", "Payment Posting", "Placement Intake"],
   },
   {
     image: "/images/Development.png",

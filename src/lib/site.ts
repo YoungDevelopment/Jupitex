@@ -16,11 +16,11 @@ export const NAV_LINKS = [
 export const CONTACT_EMAIL = "contact@jupitex.io";
 
 export const HERO = {
-  eyebrow: "AI & automation for collection agencies",
-  titleMuted: "Less manual work.",
-  titleStrong: "More accounts resolved.",
-  body: "We review your daily work, find what’s worth automating and hand you a plan with time and cost savings. Even if you don’t hire us, the process map is yours.",
-  primaryCta: "Book the free audit",
+  eyebrow: "Back-office automation for debt collection agencies",
+  titleMuted: "Month-end in hours,",
+  titleStrong: "not days.",
+  body: "We automate the back-office work your team repeats every week: client remittance reports, payment posting and placement intake. It runs inside the collection software you already use, and nothing we build contacts consumers.",
+  primaryCta: "Book the free 90-minute audit",
   secondaryCta: "See what we automate",
 };
 
@@ -45,34 +45,60 @@ export interface Workflow {
 
 export const WORKFLOWS: Workflow[] = [
   {
-    id: "compliance-qa",
-    name: "Compliance QA on SMS and email",
-    blurb: "Every consumer reply is read, not a sample of them.",
+    id: "client-reporting",
+    name: "Client reporting and remittance",
+    blurb: "Month-end statements that build and send themselves.",
     steps: [
       {
-        title: "Reply arrives",
-        detail: "SMS or email, straight from the platform you already send with.",
+        title: "Schedule fires",
+        detail: "Daily, weekly or month-end, per client agreement.",
       },
       {
-        title: "AI reads it",
-        detail:
-          "Looks for opt-outs, disputes, cease requests, attorney and bankruptcy mentions.",
+        title: "Data pulled",
+        detail: "Payments, fees and inventory read directly from your system.",
       },
       {
-        title: "Routed by your rules",
-        detail: "Suppressed, queued for compliance, or cleared for the collector.",
+        title: "Statement built",
+        detail: "Each client gets their own format and their own numbers.",
       },
       {
-        title: "Logged",
-        detail: "The decision and the reason are saved against the account.",
+        title: "Sent and archived",
+        detail: "Delivered to the client and filed where your team can find it.",
       },
     ],
     howWeAutomate: [
-      "We connect to the SMS and email tools you already use, so every reply comes in on its own.",
-      "We teach it your compliance rules: what counts as an opt-out, a dispute or a cease request.",
-      "Anything risky stops contact at once and goes to your compliance lead to decide.",
+      "We set up each client's report format and schedule one time.",
+      "On the day, the numbers come straight from your collection system. No exports, no Excel.",
+      "Finance gives the totals a quick OK, then every statement goes out on schedule.",
     ],
-    proof: { figure: "$7,500 / mo", label: "saved in legal fees at Compliance Ops" },
+  },
+  {
+    id: "payment-posting",
+    name: "Payment posting and reconciliation",
+    blurb: "Every payment matched and posted. Nobody re-keys it.",
+    steps: [
+      {
+        title: "Payments arrive",
+        detail: "Portal, card processor and lockbox files, in whatever format they come.",
+      },
+      {
+        title: "Matched to accounts",
+        detail: "Each payment is matched to the right account and client.",
+      },
+      {
+        title: "Posted and balanced",
+        detail: "Posted in your collection system and checked against the deposit total.",
+      },
+      {
+        title: "Exceptions flagged",
+        detail: "Anything that does not match goes on a short list for your team.",
+      },
+    ],
+    howWeAutomate: [
+      "We read the payment files you already receive, so nobody types a payment in twice.",
+      "Every posting is checked against the deposit, so the totals balance before anyone signs off.",
+      "Only the payments that do not match reach a person, with the reason attached.",
+    ],
   },
   {
     id: "placements",
@@ -103,36 +129,8 @@ export const WORKFLOWS: Workflow[] = [
     ],
   },
   {
-    id: "client-reporting",
-    name: "Client reporting and remittance",
-    blurb: "Statements that build and send themselves.",
-    steps: [
-      {
-        title: "Schedule fires",
-        detail: "Daily, weekly or month-end, per client agreement.",
-      },
-      {
-        title: "Data pulled",
-        detail: "Payments, fees and inventory read directly from your system.",
-      },
-      {
-        title: "Statement built",
-        detail: "Each client gets their own format and their own numbers.",
-      },
-      {
-        title: "Sent and archived",
-        detail: "Delivered to the client and filed where your team can find it.",
-      },
-    ],
-    howWeAutomate: [
-      "We set up each client's report format and schedule one time.",
-      "On the day, the numbers come straight from your collection system. No exports, no Excel.",
-      "Finance gives the totals a quick OK, then every statement sends itself.",
-    ],
-  },
-  {
     id: "disputes",
-    name: "Dispute and validation handling",
+    name: "Dispute and validation paperwork",
     blurb: "No dispute sits unseen in an inbox.",
     steps: [
       {
@@ -159,31 +157,33 @@ export const WORKFLOWS: Workflow[] = [
     ],
   },
   {
-    id: "payment-follow-up",
-    name: "Payment plan follow-up",
-    blurb: "Promises to pay that do not fall through.",
+    id: "compliance-qa",
+    name: "Compliance review of consumer replies",
+    blurb: "Every consumer reply is read, not a sample of them.",
     steps: [
       {
-        title: "Promise recorded",
-        detail: "Picked up from the collector's notes or the payment portal.",
+        title: "Reply arrives",
+        detail: "SMS or email, straight from the platform you already send with.",
       },
       {
-        title: "Reminder scheduled",
-        detail: "Inside the contact windows and frequency limits you set.",
+        title: "AI reads it",
+        detail:
+          "Looks for opt-outs, disputes, cease requests, attorney and bankruptcy mentions.",
       },
       {
-        title: "Payment checked",
-        detail: "Matched against what actually posted on the due date.",
+        title: "Routed by your rules",
+        detail: "Suppressed, queued for compliance, or cleared for the collector.",
       },
       {
-        title: "Collector task created",
-        detail: "Missed promises go back on the right desk the same day.",
+        title: "Logged",
+        detail: "The decision and the reason are saved against the account.",
       },
     ],
     howWeAutomate: [
-      "Every promise to pay is picked up and put on a calendar. No sticky notes.",
-      "Consumers get a reminder before the due date, inside your contact rules.",
-      "If the payment does not post, the collector gets a task that same day.",
+      "We connect to the SMS and email tools you already use, so every reply comes in on its own.",
+      "We teach it your compliance rules: what counts as an opt-out, a dispute or a cease request.",
+      "Anything risky stops contact at once and goes to your compliance lead to decide.",
     ],
+    proof: { figure: "$7,500 / mo", label: "saved in legal fees at Compliance Ops, a collection agency" },
   },
 ];

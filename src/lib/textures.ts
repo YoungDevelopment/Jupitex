@@ -74,8 +74,8 @@ export const STAGE_LIGHT: Record<string, StageLight> = {
       { color: "rgba(36, 64, 72, 0.50)", x: 92, y: 8, w: 40, h: 40, depth: -0.4, path: "a", dur: 13 },
     ],
   },
-  // Payment plan follow-up: sage, lit from the centre, darker at the edges
-  "payment-follow-up": {
+  // Payment posting and reconciliation: sage, lit from the centre, darker at the edges
+  "payment-posting": {
     base: "radial-gradient(120% 110% at 50% 42%, #e1e3d6 0%, #bcc1a2 40%, #828d5b 80%, #5c663e 100%)",
     alt: "radial-gradient(120% 110% at 26% 70%, #e2e4d7 0%, #bdc2a3 38%, #838e5c 78%, #5b653d 100%)",
     glow: "rgba(246, 248, 230, 0.64)",

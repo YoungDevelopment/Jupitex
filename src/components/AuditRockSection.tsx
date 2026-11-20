@@ -18,16 +18,17 @@ export interface TestimonialItem {
   initials: string;
 }
 
+// Only real clients. Confirm each person has approved their name and quote before this goes live.
 export const TESTIMONIALS: TestimonialItem[] = [
   {
     id: 1,
     quote:
-      "Their AI audit gave us a clear roadmap in week one. We automated compliance checks and cut manual review time by 70%.",
-    name: "Ayesha Khan",
-    role: "Head of Operations",
-    company: "NexaLedger",
-    metric: "70% Faster QA",
-    initials: "AK",
+      "Automated QA for our SMS and email workflows eliminated manual compliance bottlenecks and saves us $7,500 every single month.",
+    name: "Omar Siddiqui",
+    role: "Managing Director",
+    company: "Compliance Ops",
+    metric: "$7,500/mo Saved",
+    initials: "OS",
   },
   {
     id: 2,
@@ -42,82 +43,12 @@ export const TESTIMONIALS: TestimonialItem[] = [
   {
     id: 3,
     quote:
-      "Instead of generic chatbots, they built automations that plugged straight into our existing CRM with zero downtime for our team.",
-    name: "Nadia Fernandes",
-    role: "VP of Product",
-    company: "OrbitDesk",
-    metric: "4.8x First-Year ROI",
-    initials: "NF",
-  },
-  {
-    id: 4,
-    quote:
-      "Automated QA for our SMS and email workflows eliminated manual compliance bottlenecks and saves us $7,500 every single month.",
-    name: "Omar Siddiqui",
-    role: "Managing Director",
-    company: "Compliance Ops",
-    metric: "$7,500/mo Saved",
-    initials: "OS",
-  },
-  {
-    id: 5,
-    quote:
-      "We saw the exact numbers before spending a dollar. Every workflow was scoped, flow-charted, and delivered on a fixed quote.",
-    name: "Priya Menon",
-    role: "Director of CX",
-    company: "BrightCart",
-    metric: "38% Fewer Tickets",
-    initials: "PM",
-  },
-  {
-    id: 6,
-    quote:
-      "Jupitex didn't just build the system and vanish — they trained our whole staff so we own and run every automation internally.",
-    name: "Daniel Ross",
-    role: "Chief Operating Officer",
-    company: "RoutePilot",
-    metric: "100% Team Adoption",
-    initials: "DR",
-  },
-  {
-    id: 7,
-    quote:
       "Within three weeks of launching our new site and automated lead-gen workflows, we closed $5,000 in new pipeline automatically.",
     name: "Hina Patel",
     role: "Managing Partner",
     company: "MaxHP LLC",
     metric: "+$5k New Pipeline",
     initials: "HP",
-  },
-  {
-    id: 8,
-    quote:
-      "We needed vetted AI engineers fast. Jupitex placed two senior specialists on our team who shipped production code from day one.",
-    name: "Ryan Cooper",
-    role: "VP of Engineering",
-    company: "SentraPay",
-    metric: "48hr Onboarding",
-    initials: "RC",
-  },
-  {
-    id: 9,
-    quote:
-      "Weekly executive reporting used to take our analysts 14 hours. Now it runs in 10 minutes with higher accuracy and zero manual copy-paste.",
-    name: "Sara Ahmed",
-    role: "Head of Analytics",
-    company: "MetricLoop",
-    metric: "14 hrs → 10 mins",
-    initials: "SA",
-  },
-  {
-    id: 10,
-    quote:
-      "If you want AI that actually ships and delivers measurable ROI instead of staying stuck in pilot mode, Jupitex is the team to call.",
-    name: "Victor Chen",
-    role: "Founder & CEO",
-    company: "SignalForge",
-    metric: "+$64k/yr Saved",
-    initials: "VC",
   },
 ];
 
@@ -142,7 +73,7 @@ const AUDIT_RADIUS = 0.26;
 /** Where the rock sits on its 2400x1792 canvas (fractions): the sweep crosses this. */
 const AUDIT_ROCK_AREA: Box = { x0: 0.13, y0: 0.02, x1: 0.86, y1: 0.75 };
 
-const CARD_COUNT = TESTIMONIALS.length; // 10 cards
+const CARD_COUNT = TESTIMONIALS.length;
 const CARD_GAP = 16; // the least clear space between two visible cards
 
 /** Wraps an angle into [-period/2, period/2): the dial's "circle" can be longer than 360°. */
@@ -579,11 +510,11 @@ export default function AuditRockSection() {
       }
       description={
         <>
-          Real outcomes from teams that partnered with us to{" "}
+          What our clients say about the work we{" "}
           <span className="text-[#090909] font-medium">
-            automate operations and put AI to work
-          </span>{" "}
-          — delivered with measurable ROI.
+            automated for them
+          </span>
+          , in their own words.
         </>
       }
     >
