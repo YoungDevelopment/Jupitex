@@ -39,9 +39,7 @@ export default function AuditSection() {
             <span className="text-[#090909] font-medium">
               what&apos;s worth automating
             </span>
-            , what each change saves and a fixed price for each. If we can&apos;t
-            find 10 staff hours a month to save, we&apos;ll tell you, and we
-            won&apos;t pitch you anything.
+            .
           </>
         }
       >
