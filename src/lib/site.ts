@@ -16,10 +16,10 @@ export const NAV_LINKS = [
 export const CONTACT_EMAIL = "contact@jupitex.io";
 
 export const HERO = {
-  eyebrow: "Back-office automation for debt collection agencies",
-  titleMuted: "Month-end in hours,",
-  titleStrong: "not days.",
-  body: "We automate the back-office work your team repeats every week: client remittance reports, payment posting and placement intake. It runs inside the collection software you already use, and nothing we build contacts consumers.",
+  eyebrow: "Free 90-minute audit · No access to your systems",
+  titleMuted: "We Automate Back-Office Work",
+  titleStrong: "for Debt Collection Agencies",
+  body: "Client reports, payment posting and new account files, done automatically inside the software you already use. Your team gets hours back every week.",
   primaryCta: "Book the free 90-minute audit",
   secondaryCta: "See what we automate",
 };

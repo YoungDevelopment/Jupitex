@@ -411,13 +411,13 @@ export default function HeroSection() {
               <h1 className="mt-[8px] flex flex-col items-center">
                 <span
                   style={r2}
-                  className="block text-[62px] font-medium tracking-[-0.038em] leading-[1.05] text-[#0a0a0a]"
+                  className="block text-[50px] font-medium tracking-[-0.038em] leading-[1.05] text-[#0a0a0a]"
                 >
                   {HERO.titleMuted}
                 </span>
                 <span
                   style={r3}
-                  className="block text-[62px] font-medium tracking-[-0.038em] leading-[1.08] text-[#090909]"
+                  className="block text-[50px] font-medium tracking-[-0.038em] leading-[1.08] text-[#090909]"
                 >
                   {HERO.titleStrong}
                 </span>
@@ -522,13 +522,13 @@ export default function HeroSection() {
               <h1 className="mt-3 flex flex-col items-center">
                 <span
                   style={r2}
-                  className="block text-[clamp(3.2rem,6.4vw,4.1rem)] font-medium tracking-[-0.038em] leading-[1.04] text-[#0a0a0a] whitespace-nowrap"
+                  className="block text-[clamp(2.3rem,4.8vw,3rem)] font-medium tracking-[-0.038em] leading-[1.04] text-[#0a0a0a] whitespace-nowrap"
                 >
                   {HERO.titleMuted}
                 </span>
                 <span
                   style={r3}
-                  className="block text-[clamp(3.2rem,6.4vw,4.1rem)] font-medium tracking-[-0.038em] leading-[1.07] text-[#090909] whitespace-nowrap"
+                  className="block text-[clamp(2.3rem,4.8vw,3rem)] font-medium tracking-[-0.038em] leading-[1.07] text-[#090909] whitespace-nowrap"
                 >
                   {HERO.titleStrong}
                 </span>
@@ -588,13 +588,13 @@ export default function HeroSection() {
               <h1 className="mt-2.5 flex flex-col items-center">
                 <span
                   style={r2}
-                  className="block text-[clamp(2.1rem,8.6vw,3.2rem)] font-medium tracking-[-0.038em] leading-[1.04] text-[#0a0a0a]"
+                  className="block text-[clamp(1.75rem,7vw,2.4rem)] text-balance font-medium tracking-[-0.038em] leading-[1.04] text-[#0a0a0a]"
                 >
                   {HERO.titleMuted}
                 </span>
                 <span
                   style={r3}
-                  className="block text-[clamp(2.1rem,8.6vw,3.2rem)] font-medium tracking-[-0.038em] leading-[1.06] text-[#090909]"
+                  className="block text-[clamp(1.75rem,7vw,2.4rem)] text-balance font-medium tracking-[-0.038em] leading-[1.06] text-[#090909]"
                 >
                   {HERO.titleStrong}
                 </span>
