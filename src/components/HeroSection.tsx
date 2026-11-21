@@ -425,7 +425,7 @@ export default function HeroSection() {
 
               <p
                 style={r4}
-                className="mt-[16px] max-w-[500px] text-[14.8px] font-normal leading-[1.46] tracking-[-0.01em] text-[#0a0a0a]"
+                className="mt-[14px] max-w-[540px] text-[13.5px] font-normal leading-[1.5] tracking-[-0.01em] text-[#6b6f73]"
               >
                 {HERO.body}
               </p>
@@ -535,7 +535,7 @@ export default function HeroSection() {
               </h1>
               <p
                 style={r4}
-                className="mt-5 max-w-[500px] text-[15.5px] font-normal leading-[1.48] tracking-[-0.01em] text-[#0a0a0a]"
+                className="mt-4 max-w-[520px] text-[14px] font-normal leading-[1.5] tracking-[-0.01em] text-[#6b6f73]"
               >
                 {HERO.body}
               </p>
@@ -601,7 +601,7 @@ export default function HeroSection() {
               </h1>
               <p
                 style={r4}
-                className="mt-4 max-w-[345px] text-[14px] sm:text-[15px] font-normal leading-[1.5] tracking-[-0.01em] text-[#0a0a0a]"
+                className="mt-3 max-w-[345px] text-[13px] sm:text-[14px] font-normal leading-[1.5] tracking-[-0.01em] text-[#6b6f73]"
               >
                 {HERO.body}
               </p>
