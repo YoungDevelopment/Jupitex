@@ -123,3 +123,40 @@ export function ReadingProgress() {
     </div>
   );
 }
+
+/** Slides a block in from the left or right the first time it scrolls into view. */
+export function SlideIn({
+  children,
+  from,
+  className = "",
+}: {
+  children: React.ReactNode;
+  from: "left" | "right";
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [shown, setShown] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    // under reduced motion the CSS shows it in place, so there is nothing to observe
+    if (!el || reduced()) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShown(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "0px 0px -15% 0px" }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} className={`cs-slide ${className}`} data-from={from} data-shown={shown || undefined}>
+      {children}
+    </div>
+  );
+}
