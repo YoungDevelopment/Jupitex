@@ -33,14 +33,18 @@ export default function AuditSection() {
           </>
         }
         description={
-          <>
-            Ninety minutes of your team&apos;s time, no access to your systems,
-            and an NDA before we start. You get a written roadmap of{" "}
-            <span className="text-[#090909] font-medium">
-              what&apos;s worth automating
-            </span>
-            .
-          </>
+          <span className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+            {["90 minutes of your time", "No access to your systems", "NDA first"].map((point) => (
+              <span key={point} className="inline-flex items-center gap-2 whitespace-nowrap">
+                <span
+                  aria-hidden
+                  className="w-1.5 h-1.5 rounded-full shrink-0"
+                  style={{ backgroundColor: LOGO_ORANGE }}
+                />
+                {point}
+              </span>
+            ))}
+          </span>
         }
       >
         <div className="flex flex-col items-center text-center">
