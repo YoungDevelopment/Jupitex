@@ -33,7 +33,7 @@ Important: Jupitex does not give legal advice and does not guarantee regulatory 
 THE FREE 90-MINUTE AUDIT
 1. A 30-minute intro call with the owner: agree which back-office work costs the most time.
 2. A 60-minute walkthrough with the person who does the work. No access to the agency's systems, an NDA is signed first, and test or masked accounts can be used so no debtor data is shown.
-3. Within 10 business days: a written roadmap with each task worth automating, the hours it saves each month and a fixed price for each.
+3. Afterwards: a written roadmap with each task worth automating, the hours it saves each month and a fixed price for each.
 4. The process map is the agency's to keep, whether or not they hire Jupitex.
 5. If Jupitex can't find at least 10 staff hours a month worth saving, it says so and does not pitch anything.
 

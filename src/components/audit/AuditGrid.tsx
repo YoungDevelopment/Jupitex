@@ -541,8 +541,8 @@ export default function AuditGrid() {
       <Tile
         index={1}
         step={2}
-        title="A 60-minute walkthrough"
-        body="The person who does the work shows us how it runs today. Test or masked accounts are fine, and we never log in to your systems."
+        title="Map out your processes"
+        body="We work with your team to map out how each process runs today, step by step, and find the opportunities to automate."
         tone="blue"
         className="lg:col-span-4"
         pictureClassName="ax-dots lg:h-[180px] xl:h-auto"
@@ -579,7 +579,7 @@ export default function AuditGrid() {
       <Tile
         index={4}
         step={5}
-        title="Your roadmap in 10 business days"
+        title="Your automation roadmap"
         body="A written plan: what to automate first, the fixed price and the return to expect. The process map is yours, even if you never hire us."
         tone="amber"
         className="sm:col-span-2 lg:col-span-2"

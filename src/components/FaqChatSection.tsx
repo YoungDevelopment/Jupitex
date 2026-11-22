@@ -16,7 +16,7 @@ const faqs = [
   {
     question: "How much of our time does the free audit take?",
     answer:
-      "Ninety minutes in total: a 30-minute intro with you and a 60-minute walkthrough with the person who does the work. You get a written roadmap within 10 business days.",
+      "Ninety minutes in total: a 30-minute intro with you and a 60-minute walkthrough with the person who does the work. Then you get a written roadmap.",
   },
   {
     question: "Do you need access to our systems or debtor data?",
