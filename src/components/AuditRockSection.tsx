@@ -118,10 +118,16 @@ function pickAngleStep(rx: number, ry: number, w: number, h: number, visibleTo: 
  * Stretch the spacing so a card starts fading in on the left (at -fadeEnd) at the very moment
  * the card on the right starts fading out (at +fadeStart): the arc between them holds a whole
  * number of steps, never tighter than the no-overlap minimum.
+ *
+ * With only a few cards the loop (count × step) gets short, and a card would wrap from the
+ * right edge to the left edge while still visible, which reads as a snap. So the arc between
+ * the two fades never spans more cards than exist (gaps ≤ count - 1), and the loop's halfway
+ * point, where the wrap happens, always sits beyond the fade-out (count × step / 2 ≥ fadeEnd).
  */
-function syncedStep(minStep: number, fadeStart: number, fadeEnd: number) {
+function syncedStep(minStep: number, fadeStart: number, fadeEnd: number, count: number) {
   const span = fadeStart + fadeEnd;
-  const gaps = Math.max(1, Math.floor(span / minStep));
+  const maxGaps = Math.min(count - 1, Math.floor((span * count) / (2 * fadeEnd)));
+  const gaps = Math.max(1, Math.min(Math.floor(span / minStep), maxGaps));
   return span / gaps;
 }
 
@@ -262,7 +268,8 @@ export default function AuditRockSection() {
         angleStep: syncedStep(
           pickAngleStep(radiusX, radiusY, cardWidth, cardHeight, visibleTo),
           fadeStartAngle,
-          fadeEndAngle
+          fadeEndAngle,
+          CARD_COUNT
         ),
       });
 
