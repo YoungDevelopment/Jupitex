@@ -8,16 +8,11 @@ const BALL = 28; // the orange ball
 const PAD = 8; // space between the ball and the pill's left edge
 const PILL_H = 44;
 const BALL_INSET = (PILL_H - BALL) / 2; // the gap around the ball inside the pill
-const MAGNET_REACH = 90; // px around the button where it starts to lean toward the pointer
-// How far each layer follows the pointer, and the most it may travel (px). The ball goes a
-// little further than the pill and the label a little less, so it feels alive without the
-// ball ever reaching the label.
+const MAGNET_REACH = 20; // px around the button where it starts to lean toward the pointer
+// How far the button follows the pointer, and the most it may travel (px). The ball, pill and
+// label move together as one piece.
 const PILL_PULL = 0.2;
 const PILL_MAX = { x: 10, y: 6 };
-const BALL_PULL = 0.08;
-const BALL_MAX = { x: 4, y: 3 };
-const TEXT_PULL = 0.03;
-const TEXT_MAX = { x: 2, y: 1.5 };
 
 const pull = (v: number, k: number, max: number) => Math.max(-max, Math.min(max, v * k)).toFixed(2);
 
@@ -37,9 +32,9 @@ function Star() {
 }
 
 /**
- * The hero's primary button. It arrives as an orange ball, which slides left as the black pill
- * opens and reveals the label. Once open it is magnetic: it leans toward a nearby pointer, with
- * the ball travelling a little further than the pill.
+ * The hero's primary button. It arrives as an orange ball that grows from nothing, then slides
+ * left as the black pill opens and reveals the label. A light shimmer crosses it every few
+ * seconds. Once open it is magnetic: it leans toward the pointer when it comes close.
  */
 export default function HeroCta({ label, onClick }: { label: string; onClick: () => void }) {
   const reduce = usePrefersReducedMotion();
@@ -50,8 +45,6 @@ export default function HeroCta({ label, onClick }: { label: string; onClick: ()
   const measureRef = useRef<HTMLSpanElement>(null);
   const rootRef = useRef<HTMLAnchorElement>(null);
   const pillRef = useRef<HTMLSpanElement>(null);
-  const ballRef = useRef<HTMLSpanElement>(null);
-  const textRef = useRef<HTMLSpanElement>(null);
 
   // Width of the open button, from an invisible copy of the label
   useLayoutEffect(() => {
@@ -89,11 +82,7 @@ export default function HeroCta({ label, onClick }: { label: string; onClick: ()
 
     const paint = () => {
       const p = pillRef.current;
-      const b = ballRef.current;
-      const t = textRef.current;
       if (p) p.style.transform = `translate3d(${pull(cur.x, PILL_PULL, PILL_MAX.x)}px, ${pull(cur.y, PILL_PULL, PILL_MAX.y)}px, 0)`;
-      if (b) b.style.translate = `${pull(cur.x, BALL_PULL, BALL_MAX.x)}px ${pull(cur.y, BALL_PULL, BALL_MAX.y)}px`;
-      if (t) t.style.translate = `${pull(cur.x, TEXT_PULL, TEXT_MAX.x)}px ${pull(cur.y, TEXT_PULL, TEXT_MAX.y)}px`;
     };
     const tick = () => {
       // a soft spring: quick to follow, settles without wobbling
@@ -183,14 +172,13 @@ export default function HeroCta({ label, onClick }: { label: string; onClick: ()
               : `inset(${BALL_INSET}px ${closedInset + BALL_INSET}px ${BALL_INSET}px ${closedInset + BALL_INSET}px round 999px)`,
           }}
         >
-          {/* light sweeps: one as the pill opens, one on each hover */}
+          {/* light sweeps: a shimmer every few seconds, and one on each hover */}
           <span aria-hidden className="hero-cta__shine absolute inset-y-0 -left-1/3 w-1/3" />
           <span aria-hidden className="hero-cta__shine-hover absolute inset-y-0 -left-1/3 w-1/3" />
         </span>
 
         {/* Label, revealed as the ball moves out of the way */}
         <span
-          ref={textRef}
           className="hero-cta__label absolute inset-y-0 flex items-center whitespace-nowrap text-white text-[14px] font-medium tracking-[-0.01em]"
           style={{ left: PAD + BALL + 12 }}
         >
@@ -203,7 +191,6 @@ export default function HeroCta({ label, onClick }: { label: string; onClick: ()
           style={{ left: PAD, transform: `translate3d(${ballShift}px, -50%, 0)` }}
         >
           <span
-            ref={ballRef}
             className="hero-cta__ball relative flex items-center justify-center rounded-full bg-[#FF731E]"
             style={{ width: BALL, height: BALL }}
           >

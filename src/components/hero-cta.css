@@ -24,24 +24,13 @@
   background-color: #1a1a1a;
 }
 
-/* Ball: pops with a little overshoot, then slides left with the opening pill */
+/* Ball: grows from nothing to full size, then slides left with the opening pill */
 .hero-cta__ball-track {
   transition: transform 760ms var(--cta-ease);
 }
 .hero-cta[data-phase="ball"] .hero-cta__ball,
 .hero-cta[data-phase="open"] .hero-cta__ball {
-  /* backwards, not both: once popped, hover is free to scale the ball */
   animation: hero-cta-pop 520ms var(--cta-spring) backwards;
-}
-.hero-cta__ball {
-  transition:
-    scale 300ms var(--cta-spring),
-    box-shadow 300ms ease;
-  box-shadow: 0 0 0 0 rgba(255, 115, 30, 0);
-}
-.hero-cta:hover .hero-cta__ball {
-  scale: 1.08;
-  box-shadow: 0 0 0 5px rgba(255, 115, 30, 0.16);
 }
 
 /* Star turns a quarter on hover */
@@ -79,7 +68,7 @@
   transform: translateX(0);
 }
 
-/* Shine: crosses the pill as it opens, and again on hover */
+/* Shimmer: crosses the pill as it opens, then again every few seconds on its own */
 .hero-cta__shine {
   background: linear-gradient(
     100deg,
@@ -91,7 +80,7 @@
   opacity: 0;
 }
 .hero-cta[data-phase="open"] .hero-cta__shine {
-  animation: hero-cta-shine 1100ms var(--cta-ease) 380ms both;
+  animation: hero-cta-shimmer 5200ms var(--cta-ease) 380ms infinite;
 }
 /* Hover shine is a transition, so it only runs on the way in, never on the way out */
 .hero-cta__shine-hover {
@@ -125,8 +114,8 @@
 
 @keyframes hero-cta-pop {
   0% {
-    opacity: 0;
-    scale: 0.2;
+    opacity: 1;
+    scale: 0;
   }
   100% {
     opacity: 1;
@@ -143,13 +132,19 @@
   }
 }
 
-@keyframes hero-cta-shine {
+/* The sweep takes the first ~1.1s of each 5.2s cycle; the rest is a pause */
+@keyframes hero-cta-shimmer {
   0% {
     opacity: 1;
     transform: translateX(0);
   }
-  100% {
+  21% {
     opacity: 1;
+    transform: translateX(420%);
+  }
+  21.01%,
+  100% {
+    opacity: 0;
     transform: translateX(420%);
   }
 }
