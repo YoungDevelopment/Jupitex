@@ -51,7 +51,10 @@ export default function HeroCta({ label, onClick }: { label: string; onClick: ()
   useLayoutEffect(() => {
     const el = measureRef.current;
     if (!el) return;
-    const update = () => setWidth(Math.ceil(el.getBoundingClientRect().width));
+    // offsetWidth is the layout width, unaffected by the hero's scale() transform; the bounding
+    // box would come back scaled and leave extra space (or clip the label) on some screen sizes.
+    // +1 covers offsetWidth rounding down a fractional text width.
+    const update = () => setWidth(el.offsetWidth + 1);
     update();
     const ro = new ResizeObserver(update);
     ro.observe(el);
