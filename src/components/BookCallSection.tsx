@@ -59,19 +59,18 @@ export default function BookCallSection() {
       calLink: "abdul-rehman-ibrahim-i6nok1/30min",
     });
 
-    // Match the site's card color (see --card in globals.css)
-    const cardColor =
-      getComputedStyle(document.documentElement)
-        .getPropertyValue("--card")
-        .trim() || "#ffffff";
+    // Dark calendar in the site's near-black, with the brand orange for selected dates and buttons
+    const DARK_BG = "#0a0a0a";
+    const DARK_MUTED = "#161616";
+    const BRAND = "#FF731E";
 
     Cal.ns["30min"]("ui", {
       hideEventTypeDetails: false,
       layout: "month_view",
-      theme: "light",
+      theme: "dark",
       cssVarsPerTheme: {
-        light: { "cal-bg": cardColor, "cal-bg-muted": cardColor },
-        dark: { "cal-bg": cardColor, "cal-bg-muted": cardColor },
+        light: { "cal-brand": BRAND },
+        dark: { "cal-bg": DARK_BG, "cal-bg-muted": DARK_MUTED, "cal-brand": BRAND },
       },
     });
   }, []);
@@ -91,6 +90,7 @@ export default function BookCallSection() {
     >
       <div
         id="my-cal-inline-30min"
+        className="rounded-[24px] bg-[#0a0a0a] p-2 sm:p-4"
         style={{ width: "100%", overflow: "auto" }}
       />
     </SectionWrapper>
