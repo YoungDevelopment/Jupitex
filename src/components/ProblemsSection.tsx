@@ -25,9 +25,9 @@ const PROBLEMS_DATA: ProblemStatement[] = [
       { text: "your" },
       { text: "team" },
       { text: "still" },
-      { text: "building" },
+      { text: "creating" },
       {
-        text: "client reports by hand?",
+        text: "client reports manually?",
         badge: { id: "b-manual", statusColor: "amber" },
       },
     ],
@@ -37,15 +37,15 @@ const PROBLEMS_DATA: ProblemStatement[] = [
     eyebrow: "PROBLEMS · 02 / BACK-OFFICE FRICTION",
     words: [
       {
-        text: "Late Remittances,",
+        text: "Messy Placements,",
         badge: { id: "b-deadlines", statusColor: "red" },
       },
       {
-        text: "Re-keyed Payments,",
+        text: "Missed Reporting Deadlines,",
         badge: { id: "b-db", statusColor: "red" },
       },
       {
-        text: "Messy Placements",
+        text: "Slow Databases",
         badge: { id: "b-errors", statusColor: "amber" },
       },
       { text: "—" },
