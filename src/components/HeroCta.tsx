@@ -16,10 +16,11 @@ const PILL_MAX = { x: 10, y: 6 };
 
 const pull = (v: number, k: number, max: number) => Math.max(-max, Math.min(max, v * k)).toFixed(2);
 
-// Intro timeline (ms after mount): the hero copy fades in around 480ms, then the ball pops,
-// slides to the left and the label is revealed behind it
-const POP_AT = 560;
-const OPEN_AT = POP_AT + 520;
+// Intro timeline (ms after mount). The button row unblurs from 480ms to about 1180ms; the ball
+// starts growing once the row is nearly sharp, so its growth is seen clearly, then it slides
+// left as the pill opens.
+const POP_AT = 980;
+const OPEN_AT = POP_AT + 560;
 
 type Phase = "hidden" | "ball" | "open";
 
