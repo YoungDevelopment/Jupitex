@@ -403,7 +403,7 @@ export default function HeroSection() {
             >
               <div
                 style={r1}
-                className="text-[11px] font-medium tracking-[0.045em] text-[#0a0a0a] uppercase"
+                className="text-[11px] font-medium tracking-[0.045em] text-[#8e9296] uppercase"
               >
                 {HERO.eyebrow}
               </div>
@@ -425,7 +425,7 @@ export default function HeroSection() {
 
               <p
                 style={r4}
-                className="mt-[14px] max-w-[540px] text-[13.5px] font-normal leading-[1.5] tracking-[-0.01em] text-[#6b6f73]"
+                className="mt-[14px] max-w-[540px] text-[13.5px] font-normal leading-[1.5] tracking-[-0.01em] text-[#8e9296]"
               >
                 {HERO.body}
               </p>
@@ -515,7 +515,7 @@ export default function HeroSection() {
             <div className="flex-1 px-8 flex flex-col items-center justify-center text-center z-20">
               <div
                 style={r1}
-                className="text-[11.5px] font-medium tracking-[0.05em] text-[#0a0a0a] uppercase"
+                className="text-[11.5px] font-medium tracking-[0.05em] text-[#8e9296] uppercase"
               >
                 {HERO.eyebrow}
               </div>
@@ -535,7 +535,7 @@ export default function HeroSection() {
               </h1>
               <p
                 style={r4}
-                className="mt-4 max-w-[520px] text-[14px] font-normal leading-[1.5] tracking-[-0.01em] text-[#6b6f73]"
+                className="mt-4 max-w-[520px] text-[14px] font-normal leading-[1.5] tracking-[-0.01em] text-[#8e9296]"
               >
                 {HERO.body}
               </p>
@@ -581,7 +581,7 @@ export default function HeroSection() {
             <div className="flex-1 px-4 flex flex-col items-center justify-center text-center z-20">
               <div
                 style={r1}
-                className="text-[11px] font-medium tracking-[0.055em] text-[#0a0a0a] uppercase"
+                className="text-[11px] font-medium tracking-[0.055em] text-[#8e9296] uppercase"
               >
                 {HERO.eyebrow}
               </div>
@@ -601,7 +601,7 @@ export default function HeroSection() {
               </h1>
               <p
                 style={r4}
-                className="mt-3 max-w-[345px] text-[13px] sm:text-[14px] font-normal leading-[1.5] tracking-[-0.01em] text-[#6b6f73]"
+                className="mt-3 max-w-[345px] text-[13px] sm:text-[14px] font-normal leading-[1.5] tracking-[-0.01em] text-[#8e9296]"
               >
                 {HERO.body}
               </p>
