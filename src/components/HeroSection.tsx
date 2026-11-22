@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import DashboardPreview from "./DashboardPreview";
+import HeroCta from "./HeroCta";
 import { HERO, scrollToId } from "@/lib/site";
 import { type Box, type Point, prefersReducedMotion, sweepAt, sweepPath } from "@/lib/flashlight";
 import { artSrcSet } from "@/lib/images";
@@ -57,19 +58,7 @@ function Star({ size = 9, fill = "#0a0a0a" }: { size?: number; fill?: string }) 
 function HeroActions({ style }: { style: React.CSSProperties }) {
   return (
     <div style={style} className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-3">
-      <a
-        href="#contact"
-        onClick={(e) => {
-          e.preventDefault();
-          scrollToId("contact");
-        }}
-        className="group h-[44px] pl-[8px] pr-[20px] rounded-full bg-[#0a0a0a] text-white flex items-center gap-3 text-[14px] font-medium tracking-[-0.01em] hover:bg-[#1a1a1a] active:scale-[0.97] transition-[background-color,transform] duration-200 shadow-[0_12px_28px_rgba(10,10,10,0.16)]"
-      >
-        <span className="w-[28px] h-[28px] rounded-full bg-[#FF731E] flex items-center justify-center shrink-0 transition-transform duration-500 group-hover:rotate-90">
-          <Star size={12} fill="#ffffff" />
-        </span>
-        <span>{HERO.primaryCta}</span>
-      </a>
+      <HeroCta label={HERO.primaryCta} onClick={() => scrollToId("contact")} />
       <a
         href="#automations"
         onClick={(e) => {
