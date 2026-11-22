@@ -19,7 +19,8 @@ export interface CaseStudy {
   title: string;
   /** One or two sentences: what changed, for the card and the page intro */
   summary: string;
-  card: { metric: string; metricLabel: string; tags: string[] };
+  /** The homepage card: kept as short as the original cards so they stay the same height */
+  card: { name: string; description: string; metric: string; metricLabel: string; tags: string[] };
   image: { src: string; alt: string };
   stats: { value: string; label: string }[];
   sections: CaseStudySection[];
@@ -39,8 +40,10 @@ export const CASE_STUDIES: CaseStudy[] = [
     summary:
       "Consumer SMS and email replies used to be read by hand. Now every reply is read by AI, anything risky goes straight to a person, and each decision is logged.",
     card: {
+      name: "Compliance reply review",
+      description: "Every consumer SMS and email reply read by AI, with anything risky sent straight to a person.",
       metric: "$7,500 / mo",
-      metricLabel: "saved in legal fees",
+      metricLabel: "Saved in legal fees every month",
       tags: ["Compliance QA", "SMS and email", "AI review"],
     },
     image: { src: "/images/our-work/Debt Collection.png", alt: "Compliance review of consumer replies" },
@@ -80,10 +83,12 @@ export const CASE_STUDIES: CaseStudy[] = [
     slug: "new-business-loading",
     title: "From hand-fixed files to accounts ready the same day",
     summary:
-      "Every month, hundreds of thousands of new accounts arrived in a different layout from every client, and a team fixed and loaded them by hand. This is how that became a job that runs itself.",
+      "Every month, hundreds of thousands of new accounts arrived in a different layout from every client, and a team cleaned up and loaded them by hand. This is how that became a job that runs itself.",
     card: {
+      name: "New business loading",
+      description: "Client files cleaned up and loaded automatically, so new accounts are ready to work the same day.",
       metric: "3x faster",
-      metricLabel: "100,000 accounts in under 20 minutes, down from an hour",
+      metricLabel: "100,000 accounts in under 20 minutes",
       tags: ["Placement loading", "SSIS", "Automation"],
     },
     image: { src: "/images/our-work/Nova Labeling.png", alt: "Automated loading of new business files" },
@@ -98,7 +103,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         heading: "How it used to work",
         body: [
           "Every month, the agency's clients sent over their new accounts. The middle of the month was the busy part: 700,000 to 800,000 accounts, and sometimes more than a million.",
-          "No two clients used the same file layout. So before anything could be loaded, a data operator opened each file and reshaped it by hand until the agency's old loading software would accept it.",
+          "No two clients used the same file layout. So before anything could be loaded, a data operator had to clean up each file by hand into a format the agency's old loading software would accept.",
           "Then came the loading itself. The software was slow: 100,000 accounts took at least an hour, even on a good day, and it slowed the server down for everyone else. It also crashed. When it did, there was no picking up where it stopped. The half-loaded batch had to be deleted and the whole thing started again.",
           "All of this took people. Every new client meant more files, which meant hiring more operators, sometimes on short contracts, just to keep up. And somebody had to keep an eye on the loads, weekends included.",
         ],
@@ -108,7 +113,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         body: [
           "The idea was simple: take the person out of every step that did not need one.",
           "First, the files. Clients already dropped them on the agency's SFTP server. A small job now checks it every 15 minutes, collects anything new and puts it where it belongs.",
-          "Next, every client got its own folder and its own set of jobs, built with SSIS, Microsoft's tool for moving data between systems. The first job reshapes the client's file into the agency's standard layout, exactly the way an operator used to do it by hand. The second loads the accounts straight into the collection database, skipping the slow loading software altogether.",
+          "Next, every client got its own folder and its own set of jobs, built with SSIS, Microsoft's tool for moving data between systems. The first job cleans up the client's file into the format the old software accepts, the same clean-up an operator used to do by hand. The second loads the accounts straight into the collection database, skipping the slow loading software altogether.",
           "Then the parts that make it trustworthy. If a file shows up with a missing column or a changed layout, it is not loaded. Instead the team gets a message in Microsoft Teams and an email saying which file it is and what is wrong. If a load is interrupted, it carries on from where it stopped. Once a file is done, it moves to a \"processed\" folder, so it can never be loaded twice, and anyone can see what is still waiting.",
           "Last, the order. The most important clients load first. Less urgent ones wait for the afternoon, when the database is quieter.",
         ],
@@ -116,7 +121,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       {
         heading: "A safety net, just in case",
         body: [
-          "There was one more rule: never leave the team stuck. Every file is still reshaped into the layout the old software understands. So if a job ever breaks, the team can load that day's files the old way while it is fixed. Nobody has to wait.",
+          "There was one more rule: never leave the team stuck. Every file is still cleaned up into the format the old software accepts. So if a job ever breaks, the team can load that day's files the old way while it is fixed. Nobody has to wait.",
         ],
       },
       {
@@ -132,7 +137,7 @@ export const CASE_STUDIES: CaseStudy[] = [
         points: [
           "Loading 100,000 accounts now takes under 20 minutes, and usually under 15. It used to take at least an hour. At the mid-month peak, that is hours back every single cycle.",
           "New accounts can be worked the same day they arrive, so collecting starts sooner.",
-          "Nobody retypes or reshapes files any more, and a bad file gets caught before it reaches the database.",
+          "Nobody cleans up files by hand any more, and a bad file gets caught before it reaches the database.",
           "Three people now look after loading for every client. Their job is a few minutes a day with a checklist: did everything load, and is everything where it should be? Then it goes to QA.",
           "Adding a client no longer means hiring. The operators who used to load files moved on to collections and to finding information for the compliance team.",
           "Nobody watches loads over the weekend any more. If something needs a person, Teams and email will say so.",
@@ -147,8 +152,10 @@ export const CASE_STUDIES: CaseStudy[] = [
     title: "Client reports for every client, built automatically",
     summary: "A reporting tool that now produces the agency's reporting for all of its clients.",
     card: {
+      name: "Client reporting",
+      description: "One tool that now builds the reports for every one of the agency's clients.",
       metric: "Every client",
-      metricLabel: "reported on by one tool",
+      metricLabel: "Reported on by one tool",
       tags: ["Client reporting", "Remittance", "Automation"],
     },
     image: { src: "/images/our-work/Maxhpllc.png", alt: "Automated client reporting" },

@@ -127,23 +127,25 @@ const CaseStudyCard = ({
         }}
       />
 
-      <div className="flex flex-wrap gap-1.5">
-        {tags.map((tag) => (
-          <Tag key={tag} label={tag} />
-        ))}
-      </div>
-
-      {href && (
+      {/* Tags and the case-study link share one row, so the card is no taller than before */}
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
+        <div className="flex flex-wrap gap-1.5">
+          {tags.map((tag) => (
+            <Tag key={tag} label={tag} />
+          ))}
+        </div>
+        {href && (
         <Link
           href={href}
-          className="group mt-6 inline-flex items-center gap-1.5 self-start text-[14px] font-medium text-[#0a0a0a] hover:opacity-70 transition-opacity"
+          className="group ml-auto inline-flex items-center gap-1.5 text-[14px] font-medium text-[#0a0a0a] hover:opacity-70 transition-opacity whitespace-nowrap"
         >
           Read the case study
           <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
             <path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </Link>
-      )}
+        )}
+      </div>
     </div>
   );
 
@@ -165,8 +167,8 @@ const CaseStudyCard = ({
 // The three collection-agency projects (founder experience), from lib/case-studies
 const caseStudies: CaseStudy[] = CASE_STUDIES.map((c, i) => ({
   category: "Founder experience",
-  brand: c.title,
-  description: c.summary,
+  brand: c.card.name,
+  description: c.card.description,
   metric: c.card.metric,
   metricLabel: c.card.metricLabel,
   tags: c.card.tags,
