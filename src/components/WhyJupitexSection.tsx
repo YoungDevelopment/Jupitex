@@ -41,15 +41,15 @@ export default function WhyJupitexSection() {
   return (
     <SectionWrapper
       id="why-jupitex"
-      ariaLabel="Why Jupitex?"
-      subject="WHY JUPITEX"
+      ariaLabel="What working with us feels like"
+      subject="WORKING WITH US"
       title={
         <>
-          <span className="text-[#8e9296]">Why agencies</span>
-          <span>choose Jupitex</span>
+          <span className="text-[#8e9296]">What working with us</span>
+          <span>feels like</span>
         </>
       }
-      description="Three things agencies ask before they let anyone near their collection system."
+      description="Simple, clear and on your terms, from the first call to the day it runs on its own."
     >
       <div ref={containerRef}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
