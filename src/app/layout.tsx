@@ -1,18 +1,31 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { SITE_URL } from "@/lib/site";
 
+// Inter is a variable font: one file covers every weight the site uses (300 to 700)
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
+const TITLE = "Jupitex | Back-office automation for debt collection agencies";
+const DESCRIPTION =
+  "Jupitex automates the back-office work inside debt collection agencies: client remittance reports, payment posting and placement intake. Start with a free 90-minute audit.";
+
 export const metadata: Metadata = {
-  title: "Jupitex | Back-office automation for debt collection agencies",
-  description:
-    "Jupitex automates the back-office work inside debt collection agencies: client remittance reports, payment posting and placement intake. Start with a free 90-minute audit.",
+  metadataBase: new URL(SITE_URL),
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: "Jupitex",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
   icons: {
     icon: [
       {

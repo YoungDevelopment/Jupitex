@@ -15,6 +15,9 @@ export const NAV_LINKS = [
 
 export const CONTACT_EMAIL = "contact@jupitex.io";
 
+/** Canonical site address, used for metadata and structured data. */
+export const SITE_URL = "https://jupitex.io";
+
 export const HERO = {
   eyebrow: "AI & automation for debt collection agencies",
   titleMuted: "We Automate Back-Office Work",
@@ -185,5 +188,54 @@ export const WORKFLOWS: Workflow[] = [
       "Anything risky stops contact at once and goes to your compliance lead to decide.",
     ],
     proof: { figure: "$7,500 / mo", label: "saved in legal fees at Compliance Ops, a collection agency" },
+  },
+];
+
+/** One FAQ list for the FAQ section, the search-engine schema and the chat assistant. */
+export const FAQS: { question: string; answer: string }[] = [
+  {
+    question: "What exactly do you automate?",
+    answer:
+      "Back-office work that never contacts consumers: client remittance reports, payment posting and reconciliation, placement file intake, dispute paperwork and review of consumer replies. We start with whichever one costs your team the most hours.",
+  },
+  {
+    question: "How much of our time does the free audit take?",
+    answer:
+      "Ninety minutes in total: a 30-minute intro with you and a 60-minute walkthrough with the person who does the work. Then you get a written roadmap.",
+  },
+  {
+    question: "Do you need access to our systems or debtor data?",
+    answer:
+      "Not for the audit. We sign an NDA first, never log in to your systems, and the walkthrough can be done on test or masked accounts so no debtor data is shown.",
+  },
+  {
+    question: "Is the audit just a sales pitch?",
+    answer:
+      "No. The process map is yours to keep whether you hire us or not, and you decide what, if anything, to build next.",
+  },
+  {
+    question: "What does it cost after the audit?",
+    answer:
+      "Every workflow gets a fixed price in your roadmap. A first workflow is typically $1,500, larger ones $2,500 to $7,500, then $399 a month for hosting, monitoring and changes, cancel anytime.",
+  },
+  {
+    question: "What if it doesn't work?",
+    answer:
+      "You pay half up front. The second half is due only after the workflow runs side by side with your team through one month-end and the numbers match. If they don't, we refund the first half.",
+  },
+  {
+    question: "Do we have to replace our collection software?",
+    answer:
+      "No. We build around the collection software you already use. No migrations and no new system for your team to learn.",
+  },
+  {
+    question: "Will automation put our compliance at risk?",
+    answer:
+      "We start with back-office work that never contacts consumers. Your finance and compliance leads review every workflow before it goes live, and every step is logged so you can show your clients' auditors what happened.",
+  },
+  {
+    question: "What happens if Jupitex isn't around?",
+    answer:
+      "You own what we build, with full documentation, and we train your team to run it. It keeps working without us.",
   },
 ];
