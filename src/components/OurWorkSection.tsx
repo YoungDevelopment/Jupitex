@@ -187,6 +187,8 @@ export default function OurWorkSection() {
       id="our-work"
       ariaLabel="Our Work"
       subject="OUR WORK"
+      // the cards slide in on their own, so only the heading gets the section's blur-fade
+      revealContent={false}
       title={
         <>
           <span className="text-[#8e9296]">Built inside</span>

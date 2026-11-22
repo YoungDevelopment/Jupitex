@@ -18,6 +18,8 @@ export interface SectionWrapperProps {
   className?: string;
   containerClassName?: string;
   contentClassName?: string;
+  /** Blur-fade the content in with the heading (default). Off when the content has its own entrance. */
+  revealContent?: boolean;
 }
 
 export default function SectionWrapper({
@@ -32,6 +34,7 @@ export default function SectionWrapper({
   className,
   containerClassName,
   contentClassName,
+  revealContent = true,
 }: SectionWrapperProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -53,6 +56,11 @@ export default function SectionWrapper({
   }, []);
 
   const resolvedSubject = subject ?? eyebrow;
+  const reveal = {
+    opacity: isVisible ? 1 : 0,
+    filter: isVisible ? "none" : "blur(10px)",
+    transform: isVisible ? "none" : "translateY(14px)",
+  };
 
   return (
     <section
@@ -74,13 +82,12 @@ export default function SectionWrapper({
           "relative z-10 w-full max-w-[1140px] mx-auto flex flex-col items-center transition-all duration-700",
           containerClassName
         )}
-        style={{
-          opacity: isVisible ? 1 : 0,
-          filter: isVisible ? "none" : "blur(10px)",
-          transform: isVisible ? "none" : "translateY(14px)",
-        }}
+        style={revealContent ? reveal : undefined}
       >
-        <header className="flex flex-col items-center text-center">
+        <header
+          className={cn("flex flex-col items-center text-center", !revealContent && "transition-all duration-700")}
+          style={revealContent ? undefined : reveal}
+        >
           {resolvedSubject && (
             <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/95 border border-black/[0.06] text-[11px] sm:text-[11.5px] font-semibold tracking-[0.06em] text-[#0a0a0a] uppercase shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
               <span
