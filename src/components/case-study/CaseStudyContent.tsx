@@ -29,8 +29,8 @@ function Rich({ text }: { text: string }) {
 /** A case study's full story, as shown on its /work/[slug] page. */
 export default function CaseStudyContent({ study }: { study: CaseStudy }) {
   return (
-    // a soft selection colour: the site-wide black paints full-width bars across paragraphs
-    <article className="text-left selection:bg-[#ffd9bf] selection:text-[#0a0a0a]">
+    // cs-article sets a soft selection colour (see globals.css)
+    <article className="cs-article text-left">
       <Reveal>
         <p className="text-xs uppercase tracking-widest font-medium" style={{ color: ACCENT }}>
           Founder experience
@@ -123,7 +123,7 @@ export default function CaseStudyContent({ study }: { study: CaseStudy }) {
 
       {/* Next step */}
       <Reveal className="mt-12">
-        <div className="rounded-2xl bg-[#0a0a0a] px-6 py-6 sm:px-8 sm:py-7 flex flex-col sm:flex-row sm:items-center gap-4 sm:justify-between selection:bg-[#FF731E] selection:text-white">
+        <div className="rounded-2xl bg-[#0a0a0a] px-6 py-6 sm:px-8 sm:py-7 flex flex-col sm:flex-row sm:items-center gap-4 sm:justify-between cs-dark">
           <p className="text-white text-[16px] sm:text-[17px] font-medium leading-snug max-w-[420px]">
             Want the same for your agency? Start with a free 90-minute audit.
           </p>
