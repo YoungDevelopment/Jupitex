@@ -164,25 +164,68 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
   {
     slug: "client-reporting",
-    draft: true,
-    title: "Client reports for every client, built automatically",
-    summary: "A reporting tool that now produces the agency's reporting for all of its clients.",
+    title: "100+ client reports from one portal, on time and checked",
+    summary:
+      "Every client wanted its reports in its own format, and a team rebuilt them by hand. This is how ==over 100 reports== came to run from one place.",
     card: {
       name: "Client reporting",
-      description: "One tool that now builds the reports for every one of the agency's clients.",
-      metric: "Every client",
-      metricLabel: "Reported on by one tool",
+      description: "Over 100 client reports built from one portal, checked automatically and delivered on time.",
+      metric: "100+",
+      metricLabel: "Client reports run from one portal",
       tags: ["Client reporting", "Automation"],
     },
-    image: { src: "/images/our-work/Maxhpllc.png", alt: "Automated client reporting" },
-    stats: [{ value: "Every client", label: "reported on by one tool" }],
+    image: { src: "/images/our-work/Maxhpllc.png", alt: "Client reporting portal" },
+    stats: [
+      { value: "100+", label: "client reports, covering every client, now run from one portal." },
+      { value: "On time", label: "reporting deadlines are no longer missed." },
+      { value: "Overnight", label: "heavy reports run while the database is quiet, not in the morning rush." },
+      { value: "3 to 5 days", label: "of side-by-side checks before each report went live." },
+    ],
     sections: [
       {
-        heading: "What was built",
-        body: ["A reporting tool that handles all of the agency's reporting for all of its clients."],
+        heading: "How it used to work",
+        body: [
+          "Every client expected a steady stream of files: remittance reports, payment reports, acknowledgment files, KPI files, recall and pending-recall files, new business reports, contact logs, call logs and more.",
+          "Making them meant juggling tools. Some came out of the old collection software, some out of SAP Crystal Reports, some from queries run straight against the database, and some from old PowerShell scripts.",
+          "On top of that, every client wanted its reports in its own format. So a reporting analyst had to take the raw data and ==rework it by hand== into each client's layout, report after report. Around ==18 people== spent their days on it.",
+        ],
+      },
+      {
+        heading: "Why it hurt",
+        body: [
+          "Building reports by hand left room for mistakes, and ==deadlines were missed==.",
+          "It also slowed everything down. Most reports were run in the morning, so many people were pulling from the same database tables at the same time. Tables locked up and the whole system slowed for everyone, and the heavy KPI reports were the worst of all.",
+        ],
+      },
+      {
+        heading: "The fix",
+        body: [
+          "The idea: ==one place for every report==.",
+          "A web portal now holds all of the agency's reporting. Each report is a set template, so ==a new client usually starts from a copy== of an existing one, and a brand-new report can be built in days.",
+          "For most reports, the job is now simple: log in, ==click a button==, check the result and upload it to the client.",
+          "Reports that do not involve money run ==overnight==. Scripts check the data, and the reports go to the client automatically while the database is quiet.",
+          "Finance reports, like remittance reports, always ==keep a person in the loop==. The scripts check them first, then someone cross-checks the numbers, with the finance team where needed, before anything is sent.",
+          "The portal has started taking on finance work too, like updating values in payment batches, and new features are still being added.",
+        ],
+      },
+      {
+        heading: "Switching over without the risk",
+        body: [
+          "The portal took about two and a half months to build, and reports moved over one at a time. Each one ran ==side by side== with the analyst's version for three to five days. Only when the two matched exactly did the portal's version go live.",
+        ],
+      },
+      {
+        heading: "The difference",
+        points: [
+          "Over ==100 reports==, covering every client, now come out of one portal.",
+          "The data is more accurate, and ==deadlines are no longer missed==.",
+          "Heavy reports run overnight, so the database ==no longer slows to a crawl== in the morning.",
+          "Adding a client means copying a template, not starting from scratch.",
+          "The 18 people who used to build reports by hand now ==generate and check== them instead.",
+        ],
       },
     ],
-    tools: [],
+    tools: ["Web portal (PHP)", "Report templates", "Overnight scheduling", "Automated QA scripts", "SFTP delivery"],
   },
 ];
 

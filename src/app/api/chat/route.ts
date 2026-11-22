@@ -50,7 +50,7 @@ We build around the collection software, payment files and email the agency alre
 == FOUNDER EXPERIENCE (not a Jupitex client) ==
 Before founding Jupitex, the founder worked inside a US debt collection agency and automated its back office. Never name that agency, and never describe it as a Jupitex client. What the founder built there:
 - New business (placement) loading: client files picked up automatically every 15 minutes, converted to the agency's standard layout and loaded straight into the collection database, with error alerts and a fail-safe fallback. Loading 100,000 accounts went from about an hour to under 20 minutes, and a small team now handles every client's files without extra hires.
-- Client reporting for the agency's clients.
+- A client reporting portal: over 100 reports covering every client (remittance, payments, acknowledgments, KPIs, recalls, new business, contact and call logs) built from templates. Non-finance reports run overnight with automated QA and go out automatically; finance reports always get a person to cross-check them. Reports moved over one at a time after 3 to 5 days of side-by-side checks. Result: more accurate data, no missed deadlines, and no morning slowdowns on the database.
 - AI handling of consumer SMS and email replies (6,000 to 7,000 a day): keyword rules first, then AI for anything unclear, with tickets in a web portal that mostly close themselves. About 90% of replies are handled automatically, around the clock. Before, a single missed opt-out could cost $5,000 to $7,500 to settle. Do not describe this as a monthly saving.
 
 == JUPITEX CLIENT RESULTS ==
