@@ -110,8 +110,8 @@ export default function AutomationsSection() {
       }
       description={
         <>
-          Five jobs where collection agencies lose the most staff hours. None
-          of them send anything to consumers. Pick one to see how it runs{" "}
+          Five jobs where collection agencies lose the most staff hours. Pick
+          one to see how it runs{" "}
           <span className="text-[#090909] font-medium">
             once it is automated
           </span>
