@@ -13,7 +13,6 @@ interface WordToken {
 interface ProblemStatement {
   index: string;
   eyebrow: string;
-  caption: string;
   words: WordToken[];
 }
 
@@ -21,8 +20,6 @@ const PROBLEMS_DATA: ProblemStatement[] = [
   {
     index: "01",
     eyebrow: "PROBLEMS · 01 / MONTH-END",
-    caption:
-      "Someone exports the payments, rebuilds each client's statement in a spreadsheet and checks the totals twice. Every month.",
     words: [
       { text: "Is" },
       { text: "your" },
@@ -38,8 +35,6 @@ const PROBLEMS_DATA: ProblemStatement[] = [
   {
     index: "02",
     eyebrow: "PROBLEMS · 02 / BACK-OFFICE FRICTION",
-    caption:
-      "Placement files, payment batches and remittance statements held together by spreadsheets and whoever remembers to check.",
     words: [
       {
         text: "Late Remittances,",
@@ -63,8 +58,6 @@ const PROBLEMS_DATA: ProblemStatement[] = [
   {
     index: "03",
     eyebrow: "PROBLEMS · 03 / THE CLARITY GAP",
-    caption:
-      "Every agency knows the work is repetitive. Few know which back-office task to automate first, and what it would pay back.",
     words: [
       { text: "You" },
       { text: "know" },
@@ -654,7 +647,6 @@ export default function ProblemsSection() {
               const slideScale = 1 - (1 - slideOpacity) * 0.045;
 
               const isSlideActive = sIdx === activeStep;
-              const captionWords = slide.caption.split(" ");
 
               return (
                 <div
@@ -812,47 +804,6 @@ export default function ProblemsSection() {
                     })}
                   </h2>
 
-                  {/* Supporting Small Subtitle — Staggered Word-by-Word Scroll Wave Micro-Interaction */}
-                  <p className="mt-5 sm:mt-7 max-w-[540px] flex flex-wrap items-center justify-center gap-x-[0.28em] gap-y-1 text-[14px] sm:text-[15.5px] font-normal leading-[1.54] tracking-[-0.01em]">
-                    {captionWords.map((cWord, cIdx) => {
-                      const cNorm =
-                        cIdx / Math.max(1, captionWords.length - 1);
-                      const cStagger =
-                        dist >= 0 ? cNorm * 0.18 : (1 - cNorm) * 0.18;
-                      const cRaw = clamp(
-                        1 - (absDist + cStagger) / 0.62,
-                        0,
-                        1
-                      );
-                      const cOpacity = easeOutCubic(cRaw);
-                      const cBlur = (1 - cOpacity) * 6;
-                      // Subtle wave ripple across the small caption words on scroll impulse
-                      const waveOffset =
-                        Math.sin(cNorm * Math.PI * 2 + displayStepFloat * 5) *
-                        scrollImpulse *
-                        3.5;
-                      const cY = -dist * 14 * (1 - cOpacity * 0.5) + waveOffset;
-
-                      return (
-                        <span
-                          key={`${slide.index}-cap-${cIdx}`}
-                          style={{
-                            opacity: cOpacity,
-                            filter:
-                              cBlur > 0.15
-                                ? `blur(${cBlur.toFixed(2)}px)`
-                                : "none",
-                            transform: `translate3d(0, ${cY.toFixed(
-                              2
-                            )}px, 0)`,
-                          }}
-                          className="inline-block text-[#3d4044] hover:text-[#090909] transition-colors duration-200"
-                        >
-                          {cWord}
-                        </span>
-                      );
-                    })}
-                  </p>
                 </div>
               );
             })}
