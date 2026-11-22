@@ -9,9 +9,17 @@ const PAD = 8; // space between the ball and the pill's left edge
 const PILL_H = 44;
 const BALL_INSET = (PILL_H - BALL) / 2; // the gap around the ball inside the pill
 const MAGNET_REACH = 90; // px around the button where it starts to lean toward the pointer
-const MAGNET_PULL = 0.28; // how far the pill follows the pointer
-const BALL_PULL = 0.16; // the ball follows a little further, so it feels alive
-const TEXT_PULL = 0.07;
+// How far each layer follows the pointer, and the most it may travel (px). The ball goes a
+// little further than the pill and the label a little less, so it feels alive without the
+// ball ever reaching the label.
+const PILL_PULL = 0.2;
+const PILL_MAX = { x: 10, y: 6 };
+const BALL_PULL = 0.08;
+const BALL_MAX = { x: 4, y: 3 };
+const TEXT_PULL = 0.03;
+const TEXT_MAX = { x: 2, y: 1.5 };
+
+const pull = (v: number, k: number, max: number) => Math.max(-max, Math.min(max, v * k)).toFixed(2);
 
 // Intro timeline (ms after mount): the hero copy fades in around 480ms, then the ball pops,
 // slides to the left and the label is revealed behind it
@@ -83,9 +91,9 @@ export default function HeroCta({ label, onClick }: { label: string; onClick: ()
       const p = pillRef.current;
       const b = ballRef.current;
       const t = textRef.current;
-      if (p) p.style.transform = `translate3d(${(cur.x * MAGNET_PULL).toFixed(2)}px, ${(cur.y * MAGNET_PULL).toFixed(2)}px, 0)`;
-      if (b) b.style.translate = `${(cur.x * BALL_PULL).toFixed(2)}px ${(cur.y * BALL_PULL).toFixed(2)}px`;
-      if (t) t.style.translate = `${(cur.x * TEXT_PULL).toFixed(2)}px ${(cur.y * TEXT_PULL).toFixed(2)}px`;
+      if (p) p.style.transform = `translate3d(${pull(cur.x, PILL_PULL, PILL_MAX.x)}px, ${pull(cur.y, PILL_PULL, PILL_MAX.y)}px, 0)`;
+      if (b) b.style.translate = `${pull(cur.x, BALL_PULL, BALL_MAX.x)}px ${pull(cur.y, BALL_PULL, BALL_MAX.y)}px`;
+      if (t) t.style.translate = `${pull(cur.x, TEXT_PULL, TEXT_MAX.x)}px ${pull(cur.y, TEXT_PULL, TEXT_MAX.y)}px`;
     };
     const tick = () => {
       // a soft spring: quick to follow, settles without wobbling
