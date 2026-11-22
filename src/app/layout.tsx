@@ -44,13 +44,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
 }: Readonly<{
   children: React.ReactNode;
+  /** Case studies opened from the homepage render here, over the page */
+  modal: React.ReactNode;
 }>) {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
       <body className="min-h-full bg-background text-[#0a0a0a] font-sans selection:bg-black selection:text-white">
         {children}
+        {modal}
       </body>
     </html>
   );

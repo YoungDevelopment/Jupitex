@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import { CASE_STUDIES } from "@/lib/case-studies";
 import SectionWrapper from "@/components/SectionWrapper";
 
 /** Fills the graphic column edge-to-edge without block-by-block pixel animation. */
@@ -38,6 +40,8 @@ interface CaseStudy {
   imageSrc: string;
   imageAlt: string;
   imageRight?: boolean;
+  /** Opens the full case study (a modal from the homepage, a page from a shared link) */
+  href?: string;
 }
 
 const CaseStudyCard = ({
@@ -51,6 +55,7 @@ const CaseStudyCard = ({
   imageSrc,
   imageAlt,
   imageRight = false,
+  href,
 }: CaseStudy) => {
   // Image always leads on phones and tablets; the zigzag only appears once there is room for two columns.
   const graphicPanel = (
@@ -127,6 +132,19 @@ const CaseStudyCard = ({
           <Tag key={tag} label={tag} />
         ))}
       </div>
+
+      {href && (
+        <Link
+          href={href}
+          scroll={false}
+          className="group mt-6 inline-flex items-center gap-1.5 self-start text-[14px] font-medium text-[#0a0a0a] hover:opacity-70 transition-opacity"
+        >
+          Read the case study
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden className="transition-transform duration-300 group-hover:translate-x-1">
+            <path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </Link>
+      )}
     </div>
   );
 
@@ -145,43 +163,19 @@ const CaseStudyCard = ({
   );
 };
 
-const caseStudies: CaseStudy[] = [
-  {
-    // Founder experience, not a Jupitex client: work our founder did while employed at the agency
-    category: "Founder experience",
-    brand: "Built inside a collection agency",
-    description:
-      "Before Jupitex, our founder automated the back office of a US debt collection agency: new business loading, client reporting and review of every consumer reply.",
-    metric: "3x faster",
-    metricLabel: "New business loading: 100,000 accounts in under 20 minutes, down from an hour",
-    tags: ["Placement loading", "Client reporting", "Compliance QA"],
-    imageSrc: "/images/our-work/Debt Collection.png",
-    imageAlt: "Back-office automation inside a debt collection agency",
-  },
-  {
-    category: "Labeling Company",
-    brand: "Label Works",
-    description:
-      "Internal tool to manage orders and AI-optimize production queues — enabling expansion to 2 new factories.",
-    metric: "25 hrs / week",
-    metricLabel: "Saved + scaled to 2 new factories",
-    tags: ["Internal Tool", "AI Ops", "Manufacturing"],
-    imageSrc: "/images/our-work/Nova Labeling.png",
-    imageAlt: "Label Works — manufacturing and order operations",
-    imageRight: true,
-  },
-  {
-    category: "Professional Services",
-    brand: "MaxHP LLC",
-    description:
-      "Built their website and 3 automated lead generation processes to reach new clients at scale.",
-    metric: "$5,000",
-    metricLabel: "Generated from automated pipeline",
-    tags: ["Web Dev", "Lead Gen", "Automation"],
-    imageSrc: "/images/our-work/Maxhpllc.png",
-    imageAlt: "MaxHP LLC — lead generation and web",
-  },
-];
+// The three collection-agency projects (founder experience), from lib/case-studies
+const caseStudies: CaseStudy[] = CASE_STUDIES.map((c, i) => ({
+  category: "Founder experience",
+  brand: c.title,
+  description: c.summary,
+  metric: c.card.metric,
+  metricLabel: c.card.metricLabel,
+  tags: c.card.tags,
+  imageSrc: c.image.src,
+  imageAlt: c.image.alt,
+  imageRight: i % 2 === 1,
+  href: `/work/${c.slug}`,
+}));
 
 export default function OurWorkSection() {
   return (
@@ -191,11 +185,11 @@ export default function OurWorkSection() {
       subject="OUR WORK"
       title={
         <>
-          <span className="text-[#8e9296]">Results we have</span>
-          <span>already delivered</span>
+          <span className="text-[#8e9296]">Built inside</span>
+          <span>a collection agency</span>
         </>
       }
-      description="The collection-agency back office our founder automated before starting Jupitex, and two client projects since."
+      description="Back-office work our founder automated inside a US debt collection agency, before starting Jupitex."
     >
       <div className="flex w-full flex-col gap-6 sm:gap-8">
         {caseStudies.map((cs) => (
