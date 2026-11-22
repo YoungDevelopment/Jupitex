@@ -4,6 +4,7 @@
  * Jupitex client. One source for the homepage cards, the /work/[slug] pages and the chat.
  *
  * Writing rules: plain words, no buzzwords, told as a story. Only facts the founder confirmed.
+ * Wrap key phrases in ==double equals== to highlight them on the page.
  * `draft: true` marks a case study whose interview is not finished yet.
  */
 
@@ -27,10 +28,6 @@ export interface CaseStudy {
   tools: string[];
   draft?: boolean;
 }
-
-/** Shown on every founder-experience case study, so nobody reads it as client work */
-export const FOUNDER_NOTE =
-  "Built by our founder while working inside a US debt collection agency, before starting Jupitex. The agency is not named and was not a Jupitex client.";
 
 export const CASE_STUDIES: CaseStudy[] = [
   {
@@ -81,9 +78,9 @@ export const CASE_STUDIES: CaseStudy[] = [
   },
   {
     slug: "new-business-loading",
-    title: "From hand-fixed files to accounts ready the same day",
+    title: "New business loaded 3x faster, with no manual work",
     summary:
-      "Every month, hundreds of thousands of new accounts arrived in a different layout from every client, and a team cleaned up and loaded them by hand. This is how that became a job that runs itself.",
+      "Every month, hundreds of thousands of new accounts arrived, and a team cleaned up and loaded them by hand. This is how that became ==a job that runs itself==.",
     card: {
       name: "New business loading",
       description: "Client files cleaned up and loaded automatically, so new accounts are ready to work the same day.",
@@ -102,44 +99,44 @@ export const CASE_STUDIES: CaseStudy[] = [
       {
         heading: "How it used to work",
         body: [
-          "Every month, the agency's clients sent over their new accounts. The middle of the month was the busy part: 700,000 to 800,000 accounts, and sometimes more than a million.",
-          "No two clients used the same file layout. So before anything could be loaded, a data operator had to clean up each file by hand into a format the agency's old loading software would accept.",
-          "Then came the loading itself. The software was slow: 100,000 accounts took at least an hour, even on a good day, and it slowed the server down for everyone else. It also crashed. When it did, there was no picking up where it stopped. The half-loaded batch had to be deleted and the whole thing started again.",
-          "All of this took people. Every new client meant more files, which meant hiring more operators, sometimes on short contracts, just to keep up. And somebody had to keep an eye on the loads, weekends included.",
+          "Every month, the agency's clients sent over their new accounts. The middle of the month was the busy part: ==700,000 to 800,000 accounts==, and sometimes more than a million.",
+          "Most clients sent their files in a different layout, which meant a different process for each one. Before anything could be loaded, a data operator had to clean up each file by hand into a format the agency's old loading software would accept.",
+          "Then came the loading itself. The software was slow: 100,000 accounts took ==at least an hour==, even on a good day, and it slowed the server down for everyone else. It also crashed. When it did, there was no picking up where it stopped. The half-loaded batch had to be ==deleted and the whole thing started again==.",
+          "All of this took people. Every new client meant more files, which meant ==hiring more operators==, sometimes on short contracts, just to keep up. And somebody had to keep an eye on the loads, weekends included.",
         ],
       },
       {
         heading: "The fix",
         body: [
-          "The idea was simple: take the person out of every step that did not need one.",
-          "First, the files. Clients already dropped them on the agency's SFTP server. A small job now checks it every 15 minutes, collects anything new and puts it where it belongs.",
+          "The idea was simple: ==take the person out of every step that did not need one==.",
+          "First, the files. Clients already dropped them on the agency's SFTP server. A small job now checks it ==every 15 minutes==, collects anything new and puts it where it belongs.",
           "Next, every client got its own folder and its own set of jobs, built with SSIS, Microsoft's tool for moving data between systems. The first job cleans up the client's file into the format the old software accepts, the same clean-up an operator used to do by hand. The second loads the accounts straight into the collection database, skipping the slow loading software altogether.",
-          "Then the parts that make it trustworthy. If a file shows up with a missing column or a changed layout, it is not loaded. Instead the team gets a message in Microsoft Teams and an email saying which file it is and what is wrong. If a load is interrupted, it carries on from where it stopped. Once a file is done, it moves to a \"processed\" folder, so it can never be loaded twice, and anyone can see what is still waiting.",
+          "Then the parts that make it trustworthy. If a file shows up with a missing column or a changed layout, ==it is not loaded==. Instead the team gets a message in Microsoft Teams and an email saying which file it is and what is wrong. If a load is interrupted, it ==carries on from where it stopped==. Once a file is done, it moves to a \"processed\" folder, so it can never be loaded twice, and anyone can see what is still waiting.",
           "Last, the order. The most important clients load first. Less urgent ones wait for the afternoon, when the database is quieter.",
         ],
       },
       {
         heading: "A safety net, just in case",
         body: [
-          "There was one more rule: never leave the team stuck. Every file is still cleaned up into the format the old software accepts. So if a job ever breaks, the team can load that day's files the old way while it is fixed. Nobody has to wait.",
+          "There was one more rule: ==never leave the team stuck==. Every file is still cleaned up into the format the old software accepts. So if a job ever breaks, the team can load that day's files the old way while it is fixed. Nobody has to wait.",
         ],
       },
       {
         heading: "Switching over without the risk",
         body: [
           "The first client took about a week to build, working a few hours a day. But it did not go live straight away.",
-          "For the next two monthly cycles, both ways ran side by side. The same accounts went through the old software into the live system and through the new jobs into a test copy of the database. Then the two were compared.",
-          "Only when both cycles matched was the old loading switched off. After that, each new client took about a week to set up, or two to three weeks for the tricky ones whose data arrives split across several files.",
+          "For the next two monthly cycles, ==both ways ran side by side==. The same accounts went through the old software into the live system and through the new jobs into a test copy of the database. Then the two were compared.",
+          "Only when ==both cycles matched== was the old loading switched off. After that, each new client took about a week to set up, or two to three weeks for the tricky ones whose data arrives split across several files.",
         ],
       },
       {
         heading: "The difference",
         points: [
-          "Loading 100,000 accounts now takes under 20 minutes, and usually under 15. It used to take at least an hour. At the mid-month peak, that is hours back every single cycle.",
-          "New accounts can be worked the same day they arrive, so collecting starts sooner.",
+          "Loading 100,000 accounts now takes ==under 20 minutes==, and usually under 15. It used to take at least an hour. At the mid-month peak, that is hours back every single cycle.",
+          "New accounts can be worked ==the same day they arrive==, so collecting starts sooner.",
           "Nobody cleans up files by hand any more, and a bad file gets caught before it reaches the database.",
-          "Three people now look after loading for every client. Their job is a few minutes a day with a checklist: did everything load, and is everything where it should be? Then it goes to QA.",
-          "Adding a client no longer means hiring. The operators who used to load files moved on to collections and to finding information for the compliance team.",
+          "==Three people== now look after loading for every client. Their job is a few minutes a day with a checklist: did everything load, and is everything where it should be? Then it goes to QA.",
+          "Adding a client ==no longer means hiring==. The operators who used to load files moved on to collections and to finding information for the compliance team.",
           "Nobody watches loads over the weekend any more. If something needs a person, Teams and email will say so.",
         ],
       },

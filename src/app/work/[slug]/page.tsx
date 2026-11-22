@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import CaseStudyContent from "@/components/case-study/CaseStudyContent";
+import { ReadingProgress } from "@/components/case-study/motion";
 import { CASE_STUDIES, getCaseStudy } from "@/lib/case-studies";
 
 // The three case studies are known at build time, so their pages are prerendered
@@ -29,6 +30,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
   return (
     <main className="min-h-screen w-full bg-background">
+      <ReadingProgress />
       <div className="mx-auto w-full max-w-[860px] px-5 sm:px-8 pt-8 pb-20">
         <Link
           href="/#our-work"
