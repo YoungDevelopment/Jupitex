@@ -51,7 +51,7 @@ We build around the collection software, payment files and email the agency alre
 Before founding Jupitex, the founder worked inside a US debt collection agency and automated its back office. Never name that agency, and never describe it as a Jupitex client. What the founder built there:
 - New business (placement) loading: client files picked up automatically every 15 minutes, converted to the agency's standard layout and loaded straight into the collection database, with error alerts and a fail-safe fallback. Loading 100,000 accounts went from about an hour to under 20 minutes, and a small team now handles every client's files without extra hires.
 - Client reporting for the agency's clients.
-- AI QA of consumer SMS and email replies, which saved about $7,500 a month in legal fees and cut review from whole days to hours.
+- AI handling of consumer SMS and email replies (6,000 to 7,000 a day): keyword rules first, then AI for anything unclear, with tickets in a web portal that mostly close themselves. About 90% of replies are handled automatically, around the clock. Before, a single missed opt-out could cost $5,000 to $7,500 to settle. Do not describe this as a monthly saving.
 
 == JUPITEX CLIENT RESULTS ==
 - Label Works (labeling company): an internal tool to manage orders and optimize production queues. Reported results: 25 hours a week saved, no missed orders, and expansion to 2 new factories.

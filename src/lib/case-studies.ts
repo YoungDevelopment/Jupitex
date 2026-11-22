@@ -32,49 +32,68 @@ export interface CaseStudy {
 export const CASE_STUDIES: CaseStudy[] = [
   {
     slug: "compliance-reply-review",
-    draft: true,
-    title: "Every consumer reply reviewed, not a sample",
+    title: "90% of consumer replies handled automatically, around the clock",
     summary:
-      "Consumer SMS and email replies used to be read by hand. Now every reply is read by AI, anything risky goes straight to a person, and each decision is logged.",
+      "Thousands of consumer replies a day used to be read, sorted and logged by hand. This is how ==nine out of ten== now take care of themselves.",
     card: {
-      name: "Compliance reply review",
-      description: "Every consumer SMS and email reply read by AI, with anything risky sent straight to a person.",
-      metric: "$7,500 / mo",
-      metricLabel: "Saved in legal fees every month",
-      tags: ["Compliance QA", "SMS and email"],
+      name: "AI reply handling",
+      description: "Every consumer SMS and email reply read and sorted the moment it arrives, with only the unclear ones sent to a person.",
+      metric: "90%",
+      metricLabel: "Of replies handled automatically",
+      tags: ["AI reply handling", "SMS and email"],
     },
-    image: { src: "/images/our-work/Debt Collection.png", alt: "Compliance review of consumer replies" },
+    image: { src: "/images/our-work/Debt Collection.png", alt: "AI sorting consumer SMS and email replies" },
     stats: [
-      { value: "$7,500 / mo", label: "saved in legal fees" },
-      { value: "Days → hours", label: "for reply review" },
-      { value: "Every reply", label: "read, not a sample" },
+      { value: "90%", label: "of consumer replies are handled automatically. Only the unclear ones go to a person." },
+      { value: "24/7", label: "replies are handled around the clock, almost as soon as they arrive." },
+      { value: "6,000+", label: "replies a day, read and sorted without anyone opening a file." },
+      { value: "$5,000+", label: "what a single missed opt-out could cost to settle before." },
     ],
     sections: [
       {
-        heading: "The problem",
+        heading: "How it used to work",
         body: [
-          "Compliance staff read consumer SMS and email replies one at a time, hoping an opt-out or a dispute was not sitting in the pile they had not reached yet.",
+          "The agency sent about a million emails and half a million text messages every day. That brought back ==6,000 to 7,000 replies a day==, delivered as files from the messaging vendors.",
+          "A five-person team inside compliance handled them. Every hour they opened the latest files and read the replies one by one, looking for three things: people who wanted to ==stop being contacted==, people who ==wanted to pay==, and people with questions. Payments and questions were passed on to the calling team.",
+          "Every reply that needed action took ==1.5 to 2 minutes==: read it, find the account in the agency's old collection software, update it there, and sometimes write back. All day, every day.",
         ],
       },
       {
-        heading: "What was built",
-        points: [
-          "Every reply comes in automatically from the SMS and email tools the agency already used.",
-          "AI reads each one for opt-outs, disputes, cease requests, and attorney or bankruptcy mentions.",
-          "Replies are routed by the agency's own rules: contact suppressed, queued for compliance, or cleared for the collector.",
-          "Anything risky stops contact at once and goes to the compliance lead to decide.",
-          "Each decision and the reason for it is saved against the account.",
+        heading: "Why it mattered",
+        body: [
+          "Missing even one opt-out meant that person got another email or text the next day. That can turn into a lawsuit, and a single case could cost ==$5,000 to $7,500== to settle. It also looked bad in front of the agency's own clients.",
+          "Slow replies cost money the other way too. People who wanted to pay were left waiting, and some of them were lost.",
+          "And the team only worked office hours, so anything that arrived in the evening or at the weekend ==waited until the next morning==. As volumes grew, the only answer was hiring more people.",
         ],
       },
       {
-        heading: "The results",
+        heading: "The fix",
+        body: [
+          "The goal: ==read every reply the moment it arrives==, and only ask a person when it really needs one.",
+          "The system collects the reply files and reads every response in two passes. First, simple rules. Clear words like \"stop\" or \"unsubscribe\" ==unsubscribe the person straight away==, and other words mark a reply as a question or a payment request.",
+          "Second, anything the rules cannot place goes to AI, which reads the reply the way a person would and decides what it is.",
+          "Every reply then becomes a ticket in a web portal the compliance team can see. ==Most tickets close themselves==: the system records the outcome in the collection system, so nobody has to open the old software. The rest come with ==one-click buttons== that make the change in the database for them.",
+        ],
+      },
+      {
+        heading: "Getting it right",
+        body: [
+          "After launch, it took about a month of tuning the rules against real replies. Since then it has run around the clock.",
+        ],
+      },
+      {
+        heading: "The difference",
         points: [
-          "About $7,500 a month saved in legal fees.",
-          "Review that used to take whole days now takes hours.",
+          "About ==90% of replies== are now handled automatically. The compliance team can look over them whenever they want.",
+          "Only replies that are genuinely unclear go to a person, with the reply and the account already in front of them.",
+          "Replies are handled ==around the clock, almost as soon as they arrive==. Nothing waits for the morning.",
+          "Opt-outs are acted on straight away instead of sitting in a file, which is where the lawsuits came from.",
+          "People who want to pay are passed on while they still want to.",
+          "The same five people now spend most of their time on ==other compliance work== instead of sorting replies, and more messages no longer means more hires.",
         ],
       },
     ],
-    tools: ["AI review", "The agency's SMS and email platforms", "Compliance queue and audit log"],
+    tools: ["Keyword rules", "AI classification", "Web ticket portal", "The agency's collection database"],
   },
   {
     slug: "new-business-loading",

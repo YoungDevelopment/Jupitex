@@ -50,7 +50,8 @@ export function Reveal({
 
 /** Counts the leading number of a value like "3x faster" or "1M+" up from zero when seen. */
 export function CountUp({ value }: { value: string }) {
-  const match = value.match(/^(\d+(?:\.\d+)?)(.*)$/);
+  // only plain leading numbers ("90%", "3x faster", "1M+"); values like "24/7" or "6,000+" stay as written
+  const match = /[/,]/.test(value) ? null : value.match(/^(\d+(?:\.\d+)?)(.*)$/);
   const ref = useRef<HTMLSpanElement>(null);
   const [n, setN] = useState<number | null>(null);
 
