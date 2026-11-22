@@ -40,7 +40,7 @@ interface CaseStudy {
   imageSrc: string;
   imageAlt: string;
   imageRight?: boolean;
-  /** Opens the full case study (a modal from the homepage, a page from a shared link) */
+  /** Link to the full case study page */
   href?: string;
 }
 
@@ -136,7 +136,6 @@ const CaseStudyCard = ({
       {href && (
         <Link
           href={href}
-          scroll={false}
           className="group mt-6 inline-flex items-center gap-1.5 self-start text-[14px] font-medium text-[#0a0a0a] hover:opacity-70 transition-opacity"
         >
           Read the case study

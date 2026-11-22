@@ -4,10 +4,7 @@ import { FOUNDER_NOTE, type CaseStudy } from "@/lib/case-studies";
 
 const ACCENT = "#FF731E";
 
-/**
- * A case study's full story. Shared by the modal (opened from the homepage) and the
- * standalone /work/[slug] page, so both always show the same thing.
- */
+/** A case study's full story, as shown on its /work/[slug] page. */
 export default function CaseStudyContent({
   study,
   headingLevel = "h1",
@@ -50,7 +47,7 @@ export default function CaseStudyContent({
         ))}
       </dl>
 
-      <div className="relative mt-7 aspect-[16/9] overflow-hidden rounded-2xl border border-black/[0.06] bg-[var(--card)]">
+      <div className="relative mt-7 aspect-[16/10] overflow-hidden rounded-2xl border border-black/[0.06] bg-[var(--card)]">
         <Image
           src={study.image.src}
           alt={study.image.alt}
@@ -66,9 +63,11 @@ export default function CaseStudyContent({
             <h3 className="text-[18px] sm:text-[20px] font-medium tracking-[-0.015em] text-[#0a0a0a]">
               {section.heading}
             </h3>
-            {section.body && (
-              <p className="mt-2.5 text-[15px] leading-[1.65] text-[#3d4044]">{section.body}</p>
-            )}
+            {section.body?.map((paragraph) => (
+              <p key={paragraph} className="mt-3 text-[15.5px] leading-[1.7] text-[#3d4044]">
+                {paragraph}
+              </p>
+            ))}
             {section.points && (
               <ul className="mt-3 space-y-2.5">
                 {section.points.map((point) => (

@@ -1,14 +1,16 @@
 /**
  * Founder-experience case studies: back-office work our founder built while employed at a US
  * debt collection agency, before Jupitex. The agency is never named and is never presented as a
- * Jupitex client. One source for the homepage cards, the modal, the full page and the chat.
+ * Jupitex client. One source for the homepage cards, the /work/[slug] pages and the chat.
  *
+ * Writing rules: plain words, no buzzwords, told as a story. Only facts the founder confirmed.
  * `draft: true` marks a case study whose interview is not finished yet.
  */
 
 export interface CaseStudySection {
   heading: string;
-  body?: string;
+  /** One string per paragraph */
+  body?: string[];
   points?: string[];
 }
 
@@ -29,9 +31,6 @@ export interface CaseStudy {
 export const FOUNDER_NOTE =
   "Built by our founder while working inside a US debt collection agency, before starting Jupitex. The agency is not named and was not a Jupitex client.";
 
-// Placeholder art for all three until the case-study images are made
-const PLACEHOLDER_IMAGE = "/images/our-work/Debt Collection.png";
-
 export const CASE_STUDIES: CaseStudy[] = [
   {
     slug: "compliance-reply-review",
@@ -44,7 +43,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       metricLabel: "saved in legal fees",
       tags: ["Compliance QA", "SMS and email", "AI review"],
     },
-    image: { src: PLACEHOLDER_IMAGE, alt: "Compliance review of consumer replies" },
+    image: { src: "/images/our-work/Debt Collection.png", alt: "Compliance review of consumer replies" },
     stats: [
       { value: "$7,500 / mo", label: "saved in legal fees" },
       { value: "Days → hours", label: "for reply review" },
@@ -53,7 +52,9 @@ export const CASE_STUDIES: CaseStudy[] = [
     sections: [
       {
         heading: "The problem",
-        body: "Compliance staff read consumer SMS and email replies one at a time, hoping an opt-out or a dispute was not sitting in the pile they had not reached yet.",
+        body: [
+          "Compliance staff read consumer SMS and email replies one at a time, hoping an opt-out or a dispute was not sitting in the pile they had not reached yet.",
+        ],
       },
       {
         heading: "What was built",
@@ -79,57 +80,66 @@ export const CASE_STUDIES: CaseStudy[] = [
     slug: "new-business-loading",
     title: "From hand-fixed files to accounts ready the same day",
     summary:
-      "New business files used to be fixed and loaded by hand through slow, crash-prone software. Now every client's file loads itself, at least 3x faster, and a team of three runs it all.",
+      "Every month, hundreds of thousands of new accounts arrived in a different layout from every client, and a team fixed and loaded them by hand. This is how that became a job that runs itself.",
     card: {
       metric: "3x faster",
       metricLabel: "100,000 accounts in under 20 minutes, down from an hour",
       tags: ["Placement loading", "SSIS", "Automation"],
     },
-    image: { src: PLACEHOLDER_IMAGE, alt: "Automated placement file loading" },
+    image: { src: "/images/our-work/Nova Labeling.png", alt: "Automated loading of new business files" },
     stats: [
-      { value: "3x faster", label: "100,000 accounts in under 20 minutes, down from at least an hour" },
-      { value: "3 people", label: "run loading for every client; new clients no longer mean new hires" },
-      { value: "Every 15 min", label: "new files picked up automatically" },
-      { value: "1M+ accounts", label: "handled at the monthly peak" },
+      { value: "3x faster", label: "100,000 accounts load in under 20 minutes. It used to take at least an hour." },
+      { value: "3 people", label: "look after loading for every client. New clients no longer mean new hires." },
+      { value: "Same day", label: "new accounts are ready to work the day they arrive." },
+      { value: "1M+", label: "accounts handled at the busiest point of the month." },
     ],
     sections: [
       {
-        heading: "The problem",
-        body: "A team of data operators loaded new business by hand through the agency's legacy loading software. Every client sent files in its own format, so each one had to be fixed by hand first. The software was slow and tied up server resources, and if it crashed partway through, the backlog had to be deleted and the load started again. Every new client meant hiring more operators, sometimes contractors, just to keep up.",
-      },
-      {
-        heading: "What was built",
-        points: [
-          "Automatic pickup: a scheduled job collects files from the clients' SFTP drops every 15 minutes.",
-          "A folder and SSIS jobs for each client convert its file into the agency's standard layout, with no hand-fixing.",
-          "Accounts are loaded straight into the collection database instead of through the slow legacy loader.",
-          "If a file arrives with a missing column or a changed layout, it is held back and the team gets a Microsoft Teams message and an email explaining why.",
-          "An interrupted load picks up where it stopped, so nobody deletes a backlog and starts over.",
-          "Finished files move to a processed folder, so nothing loads twice, and the team can see what is still waiting.",
-          "Important clients load first; less urgent ones are scheduled for the quieter afternoon, when the database is under less load.",
+        heading: "How it used to work",
+        body: [
+          "Every month, the agency's clients sent over their new accounts. The middle of the month was the busy part: 700,000 to 800,000 accounts, and sometimes more than a million.",
+          "No two clients used the same file layout. So before anything could be loaded, a data operator opened each file and reshaped it by hand until the agency's old loading software would accept it.",
+          "Then came the loading itself. The software was slow: 100,000 accounts took at least an hour, even on a good day, and it slowed the server down for everyone else. It also crashed. When it did, there was no picking up where it stopped. The half-loaded batch had to be deleted and the whole thing started again.",
+          "All of this took people. Every new client meant more files, which meant hiring more operators, sometimes on short contracts, just to keep up. And somebody had to keep an eye on the loads, weekends included.",
         ],
       },
       {
-        heading: "Built with a fail-safe",
-        body: "Files are still produced in the layout the legacy software accepts. If a job ever needs fixing, the team can load the old way the same day while it is repaired, with no waiting on anyone.",
+        heading: "The fix",
+        body: [
+          "The idea was simple: take the person out of every step that did not need one.",
+          "First, the files. Clients already dropped them on the agency's SFTP server. A small job now checks it every 15 minutes, collects anything new and puts it where it belongs.",
+          "Next, every client got its own folder and its own set of jobs, built with SSIS, Microsoft's tool for moving data between systems. The first job reshapes the client's file into the agency's standard layout, exactly the way an operator used to do it by hand. The second loads the accounts straight into the collection database, skipping the slow loading software altogether.",
+          "Then the parts that make it trustworthy. If a file shows up with a missing column or a changed layout, it is not loaded. Instead the team gets a message in Microsoft Teams and an email saying which file it is and what is wrong. If a load is interrupted, it carries on from where it stopped. Once a file is done, it moves to a \"processed\" folder, so it can never be loaded twice, and anyone can see what is still waiting.",
+          "Last, the order. The most important clients load first. Less urgent ones wait for the afternoon, when the database is quieter.",
+        ],
       },
       {
-        heading: "How it was rolled out",
-        body: "The first client's jobs took about a week to build. For the next two placement cycles both processes ran side by side: the same accounts went through the old software into the live system and through the new jobs into a test database, and the results were compared. The old loading was switched off only when both cycles matched. Each further client took about a week, or 2 to 3 weeks for complex clients whose data arrives split across several files.",
+        heading: "A safety net, just in case",
+        body: [
+          "There was one more rule: never leave the team stuck. Every file is still reshaped into the layout the old software understands. So if a job ever breaks, the team can load that day's files the old way while it is fixed. Nobody has to wait.",
+        ],
       },
       {
-        heading: "The results",
+        heading: "Switching over without the risk",
+        body: [
+          "The first client took about a week to build, working a few hours a day. But it did not go live straight away.",
+          "For the next two monthly cycles, both ways ran side by side. The same accounts went through the old software into the live system and through the new jobs into a test copy of the database. Then the two were compared.",
+          "Only when both cycles matched was the old loading switched off. After that, each new client took about a week to set up, or two to three weeks for the tricky ones whose data arrives split across several files.",
+        ],
+      },
+      {
+        heading: "The difference",
         points: [
-          "At least 3x faster: 100,000 accounts load in under 20 minutes (usually under 15), down from at least an hour. At the monthly peak of hundreds of thousands to over a million accounts, that saves hours of loading every cycle.",
-          "Accounts are worked the same day they arrive, so collection starts sooner.",
-          "No manual re-keying, and bad files are flagged before they reach the database.",
-          "Three people run loading for every client, with a few minutes a day on a QA checklist. Weeks of monthly loading work became a few hours of checks.",
-          "New clients no longer mean new hires, and the other operators moved to collections and to research for the compliance team.",
-          "No weekend babysitting: alerts arrive in Teams and email.",
+          "Loading 100,000 accounts now takes under 20 minutes, and usually under 15. It used to take at least an hour. At the mid-month peak, that is hours back every single cycle.",
+          "New accounts can be worked the same day they arrive, so collecting starts sooner.",
+          "Nobody retypes or reshapes files any more, and a bad file gets caught before it reaches the database.",
+          "Three people now look after loading for every client. Their job is a few minutes a day with a checklist: did everything load, and is everything where it should be? Then it goes to QA.",
+          "Adding a client no longer means hiring. The operators who used to load files moved on to collections and to finding information for the compliance team.",
+          "Nobody watches loads over the weekend any more. If something needs a person, Teams and email will say so.",
         ],
       },
     ],
-    tools: ["SSIS (SQL Server Integration Services)", "SFTP", "The agency's collection database", "Microsoft Teams and email alerts"],
+    tools: ["SSIS", "SFTP", "The agency's collection database", "Microsoft Teams and email alerts"],
   },
   {
     slug: "client-reporting",
@@ -141,12 +151,12 @@ export const CASE_STUDIES: CaseStudy[] = [
       metricLabel: "reported on by one tool",
       tags: ["Client reporting", "Remittance", "Automation"],
     },
-    image: { src: PLACEHOLDER_IMAGE, alt: "Automated client reporting" },
+    image: { src: "/images/our-work/Maxhpllc.png", alt: "Automated client reporting" },
     stats: [{ value: "Every client", label: "reported on by one tool" }],
     sections: [
       {
         heading: "What was built",
-        body: "A reporting tool that handles all of the agency's reporting for all of its clients.",
+        body: ["A reporting tool that handles all of the agency's reporting for all of its clients."],
       },
     ],
     tools: [],
