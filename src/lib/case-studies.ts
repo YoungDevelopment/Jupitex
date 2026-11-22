@@ -44,7 +44,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       description: "Every consumer SMS and email reply read by AI, with anything risky sent straight to a person.",
       metric: "$7,500 / mo",
       metricLabel: "Saved in legal fees every month",
-      tags: ["Compliance QA", "SMS and email", "AI review"],
+      tags: ["Compliance QA", "SMS and email"],
     },
     image: { src: "/images/our-work/Debt Collection.png", alt: "Compliance review of consumer replies" },
     stats: [
@@ -156,7 +156,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       description: "One tool that now builds the reports for every one of the agency's clients.",
       metric: "Every client",
       metricLabel: "Reported on by one tool",
-      tags: ["Client reporting", "Remittance", "Automation"],
+      tags: ["Client reporting", "Automation"],
     },
     image: { src: "/images/our-work/Maxhpllc.png", alt: "Automated client reporting" },
     stats: [{ value: "Every client", label: "reported on by one tool" }],
