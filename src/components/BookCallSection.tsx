@@ -55,7 +55,7 @@ export default function BookCallSection() {
 
     Cal.ns["30min"]("inline", {
       elementOrSelector: "#my-cal-inline-30min",
-      config: { layout: "month_view", useSlotsViewOnSmallScreen: "true", theme: "dark", "ui.color-scheme": "dark" },
+      config: { layout: "month_view", useSlotsViewOnSmallScreen: "true" },
       calLink: "abdul-rehman-ibrahim-i6nok1/30min",
     });
 
@@ -90,6 +90,7 @@ export default function BookCallSection() {
     >
       <div
         id="my-cal-inline-30min"
+        className="rounded-[24px] bg-[#0a0a0a] p-2 sm:p-4"
         style={{ width: "100%", overflow: "auto" }}
       />
     </SectionWrapper>
