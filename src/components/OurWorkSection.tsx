@@ -62,7 +62,8 @@ const CaseStudyCard = ({
   const graphicPanel = (
     <div
       className={`h-full min-h-0 min-w-0 p-0 border-b border-black/[0.08] lg:border-b-0 ${
-        imageRight ? "lg:order-last lg:border-l" : ""
+        // a light divider where the picture meets the text, whichever side the picture is on
+        imageRight ? "lg:order-last lg:border-l" : "lg:border-r"
       }`}
       style={{ background: "var(--card)" }}
     >
