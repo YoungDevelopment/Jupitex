@@ -148,7 +148,8 @@ export function SlideIn({
           io.disconnect();
         }
       },
-      { rootMargin: "0px 0px -15% 0px" }
+      // wait until a good part of the card is on screen, so the slide is actually seen
+      { threshold: 0.25 }
     );
     io.observe(el);
     return () => io.disconnect();

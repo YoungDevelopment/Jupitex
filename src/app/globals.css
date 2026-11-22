@@ -411,13 +411,13 @@ body {
 /* Our Work cards: slide in from the picture's side; lift and zoom the picture on hover */
 .cs-slide {
   opacity: 0;
-  transform: translateX(-70px);
+  transform: translateX(-160px);
   transition:
-    opacity 800ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 900ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1100ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 .cs-slide[data-from="right"] {
-  transform: translateX(70px);
+  transform: translateX(160px);
 }
 .cs-slide[data-shown] {
   opacity: 1;
