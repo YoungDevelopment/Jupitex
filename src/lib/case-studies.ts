@@ -42,7 +42,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       metricLabel: "Of replies handled automatically",
       tags: ["AI reply handling", "SMS and email"],
     },
-    image: { src: "/images/our-work/Debt Collection.png", alt: "AI sorting consumer SMS and email replies" },
+    image: { src: "/images/our-work/ai-reply-handling.png", alt: "Workflow that sorts consumer SMS and email replies" },
     stats: [
       { value: "90%", label: "of consumer replies are handled automatically. Only the unclear ones go to a person." },
       { value: "24/7", label: "replies are handled around the clock, almost as soon as they arrive." },
@@ -107,7 +107,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       metricLabel: "100,000 accounts in under 20 minutes",
       tags: ["Placement loading", "SSIS", "Automation"],
     },
-    image: { src: "/images/our-work/Nova Labeling.png", alt: "Automated loading of new business files" },
+    image: { src: "/images/our-work/new-business-loading.png", alt: "SSIS package that cleans up and loads new business files" },
     stats: [
       { value: "3x faster", label: "100,000 accounts load in under 20 minutes. It used to take at least an hour." },
       { value: "3 people", label: "look after loading for every client. New clients no longer mean new hires." },
@@ -174,7 +174,7 @@ export const CASE_STUDIES: CaseStudy[] = [
       metricLabel: "Client reports run from one portal",
       tags: ["Client reporting", "Automation"],
     },
-    image: { src: "/images/our-work/Maxhpllc.png", alt: "Client reporting portal" },
+    image: { src: "/images/our-work/client-reporting.png", alt: "Client reporting portal with the report list" },
     stats: [
       { value: "100+", label: "client reports, covering every client, now run from one portal." },
       { value: "On time", label: "reporting deadlines are no longer missed." },
