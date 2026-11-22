@@ -408,7 +408,7 @@ body {
   }
 }
 
-/* Our Work cards: slide in from the picture's side; lift and zoom the picture on hover */
+/* Our Work cards: slide in from the picture's side; on hover only the picture zooms */
 /* A gentle ease-out over ~1.6s: the card glides in evenly instead of snapping most of the way at once */
 .cs-slide {
   opacity: 0;
@@ -425,16 +425,6 @@ body {
   opacity: 1;
   transform: none;
 }
-.cs-card {
-  transition:
-    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 320ms ease,
-    border-color 320ms ease;
-}
-.cs-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.08);
-}
 .cs-card img {
   transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -443,7 +433,6 @@ body {
 }
 @media (prefers-reduced-motion: reduce) {
   .cs-slide,
-  .cs-card,
   .cs-card img {
     transition: none;
   }
