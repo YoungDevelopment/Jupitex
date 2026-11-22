@@ -74,7 +74,16 @@ const AUDIT_RADIUS = 0.26;
 /** Where the rock sits on its 2400x1792 canvas (fractions): the sweep crosses this. */
 const AUDIT_ROCK_AREA: Box = { x0: 0.13, y0: 0.02, x1: 0.86, y1: 0.75 };
 
-const CARD_COUNT = TESTIMONIALS.length;
+/**
+ * The dial needs at least six cards: with fewer, a lap is too short to keep three cards on the
+ * arc and still wrap out of sight. Short lists are repeated (copies are hidden from screen readers).
+ */
+const MIN_DIAL_CARDS = 6;
+const DIAL_CARDS: TestimonialItem[] = Array.from(
+  { length: Math.max(1, Math.ceil(MIN_DIAL_CARDS / TESTIMONIALS.length)) },
+  () => TESTIMONIALS
+).flat();
+const CARD_COUNT = DIAL_CARDS.length;
 const CARD_GAP = 16; // the least clear space between two visible cards
 
 /** Wraps an angle into [-period/2, period/2): the dial's "circle" can be longer than 360°. */
@@ -181,7 +190,7 @@ export default function AuditRockSection() {
         );
       }
 
-      const isHovered = hoveredRef.current === TESTIMONIALS[index].id;
+      const isHovered = hoveredRef.current === index;
       const scale = isHovered ? 1.05 : arcScale(absAngle);
       const zIndex = isHovered ? 50 : Math.max(1, Math.round(35 - absAngle / 5));
 
@@ -589,18 +598,19 @@ export default function AuditRockSection() {
           className="relative z-20 w-full h-full transition-opacity duration-700"
           style={{ opacity: isVisible ? 1 : 0 }}
         >
-          {TESTIMONIALS.map((item, index) => {
-            const isHovered = hoveredCard === item.id;
+          {DIAL_CARDS.map((item, index) => {
+            const isHovered = hoveredCard === index;
 
             // transform, opacity, z-index and pointer-events are written by placeCards()
             return (
               <div
-                key={item.id}
+                key={`${item.id}-${index}`}
+                aria-hidden={index >= TESTIMONIALS.length || undefined}
                 ref={(node) => {
                   cardRefs.current[index] = node;
                 }}
                 data-testimonial-card={item.id}
-                onMouseEnter={() => setHoveredCard(item.id)}
+                onMouseEnter={() => setHoveredCard(index)}
                 onMouseLeave={() => setHoveredCard(null)}
                 style={{
                   width: `${dialConfig.cardWidth}px`,
