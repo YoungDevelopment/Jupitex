@@ -23,22 +23,23 @@ export const TESTIMONIALS: TestimonialItem[] = [
   {
     id: 1,
     quote:
-      "Automated QA for our SMS and email workflows eliminated manual compliance bottlenecks and saves us $7,500 every single month.",
-    name: "Omar Siddiqui",
-    role: "Managing Director",
-    company: "Compliance Ops",
-    metric: "$7,500/mo Saved",
-    initials: "OS",
+      "Orders used to slip through the cracks. Since Jupitex built our internal tool, every order is tracked from start to finish and we haven't missed a single one. It's what let us scale the business.",
+    name: "Irfan",
+    // TODO: confirm Irfan's surname and job title before this goes live
+    role: "VP of Manufacturing",
+    company: "Label Works",
+    metric: "Zero Missed Orders",
+    initials: "IR",
   },
   {
     id: 2,
     quote:
-      "We hired Jupitex to fix our order bottleneck. Their custom internal tool saved 25 hours a week and helped us scale to 2 new factories.",
-    name: "Marcus Lee",
-    role: "VP of Manufacturing",
-    company: "Label Works",
-    metric: "25 hrs/wk Saved",
-    initials: "ML",
+      "Our team used to spend whole days reading SMS and email replies by hand. Since Jupitex set up AI QA for both, that review takes hours, not days.",
+    name: "Mark Fisher",
+    role: "Head of Compliance",
+    company: "Compliance Ops",
+    metric: "Days → Hours",
+    initials: "MF",
   },
   {
     id: 3,
