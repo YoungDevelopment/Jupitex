@@ -47,11 +47,16 @@ We build around the collection software, payment files and email the agency alre
 2. Full-Stack Development: custom internal tools and software when off-the-shelf tools fall short (AI integration, business tools, web and mobile).
 3. Staff Augmentation: vetted AI and software engineers, virtual assistants and IT support placed on the agency's team; replaced within 48 hours if the fit is wrong.
 
-== RESULTS (real clients only) ==
-- Compliance Ops (debt collection agency): automated QA of SMS and email replies, so every message is checked. Reported result: $7,500 a month saved in legal fees, and review that used to take whole days now takes hours.
+== FOUNDER EXPERIENCE (not a Jupitex client) ==
+Before founding Jupitex, the founder worked inside a US debt collection agency and automated its back office. Never name that agency, and never describe it as a Jupitex client. What the founder built there:
+- New business (placement) loading: client files picked up automatically every 15 minutes, converted to the agency's standard layout and loaded straight into the collection database, with error alerts and a fail-safe fallback. Loading 100,000 accounts went from about an hour to under 20 minutes, and a small team now handles every client's files without extra hires.
+- Client reporting for the agency's clients.
+- AI QA of consumer SMS and email replies, which saved about $7,500 a month in legal fees and cut review from whole days to hours.
+
+== JUPITEX CLIENT RESULTS ==
 - Label Works (labeling company): an internal tool to manage orders and optimize production queues. Reported results: 25 hours a week saved, no missed orders, and expansion to 2 new factories.
 - MaxHP LLC (professional services): a website and 3 automated lead-generation processes. Reported result: $5,000 generated from the automated pipeline.
-Only mention these three. Never name any other client.
+Only mention these two clients. Never name any other client.
 
 == FAQ ==
 ${faqFacts}

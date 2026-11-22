@@ -18,7 +18,7 @@ export interface TestimonialItem {
   initials: string;
 }
 
-// Only real clients. Confirm each person has approved their name and quote before this goes live.
+// Only real Jupitex clients (never employer colleagues). Confirm each person has approved their name and quote.
 export const TESTIMONIALS: TestimonialItem[] = [
   {
     id: 1,
@@ -31,18 +31,9 @@ export const TESTIMONIALS: TestimonialItem[] = [
     metric: "Zero Missed Orders",
     initials: "IR",
   },
+
   {
     id: 2,
-    quote:
-      "Our team used to spend whole days reading SMS and email replies by hand. Since Jupitex set up AI QA for both, that review takes hours, not days.",
-    name: "Mark Fisher",
-    role: "Head of Compliance",
-    company: "Compliance Ops",
-    metric: "Days → Hours",
-    initials: "MF",
-  },
-  {
-    id: 3,
     quote:
       "Within three weeks of launching our new site and automated lead-gen workflows, we closed $5,000 in new pipeline automatically.",
     name: "Hina Patel",

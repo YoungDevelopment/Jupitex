@@ -187,7 +187,7 @@ export const WORKFLOWS: Workflow[] = [
       "We teach it your compliance rules: what counts as an opt-out, a dispute or a cease request.",
       "Anything risky stops contact at once and goes to your compliance lead to decide.",
     ],
-    proof: { figure: "$7,500 / mo", label: "saved in legal fees at Compliance Ops, a collection agency" },
+    proof: { figure: "$7,500 / mo", label: "saved in legal fees at the collection agency where our founder built it" },
   },
 ];
 

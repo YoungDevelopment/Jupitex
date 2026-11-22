@@ -147,15 +147,16 @@ const CaseStudyCard = ({
 
 const caseStudies: CaseStudy[] = [
   {
-    category: "Debt Collection Agency",
-    brand: "Compliance Ops",
+    // Founder experience, not a Jupitex client: work our founder did while employed at the agency
+    category: "Founder experience",
+    brand: "Built inside a collection agency",
     description:
-      "Automated QA for SMS and email replies, so every message is checked and manual compliance review is no longer the bottleneck.",
-    metric: "$7,500 / mo",
-    metricLabel: "Saved in legal fees every month",
-    tags: ["Compliance", "AI QA", "Automation"],
+      "Before Jupitex, our founder automated the back office of a US debt collection agency: new business loading, client reporting and review of every consumer reply.",
+    metric: "3x faster",
+    metricLabel: "New business loading: 100,000 accounts in under 20 minutes, down from an hour",
+    tags: ["Placement loading", "Client reporting", "Compliance QA"],
     imageSrc: "/images/our-work/Debt Collection.png",
-    imageAlt: "Compliance Ops — debt collection and QA automation",
+    imageAlt: "Back-office automation inside a debt collection agency",
   },
   {
     category: "Labeling Company",
@@ -194,7 +195,7 @@ export default function OurWorkSection() {
           <span>already delivered</span>
         </>
       }
-      description="Selected projects, starting with a collection agency that stopped reviewing replies by hand."
+      description="The collection-agency back office our founder automated before starting Jupitex, and two client projects since."
     >
       <div className="flex w-full flex-col gap-6 sm:gap-8">
         {caseStudies.map((cs) => (
