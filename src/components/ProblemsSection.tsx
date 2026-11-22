@@ -41,7 +41,7 @@ const PROBLEMS_DATA: ProblemStatement[] = [
         badge: { id: "b-deadlines", statusColor: "red" },
       },
       {
-        text: "Missed Reporting Deadlines,",
+        text: "Missed Deadlines,",
         badge: { id: "b-db", statusColor: "red" },
       },
       {
