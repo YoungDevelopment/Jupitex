@@ -24,7 +24,7 @@ export default function CaseStudyModal({
     const previous = html.style.overflow;
     html.style.overflow = "hidden";
     const opener = document.activeElement as HTMLElement | null;
-    panelRef.current?.focus();
+    panelRef.current?.focus({ preventScroll: true });
 
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") close();
