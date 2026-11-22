@@ -346,6 +346,10 @@ body {
 .case-modal__panel {
   animation: case-modal-rise 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
+/* The panel takes focus only so keyboard users start inside it; it is not a control, so no ring */
+.case-modal__panel:focus-visible {
+  outline: none;
+}
 @keyframes case-modal-fade {
   from { opacity: 0; }
   to { opacity: 1; }
