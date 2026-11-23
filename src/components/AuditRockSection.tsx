@@ -15,10 +15,15 @@ export interface TestimonialItem {
   role: string;
   company: string;
   initials: string;
+  /**
+   * Draft wording the person has not approved yet. Pending quotes show on localhost only and are
+   * left out of the production build; delete this flag once they say yes.
+   */
+  pending?: true;
 }
 
-// Only real Jupitex clients (never employer colleagues). Confirm each person has approved their name and quote.
-export const TESTIMONIALS: TestimonialItem[] = [
+// Confirm each person has approved their name and quote before removing `pending`.
+const ALL_TESTIMONIALS: TestimonialItem[] = [
   {
     id: 1,
     quote:
@@ -39,7 +44,35 @@ export const TESTIMONIALS: TestimonialItem[] = [
     company: "MaxHP LLC",
     initials: "HP",
   },
+
+  {
+    id: 3,
+    // From Ben's own words; he works at the founder's current employer, so the agency stays unnamed
+    quote:
+      "This new business pipeline is awesome. We haven't had a single issue since it was turned on.",
+    name: "Ben Edwards",
+    role: "MIS Team Lead",
+    company: "US collection agency",
+    initials: "BE",
+    pending: true,
+  },
+
+  {
+    id: 4,
+    // DRAFT: placeholder wording, role and company until Ali confirms them
+    quote:
+      "Jupitex took a job our team did by hand every day and automated it. It just runs now, and our people spend their time on work that actually needs them.",
+    name: "Ali Zia",
+    role: "Role to confirm",
+    company: "Company to confirm",
+    initials: "AZ",
+    pending: true,
+  },
 ];
+
+// Unapproved quotes never reach the live site
+export const TESTIMONIALS: TestimonialItem[] =
+  process.env.NODE_ENV === "production" ? ALL_TESTIMONIALS.filter((t) => !t.pending) : ALL_TESTIMONIALS;
 
 /**
  * The rock art is a 2400x1792 canvas; the box it sits in is the old 1024:1033 rock's footprint.
