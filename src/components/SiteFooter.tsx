@@ -95,7 +95,7 @@ export default function SiteFooter() {
       {/* ── Centred column, sinking into the sky of the scene below ── */}
       {/* No top padding: the last section's bottom space is the gap, same as between sections */}
       <div className="relative z-10 px-5 sm:px-8 lg:px-14">
-        <div className="mx-auto max-w-[1140px] border-t border-black/[0.08] pt-14 sm:pt-16 flex flex-col items-center text-center">
+        <div className="site-scale mx-auto max-w-[1140px] border-t border-black/[0.08] pt-14 sm:pt-16 flex flex-col items-center text-center">
           <Image
             src="/JupitexLogos/nav_logo_light.png"
             alt="Jupitex"

@@ -155,7 +155,7 @@ export default function FloatingNav() {
     >
       <div
         ref={dropRef}
-        className="relative transition-[opacity,transform] duration-300 ease-out"
+        className="site-scale relative transition-[opacity,transform] duration-300 ease-out"
         style={{
           opacity: visible ? 1 : 0,
           transform: visible ? "none" : "translate3d(0,-28px,0) scale(0.8)",

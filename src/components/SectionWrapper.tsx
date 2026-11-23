@@ -79,7 +79,7 @@ export default function SectionWrapper({
 
       <div
         className={cn(
-          "relative z-10 w-full max-w-[1140px] mx-auto flex flex-col items-center transition-all duration-700",
+          "site-scale relative z-10 w-full max-w-[1140px] mx-auto flex flex-col items-center transition-all duration-700",
           containerClassName
         )}
         style={revealContent ? reveal : undefined}

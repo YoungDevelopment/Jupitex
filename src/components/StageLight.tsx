@@ -58,15 +58,17 @@ export default function StageLight({
 
     const onMove = (e: PointerEvent) => {
       const r = el.getBoundingClientRect();
-      const lx = e.clientX - r.left;
-      const ly = e.clientY - r.top;
+      // the light is drawn in the element's own pixels; inside .site-scale those differ from screen pixels
+      const k = el.offsetWidth / Math.max(1, r.width);
+      const lx = (e.clientX - r.left) * k;
+      const ly = (e.clientY - r.top) * k;
       if (target.h === 0) {
         // start the cursor light where the pointer entered, not where it last left
         cur.cx = lx;
         cur.cy = ly;
       }
-      target.x = lx / r.width - 0.5;
-      target.y = ly / r.height - 0.5;
+      target.x = lx / Math.max(1, el.offsetWidth) - 0.5;
+      target.y = ly / Math.max(1, el.offsetHeight) - 0.5;
       target.cx = lx;
       target.cy = ly;
       target.h = 1;

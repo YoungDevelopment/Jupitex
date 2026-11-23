@@ -26,6 +26,16 @@ body {
   overflow-x: clip;
 }
 
+/* Desktop type and spacing run a size smaller: at 100% the page read cramped, and the 90% browser
+   zoom was the size that looked right. Applied to each section's content, the nav, the hero copy
+   and the footer, never to <html> or the full-height section boxes: those keep real 100vh heights
+   and the scroll maths (offsetTop vs scrollY) stays in one coordinate system. */
+@media (min-width: 1024px) {
+  .site-scale {
+    zoom: 0.9;
+  }
+}
+
 /* iOS Safari zooms the whole page into any field under 16px. Touch screens only, so
    desktop keeps the tighter type the design calls for. */
 @media (pointer: coarse) {

@@ -390,6 +390,8 @@ export default function HeroSection() {
                 transformOrigin: `50% ${(copyRoom / 2).toFixed(1)}px`,
               }}
             >
+              {/* One size smaller on desktop, like the sections below (see .site-scale) */}
+              <div className="site-scale flex flex-col items-center">
               <div
                 style={r1}
                 className="text-[11px] font-medium tracking-[0.045em] text-[#8e9296] uppercase"
@@ -420,6 +422,7 @@ export default function HeroSection() {
               </p>
 
               <HeroActions style={{ ...r5, marginTop: 20 }} />
+              </div>
             </div>
 
             {/* Unified 1428x528 Bottom Stage */}
