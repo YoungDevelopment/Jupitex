@@ -35,10 +35,10 @@ export default function CaseStudyContent({ study }: { study: CaseStudy }) {
         <p className="text-xs uppercase tracking-widest font-medium" style={{ color: ACCENT }}>
           Case study
         </p>
-        <h1 className="mt-2 text-[30px] sm:text-[40px] font-medium leading-[1.08] tracking-[-0.03em] text-[#0a0a0a]">
+        <h1 className="mt-2 text-[1.875rem] sm:text-[2.5rem] font-medium leading-[1.08] tracking-[-0.03em] text-[#0a0a0a]">
           {study.title}
         </h1>
-        <p className="mt-4 text-[16px] sm:text-[17.5px] leading-[1.6] text-[#55585c] max-w-[640px]">
+        <p className="mt-4 text-[1rem] sm:text-[1.0938rem] leading-[1.6] text-[#55585c] max-w-[640px]">
           <Rich text={study.summary} />
         </p>
       </Reveal>
@@ -50,10 +50,10 @@ export default function CaseStudyContent({ study }: { study: CaseStudy }) {
             <div className="cs-stat h-full rounded-2xl border border-black/[0.07] bg-white px-5 py-4">
               <dt className="sr-only">{s.label}</dt>
               <dd>
-                <span className="block text-[26px] sm:text-[30px] font-medium leading-none tracking-[-0.025em] text-[#0a0a0a]">
+                <span className="block text-[1.625rem] sm:text-[1.875rem] font-medium leading-none tracking-[-0.025em] text-[#0a0a0a]">
                   <CountUp value={s.value} />
                 </span>
-                <span className="mt-2 block text-[13.5px] leading-[1.45] text-[#55585c]">{s.label}</span>
+                <span className="mt-2 block text-[0.8438rem] leading-[1.45] text-[#55585c]">{s.label}</span>
               </dd>
             </div>
           </Reveal>
@@ -76,18 +76,18 @@ export default function CaseStudyContent({ study }: { study: CaseStudy }) {
         {study.sections.map((section) => (
           <Reveal key={section.heading}>
             <section>
-              <h2 className="text-[20px] sm:text-[23px] font-medium tracking-[-0.02em] text-[#0a0a0a]">
+              <h2 className="text-[1.25rem] sm:text-[1.4375rem] font-medium tracking-[-0.02em] text-[#0a0a0a]">
                 {section.heading}
               </h2>
               {section.body?.map((paragraph) => (
-                <p key={paragraph} className="mt-3.5 text-[16px] leading-[1.75] text-[#3d4044]">
+                <p key={paragraph} className="mt-3.5 text-[1rem] leading-[1.75] text-[#3d4044]">
                   <Rich text={paragraph} />
                 </p>
               ))}
               {section.points && (
                 <ul className="mt-4 space-y-3">
                   {section.points.map((point) => (
-                    <li key={point} className="flex gap-3 text-[16px] leading-[1.7] text-[#3d4044]">
+                    <li key={point} className="flex gap-3 text-[1rem] leading-[1.7] text-[#3d4044]">
                       <span
                         aria-hidden
                         className="mt-[11px] w-1.5 h-1.5 rounded-full shrink-0"
@@ -107,7 +107,7 @@ export default function CaseStudyContent({ study }: { study: CaseStudy }) {
 
       {study.tools.length > 0 && (
         <Reveal className="mt-10">
-          <h2 className="text-[13px] uppercase tracking-widest text-[#8e9296]">Tools</h2>
+          <h2 className="text-[0.8125rem] uppercase tracking-widest text-[#8e9296]">Tools</h2>
           <ul className="mt-2.5 flex flex-wrap gap-1.5">
             {study.tools.map((tool) => (
               <li
@@ -124,12 +124,12 @@ export default function CaseStudyContent({ study }: { study: CaseStudy }) {
       {/* Next step */}
       <Reveal className="mt-12">
         <div className="rounded-2xl bg-[#0a0a0a] px-6 py-6 sm:px-8 sm:py-7 flex flex-col sm:flex-row sm:items-center gap-4 sm:justify-between cs-dark">
-          <p className="text-white text-[16px] sm:text-[17px] font-medium leading-snug max-w-[420px]">
+          <p className="text-white text-[1rem] sm:text-[1.0625rem] font-medium leading-snug max-w-[420px]">
             Want the same for your agency? Start with a free 90-minute audit.
           </p>
           <Link
             href="/#contact"
-            className="group inline-flex items-center justify-center gap-1.5 h-[42px] px-5 rounded-full text-[14px] font-medium text-white shrink-0 transition-transform duration-200 hover:scale-[1.03] active:scale-[0.97]"
+            className="group inline-flex items-center justify-center gap-1.5 h-[42px] px-5 rounded-full text-[0.875rem] font-medium text-white shrink-0 transition-transform duration-200 hover:scale-[1.03] active:scale-[0.97]"
             style={{ backgroundColor: ACCENT }}
           >
             Book the free audit

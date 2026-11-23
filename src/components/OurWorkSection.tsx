@@ -141,7 +141,7 @@ const CaseStudyCard = ({
           href={href}
           aria-label={`Read the case study: ${brand}`}
           // the ::after layer stretches the link over the whole card, so any click opens it
-          className="ml-auto inline-flex items-center gap-1.5 text-[14px] font-medium text-[#0a0a0a] whitespace-nowrap after:absolute after:inset-0 after:z-10 after:rounded-[1.25rem] after:content-[''] focus-visible:outline-none focus-visible:after:outline focus-visible:after:outline-2 focus-visible:after:outline-[#0a0a0a] focus-visible:after:outline-offset-4"
+          className="ml-auto inline-flex items-center gap-1.5 text-[0.875rem] font-medium text-[#0a0a0a] whitespace-nowrap after:absolute after:inset-0 after:z-10 after:rounded-[1.25rem] after:content-[''] focus-visible:outline-none focus-visible:after:outline focus-visible:after:outline-2 focus-visible:after:outline-[#0a0a0a] focus-visible:after:outline-offset-4"
         >
           Read the case study
           <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden className="transition-transform duration-300 group-hover/card:translate-x-1">

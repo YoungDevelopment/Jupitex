@@ -51,7 +51,7 @@ export default function AuditSection() {
           <button
             type="button"
             onClick={() => scrollToId("contact")}
-            className="group relative h-[50px] sm:h-[52px] lg:h-[48px] pl-[11px] pr-[24px] sm:pr-[26px] rounded-full bg-[#0a0a0a] text-white flex items-center gap-3 sm:gap-3.5 text-[14.5px] sm:text-[15px] font-medium tracking-[-0.01em] hover:bg-[#1a1a1a] active:scale-[0.97] transition-[background-color,transform] duration-200 shadow-[0_14px_34px_rgba(10,10,10,0.16)] cursor-pointer"
+            className="group relative h-[50px] sm:h-[52px] lg:h-[48px] pl-[11px] pr-[24px] sm:pr-[26px] rounded-full bg-[#0a0a0a] text-white flex items-center gap-3 sm:gap-3.5 text-[0.9062rem] sm:text-[0.9375rem] font-medium tracking-[-0.01em] hover:bg-[#1a1a1a] active:scale-[0.97] transition-[background-color,transform] duration-200 shadow-[0_14px_34px_rgba(10,10,10,0.16)] cursor-pointer"
           >
             <span
               className="w-[30px] h-[30px] sm:w-[32px] sm:h-[32px] rounded-full flex items-center justify-center shrink-0 transition-transform duration-500 group-hover:rotate-90"

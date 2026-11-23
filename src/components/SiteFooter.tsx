@@ -77,7 +77,7 @@ export default function SiteFooter() {
   }, []);
 
   const linkClass =
-    "text-[14px] text-[#3d4044] hover:text-[#090909] transition-colors duration-200";
+    "text-[0.875rem] text-[#3d4044] hover:text-[#090909] transition-colors duration-200";
 
   const backToTop = (
     <button
@@ -95,7 +95,7 @@ export default function SiteFooter() {
       {/* ── Centred column, sinking into the sky of the scene below ── */}
       {/* No top padding: the last section's bottom space is the gap, same as between sections */}
       <div className="relative z-10 px-5 sm:px-8 lg:px-14">
-        <div className="site-scale mx-auto max-w-[1140px] border-t border-black/[0.08] pt-14 sm:pt-16 flex flex-col items-center text-center">
+        <div className="mx-auto max-w-[1140px] border-t border-black/[0.08] pt-14 sm:pt-16 flex flex-col items-center text-center">
           <Image
             src="/JupitexLogos/nav_logo_light.png"
             alt="Jupitex"
@@ -103,7 +103,7 @@ export default function SiteFooter() {
             height={72}
             className="h-[28px] w-auto object-contain"
           />
-          <p className="mt-4 max-w-[400px] text-[14px] leading-[1.6] text-[#686c70]">
+          <p className="mt-4 max-w-[400px] text-[0.875rem] leading-[1.6] text-[#686c70]">
             AI and automation for debt collection agencies. We find what is worth building,
             build it, and train your team to run it.
           </p>
@@ -127,7 +127,7 @@ export default function SiteFooter() {
             </ul>
           </nav>
 
-          <div className="mt-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-[14px]">
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-[0.875rem]">
             <a href={`mailto:${CONTACT_EMAIL}`} className={linkClass}>
               {CONTACT_EMAIL}
             </a>
@@ -146,7 +146,7 @@ export default function SiteFooter() {
           </div>
 
           {/* Phones: the scene is cropped, so the copyright stays in the column */}
-          <div className="sm:hidden mt-10 flex items-center justify-center gap-4 text-[12.5px] text-[#8e9296]">
+          <div className="sm:hidden mt-10 flex items-center justify-center gap-4 text-[0.7812rem] text-[#8e9296]">
             <span>© 2026 Jupitex</span>
             <span aria-hidden className="h-1 w-1 rounded-full bg-[#c4c7ca]" />
             {backToTop}
@@ -173,7 +173,7 @@ export default function SiteFooter() {
         />
 
         {/* Copyright rests in the gap between the rocks, just above the far shore */}
-        <div className="hidden sm:flex absolute inset-x-0 top-[44%] z-10 items-center justify-center gap-4 text-[12.5px] text-[#8e9296]">
+        <div className="hidden sm:flex absolute inset-x-0 top-[44%] z-10 items-center justify-center gap-4 text-[0.7812rem] text-[#8e9296]">
           <span>© 2026 Jupitex</span>
           <span aria-hidden className="h-1 w-1 rounded-full bg-[#c4c7ca]" />
           {backToTop}

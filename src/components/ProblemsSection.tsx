@@ -684,7 +684,7 @@ export default function ProblemsSection() {
                         scrollImpulse * 0.025
                       ).toFixed(3)})`,
                     }}
-                    className="mb-4 sm:mb-6 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/[0.03] border border-black/[0.05] text-[10.5px] sm:text-[11.5px] font-semibold text-[#0a0a0a] uppercase transition-colors duration-300"
+                    className="mb-4 sm:mb-6 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/[0.03] border border-black/[0.05] text-[0.6562rem] sm:text-[0.7188rem] font-semibold text-[#0a0a0a] uppercase transition-colors duration-300"
                   >
                     <svg
                       width="10"
@@ -822,7 +822,7 @@ export default function ProblemsSection() {
               animateWindowScrollTo(auditTop, 620);
             }
           }}
-          className="group relative z-20 flex items-center justify-center gap-2.5 px-3.5 py-1.5 rounded-full text-[11.5px] font-light tracking-[-0.01em] text-[#7c7f82] hover:text-[#0a0a0a] transition-colors duration-300 cursor-pointer"
+          className="group relative z-20 flex items-center justify-center gap-2.5 px-3.5 py-1.5 rounded-full text-[0.7188rem] font-light tracking-[-0.01em] text-[#7c7f82] hover:text-[#0a0a0a] transition-colors duration-300 cursor-pointer"
           style={{
             opacity: easeOutCubic(entryFade),
             transform: `translate3d(0, ${(scrollImpulse * 5).toFixed(

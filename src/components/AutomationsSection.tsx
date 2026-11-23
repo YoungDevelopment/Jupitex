@@ -150,14 +150,14 @@ export default function AutomationsSection() {
                 >
                   <div className="flex items-baseline gap-3.5">
                     <span
-                      className="text-[12px] font-medium tabular-nums transition-colors duration-200"
+                      className="text-[0.75rem] font-medium tabular-nums transition-colors duration-200"
                       style={{ color: isActive ? ACCENT : "#a2a6aa" }}
                     >
                       0{i + 1}
                     </span>
                     <div className="min-w-0">
                       <div
-                        className={`text-[15px] sm:text-[16px] font-medium tracking-[-0.02em] transition-colors duration-200 ${
+                        className={`text-[0.9375rem] sm:text-[1rem] font-medium tracking-[-0.02em] transition-colors duration-200 ${
                           isActive
                             ? "text-[#090909]"
                             : "text-[#55585c] group-hover:text-[#090909]"
@@ -173,7 +173,7 @@ export default function AutomationsSection() {
                         }}
                       >
                         <div className="overflow-hidden">
-                          <p className="pt-1 text-[13.5px] leading-[1.5] text-[#686c70]">
+                          <p className="pt-1 text-[0.8438rem] leading-[1.5] text-[#686c70]">
                             {w.blurb}
                           </p>
                         </div>
@@ -217,7 +217,7 @@ export default function AutomationsSection() {
               onClick={togglePause}
               aria-pressed={paused}
               aria-label={paused ? "Resume autoplay" : "Pause autoplay"}
-              className="group mt-3 lg:mt-4 lg:ml-5 inline-flex h-8 items-center gap-2 rounded-full border border-black/[0.08] bg-white/70 pl-2.5 pr-3.5 text-[12.5px] font-medium text-[#3d4044] cursor-pointer transition-[background-color,border-color,color,transform] duration-200 hover:bg-white hover:border-black/[0.14] hover:text-[#090909] active:scale-[0.97]"
+              className="group mt-3 lg:mt-4 lg:ml-5 inline-flex h-8 items-center gap-2 rounded-full border border-black/[0.08] bg-white/70 pl-2.5 pr-3.5 text-[0.7812rem] font-medium text-[#3d4044] cursor-pointer transition-[background-color,border-color,color,transform] duration-200 hover:bg-white hover:border-black/[0.14] hover:text-[#090909] active:scale-[0.97]"
             >
               <span className="relative grid h-4 w-4 place-items-center">
                 <Pause
@@ -273,7 +273,7 @@ export default function AutomationsSection() {
                 <li key={s.title} className="relative flex sm:block gap-3.5">
                   <div className="flex sm:items-center gap-2.5 sm:mb-2.5 shrink-0">
                     <span
-                      className="w-6 h-6 rounded-full flex items-center justify-center text-[11.5px] font-semibold shrink-0 transition-[background-color,color] duration-300"
+                      className="w-6 h-6 rounded-full flex items-center justify-center text-[0.7188rem] font-semibold shrink-0 transition-[background-color,color] duration-300"
                       style={{
                         backgroundColor: lit ? ACCENT : "#eceeef",
                         color: lit ? "#ffffff" : "#8e9296",
@@ -298,10 +298,10 @@ export default function AutomationsSection() {
                     className="min-w-0 transition-opacity duration-300"
                     style={{ opacity: lit ? 1 : 0.45 }}
                   >
-                    <div className="text-[14.5px] font-medium tracking-[-0.015em] text-[#090909]">
+                    <div className="text-[0.9062rem] font-medium tracking-[-0.015em] text-[#090909]">
                       {s.title}
                     </div>
-                    <p className="mt-0.5 text-[13px] leading-[1.5] text-[#5c6064]">
+                    <p className="mt-0.5 text-[0.8125rem] leading-[1.5] text-[#5c6064]">
                       {s.detail}
                     </p>
                   </div>
@@ -312,7 +312,7 @@ export default function AutomationsSection() {
 
           {/* How we automate it, in plain words */}
           <div className="mt-5 sm:mt-6 pt-5 px-1 sm:px-2 border-t border-black/[0.06]">
-            <div className="text-[12px] font-medium text-[#8e9296]">
+            <div className="text-[0.75rem] font-medium text-[#8e9296]">
               How we automate it
             </div>
             <ul
@@ -322,7 +322,7 @@ export default function AutomationsSection() {
               {workflow.howWeAutomate.map((line, i) => (
                 <li
                   key={line}
-                  className="flex gap-2.5 text-[13.5px] leading-[1.55] text-[#3d4044] animate-[fadeIn_0.4s_ease-out_both]"
+                  className="flex gap-2.5 text-[0.8438rem] leading-[1.55] text-[#3d4044] animate-[fadeIn_0.4s_ease-out_both]"
                   style={{ animationDelay: `${i * 70}ms` }}
                 >
                   <span

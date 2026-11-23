@@ -377,7 +377,7 @@
   align-items: center;
   gap: 5px;
   flex: none;
-  font-size: 12px;
+  font-size: 0.75rem;
   font-weight: 600;
   color: #121212;
   background: #fff;
@@ -492,7 +492,7 @@
 
 /* Every tile keeps room for three lines of copy, so the pictures in a row end on one line */
 @media (min-width: 1280px) {
-  .ax-copy { min-height: 102px; }
+  .ax-copy { min-height: 6.375rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {

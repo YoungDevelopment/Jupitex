@@ -65,7 +65,7 @@ function HeroActions({ style }: { style: React.CSSProperties }) {
           e.preventDefault();
           scrollToId("automations");
         }}
-        className="group flex items-center gap-1.5 text-[14px] font-medium tracking-[-0.01em] text-[#0a0a0a] hover:opacity-70 transition-colors duration-200"
+        className="group flex items-center gap-1.5 text-[0.875rem] font-medium tracking-[-0.01em] text-[#0a0a0a] hover:opacity-70 transition-colors duration-200"
       >
         <span>{HERO.secondaryCta}</span>
         <svg
@@ -121,7 +121,7 @@ function ScrollHint({ className, gradient }: { className: string; gradient: stri
       className={`pointer-events-none absolute inset-x-0 bottom-0 z-40 flex items-end justify-center ${className}`}
       style={{ background: gradient }}
     >
-      <div className="flex items-center gap-[6px] text-white/90 text-[11px] font-normal">
+      <div className="flex items-center gap-[6px] text-white/90 text-[0.6875rem] font-normal">
         <Star size={11} fill="white" />
         <span>Scroll to explore</span>
       </div>
@@ -390,11 +390,9 @@ export default function HeroSection() {
                 transformOrigin: `50% ${(copyRoom / 2).toFixed(1)}px`,
               }}
             >
-              {/* One size smaller on desktop, like the sections below (see .site-scale) */}
-              <div className="site-scale flex flex-col items-center">
               <div
                 style={r1}
-                className="text-[11px] font-medium tracking-[0.045em] text-[#8e9296] uppercase"
+                className="text-[0.6875rem] font-medium tracking-[0.045em] text-[#8e9296] uppercase"
               >
                 {HERO.eyebrow}
               </div>
@@ -402,13 +400,13 @@ export default function HeroSection() {
               <h1 className="mt-[8px] flex flex-col items-center">
                 <span
                   style={r2}
-                  className="block text-[50px] font-medium tracking-[-0.038em] leading-[1.05] text-[#0a0a0a]"
+                  className="block text-[3.125rem] font-medium tracking-[-0.038em] leading-[1.05] text-[#0a0a0a]"
                 >
                   {HERO.titleMuted}
                 </span>
                 <span
                   style={r3}
-                  className="block text-[50px] font-medium tracking-[-0.038em] leading-[1.08] text-[#090909]"
+                  className="block text-[3.125rem] font-medium tracking-[-0.038em] leading-[1.08] text-[#090909]"
                 >
                   {HERO.titleStrong}
                 </span>
@@ -416,13 +414,12 @@ export default function HeroSection() {
 
               <p
                 style={r4}
-                className="mt-[14px] max-w-[540px] text-[13.5px] font-normal leading-[1.5] tracking-[-0.01em] text-[#8e9296]"
+                className="mt-[14px] max-w-[540px] text-[0.8438rem] font-normal leading-[1.5] tracking-[-0.01em] text-[#8e9296]"
               >
                 {HERO.body}
               </p>
 
               <HeroActions style={{ ...r5, marginTop: 20 }} />
-              </div>
             </div>
 
             {/* Unified 1428x528 Bottom Stage */}
@@ -507,7 +504,7 @@ export default function HeroSection() {
             <div className="flex-1 px-8 flex flex-col items-center justify-center text-center z-20">
               <div
                 style={r1}
-                className="text-[11.5px] font-medium tracking-[0.05em] text-[#8e9296] uppercase"
+                className="text-[0.7188rem] font-medium tracking-[0.05em] text-[#8e9296] uppercase"
               >
                 {HERO.eyebrow}
               </div>
@@ -527,7 +524,7 @@ export default function HeroSection() {
               </h1>
               <p
                 style={r4}
-                className="mt-4 max-w-[520px] text-[14px] font-normal leading-[1.5] tracking-[-0.01em] text-[#8e9296]"
+                className="mt-4 max-w-[520px] text-[0.875rem] font-normal leading-[1.5] tracking-[-0.01em] text-[#8e9296]"
               >
                 {HERO.body}
               </p>
@@ -573,7 +570,7 @@ export default function HeroSection() {
             <div className="flex-1 px-4 flex flex-col items-center justify-center text-center z-20">
               <div
                 style={r1}
-                className="text-[11px] font-medium tracking-[0.055em] text-[#8e9296] uppercase"
+                className="text-[0.6875rem] font-medium tracking-[0.055em] text-[#8e9296] uppercase"
               >
                 {HERO.eyebrow}
               </div>
@@ -593,7 +590,7 @@ export default function HeroSection() {
               </h1>
               <p
                 style={r4}
-                className="mt-3 max-w-[345px] text-[13px] sm:text-[14px] font-normal leading-[1.5] tracking-[-0.01em] text-[#8e9296]"
+                className="mt-3 max-w-[345px] text-[0.8125rem] sm:text-[0.875rem] font-normal leading-[1.5] tracking-[-0.01em] text-[#8e9296]"
               >
                 {HERO.body}
               </p>

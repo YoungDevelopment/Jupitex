@@ -79,7 +79,7 @@ export default function SectionWrapper({
 
       <div
         className={cn(
-          "site-scale relative z-10 w-full max-w-[1140px] mx-auto flex flex-col items-center transition-all duration-700",
+          "relative z-10 w-full max-w-[1140px] mx-auto flex flex-col items-center transition-all duration-700",
           containerClassName
         )}
         style={revealContent ? reveal : undefined}
@@ -89,7 +89,7 @@ export default function SectionWrapper({
           style={revealContent ? undefined : reveal}
         >
           {resolvedSubject && (
-            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/95 border border-black/[0.06] text-[11px] sm:text-[11.5px] font-semibold tracking-[0.06em] text-[#0a0a0a] uppercase shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/95 border border-black/[0.06] text-[0.6875rem] sm:text-[0.7188rem] font-semibold tracking-[0.06em] text-[#0a0a0a] uppercase shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
               <span
                 className="w-2 h-2 rounded-full"
                 style={{ backgroundColor: ACCENT }}
@@ -103,7 +103,7 @@ export default function SectionWrapper({
           </h2>
 
           {description && (
-            <p className="mt-3.5 sm:mt-4 max-w-[650px] text-[15px] sm:text-[16.5px] font-normal leading-[1.6] tracking-[-0.01em] text-[#55585c] px-2">
+            <p className="mt-3.5 sm:mt-4 max-w-[650px] text-[0.9375rem] sm:text-[1.0312rem] font-normal leading-[1.6] tracking-[-0.01em] text-[#55585c] px-2">
               {description}
             </p>
           )}

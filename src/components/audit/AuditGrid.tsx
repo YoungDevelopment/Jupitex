@@ -119,14 +119,14 @@ function Tile({
       </div>
       <div className="ax-copy px-3.5 sm:px-4 pt-4 pb-2 lg:pt-3 lg:pb-1">
         <div className="flex items-center gap-2.5">
-          <span className="ax-step w-6 h-6 rounded-full text-[12px] font-semibold flex items-center justify-center shrink-0">
+          <span className="ax-step w-6 h-6 rounded-full text-[0.75rem] font-semibold flex items-center justify-center shrink-0">
             {step}
           </span>
-          <h3 className="text-[18px] sm:text-[19px] lg:text-[17.5px] font-semibold leading-[1.3] tracking-[-0.02em] text-[#090909]">
+          <h3 className="text-[1.125rem] sm:text-[1.1875rem] lg:text-[1.0938rem] font-semibold leading-[1.3] tracking-[-0.02em] text-[#090909]">
             {title}
           </h3>
         </div>
-        <p className="ax-body mt-1.5 lg:mt-0.5 text-[14px] lg:text-[13.5px] leading-[1.5] text-[#5c6064]">{body}</p>
+        <p className="ax-body mt-1.5 lg:mt-0.5 text-[0.875rem] lg:text-[0.8438rem] leading-[1.5] text-[#5c6064]">{body}</p>
       </div>
     </article>
   );
@@ -166,13 +166,13 @@ function GoalsPicture({ start }: { start: boolean }) {
     <div className="h-full flex items-center justify-center px-4 sm:px-5 py-4">
       <div className="ax-goals w-full max-w-[330px] rounded-2xl bg-white border border-black/[0.06] shadow-[0_10px_30px_rgba(0,0,0,0.06)]">
         <div className="flex items-center justify-between gap-3 pl-3.5 pr-2.5 pt-2.5 pb-1.5">
-          <span className="text-[13px] font-semibold text-[#090909]">What matters most</span>
+          <span className="text-[0.8125rem] font-semibold text-[#090909]">What matters most</span>
           {/* What the ticked goals are worth, adding up as they are ticked */}
           <span
-            className="ax-goals__chip h-6 pl-1 pr-2.5 rounded-full bg-[var(--ax-deep)] text-white flex items-center gap-1.5 text-[11.5px] font-medium whitespace-nowrap"
+            className="ax-goals__chip h-6 pl-1 pr-2.5 rounded-full bg-[var(--ax-deep)] text-white flex items-center gap-1.5 text-[0.7188rem] font-medium whitespace-nowrap"
             data-on={count > 0 || undefined}
           >
-            <span className="w-4 h-4 rounded-full bg-[var(--ax-accent)] flex items-center justify-center text-[10px] font-semibold tabular-nums">
+            <span className="w-4 h-4 rounded-full bg-[var(--ax-accent)] flex items-center justify-center text-[0.625rem] font-semibold tabular-nums">
               {count}
             </span>
             <span>
@@ -193,10 +193,10 @@ function GoalsPicture({ start }: { start: boolean }) {
                 <span className="ax-check w-[18px] h-[18px] rounded-full flex items-center justify-center shrink-0">
                   <Check className="ax-check__mark w-[11px] h-[11px] text-white" strokeWidth={3.5} />
                 </span>
-                <span className="flex-1 min-w-0 truncate text-[13px] font-medium text-[#121212]">
+                <span className="flex-1 min-w-0 truncate text-[0.8125rem] font-medium text-[#121212]">
                   {g.label}
                 </span>
-                <span className="text-[11.5px] tabular-nums text-[#8e9296] shrink-0">{g.hours} h/wk</span>
+                <span className="text-[0.7188rem] tabular-nums text-[#8e9296] shrink-0">{g.hours} h/wk</span>
               </button>
             </li>
           ))}
@@ -246,10 +246,10 @@ function FlowPicture() {
                     <Icon className="w-[15px] h-[15px]" strokeWidth={2} />
                   </span>
                   <span className="min-w-0">
-                    <span className="block text-[12.5px] font-semibold leading-[1.3] text-[#121212]">
+                    <span className="block text-[0.7812rem] font-semibold leading-[1.3] text-[#121212]">
                       {n.label}
                     </span>
-                    <span className="ax-node__meta block text-[11px] leading-[1.3] text-[#8e9296] mt-0.5">
+                    <span className="ax-node__meta block text-[0.6875rem] leading-[1.3] text-[#8e9296] mt-0.5">
                       {n.meta}
                     </span>
                   </span>
@@ -265,13 +265,13 @@ function FlowPicture() {
                           <Forward className="w-3.5 h-3.5" strokeWidth={2} />
                         </span>
                         <span>
-                          <span className="block text-[12px] font-semibold leading-[1.3] text-[#121212]">Totals off? Starts again</span>
-                          <span className="block text-[11px] leading-[1.3] text-[#8e9296]">1 in 8 statements</span>
+                          <span className="block text-[0.75rem] font-semibold leading-[1.3] text-[#121212]">Totals off? Starts again</span>
+                          <span className="block text-[0.6875rem] leading-[1.3] text-[#8e9296]">1 in 8 statements</span>
                         </span>
                       </span>
                     </span>
                     <span className="ax-flag-pos absolute">
-                      <span className="ax-flag relative h-6 px-2.5 rounded-full bg-[var(--ax-accent)] text-white text-[11px] font-semibold flex items-center whitespace-nowrap shadow-[0_6px_16px_var(--ax-glow)]">
+                      <span className="ax-flag relative h-6 px-2.5 rounded-full bg-[var(--ax-accent)] text-white text-[0.6875rem] font-semibold flex items-center whitespace-nowrap shadow-[0_6px_16px_var(--ax-glow)]">
                         Worth automating
                       </span>
                     </span>
@@ -283,7 +283,7 @@ function FlowPicture() {
           })}
         </ol>
       </div>
-      <div className="ax-flow__foot flex items-center gap-2 px-4 sm:px-6 pb-4 lg:absolute lg:left-0 lg:bottom-0 lg:pb-3.5 text-[11.5px] text-[#5c6064]">
+      <div className="ax-flow__foot flex items-center gap-2 px-4 sm:px-6 pb-4 lg:absolute lg:left-0 lg:bottom-0 lg:pb-3.5 text-[0.7188rem] text-[#5c6064]">
         <Clock3 className="w-3.5 h-3.5" strokeWidth={2} />
         <span>
           Example: <span className="font-semibold text-[#121212]">65 min</span> per client · 40 clients a month
@@ -318,13 +318,13 @@ function ReturnPicture({ start, run }: { start: boolean; run: number }) {
     <div className="h-full flex flex-col justify-center px-5 sm:px-6 py-4">
       <div className="flex items-start flex-wrap justify-between gap-x-3 gap-y-2">
         <div>
-          <div className="text-[12.5px] text-[#7c7f82]">Example: return in year one</div>
-          <div className="mt-1 text-[46px] xl:text-[40px] font-semibold leading-none tracking-[-0.04em] text-[#090909] whitespace-nowrap">
+          <div className="text-[0.7812rem] text-[#7c7f82]">Example: return in year one</div>
+          <div className="mt-1 text-[2.875rem] xl:text-[2.5rem] font-semibold leading-none tracking-[-0.04em] text-[#090909] whitespace-nowrap">
             <Tween value={roi} decimals={1} duration={1300} suffix="×" className="tabular-nums" />
           </div>
         </div>
         <span
-          className="ax-payback mt-1 h-7 px-2.5 rounded-full bg-white/90 border border-black/[0.07] text-[11.5px] font-medium text-[#121212] flex items-center gap-1.5 whitespace-nowrap"
+          className="ax-payback mt-1 h-7 px-2.5 rounded-full bg-white/90 border border-black/[0.07] text-[0.7188rem] font-medium text-[#121212] flex items-center gap-1.5 whitespace-nowrap"
           data-on={shrunk || undefined}
         >
           <span className="w-1.5 h-1.5 rounded-full bg-[var(--ax-accent)]" />
@@ -334,14 +334,14 @@ function ReturnPicture({ start, run }: { start: boolean; run: number }) {
 
       <div className="mt-4 xl:mt-3 space-y-2.5 xl:space-y-2">
         <div>
-          <div className="flex justify-between text-[12px] text-[#7c7f82]">
+          <div className="flex justify-between text-[0.75rem] text-[#7c7f82]">
             <span>Done by hand</span>
             <span className="tabular-nums">14 hrs / wk</span>
           </div>
           <div className="mt-1 h-[7px] rounded-full bg-black/[0.1]" />
         </div>
         <div>
-          <div className="flex justify-between text-[12px] font-semibold">
+          <div className="flex justify-between text-[0.75rem] font-semibold">
             <span className="text-[#090909]">Automated</span>
             <span className="text-[var(--ax-accent)] tabular-nums">10 min / wk</span>
           </div>
@@ -377,11 +377,11 @@ function ReviewPicture({ start, run }: { start: boolean; run: number }) {
     <div className="h-full flex flex-col justify-center gap-3 px-4 sm:px-5 py-4">
       {/* The comment */}
       <div className="flex items-start gap-2.5">
-        <span className="w-7 h-7 rounded-full bg-[#d9f2ea] text-[#1c7a5a] text-[10.5px] font-semibold flex items-center justify-center shrink-0">
+        <span className="w-7 h-7 rounded-full bg-[#d9f2ea] text-[#1c7a5a] text-[0.6562rem] font-semibold flex items-center justify-center shrink-0">
           SR
         </span>
         <div className="min-w-0 flex-1">
-          <div className="flex items-baseline gap-1.5 text-[12px]">
+          <div className="flex items-baseline gap-1.5 text-[0.75rem]">
             <span className="font-semibold text-[#121212]">Sara</span>
             <span className="text-[#8e9296]">Finance lead</span>
           </div>
@@ -389,7 +389,7 @@ function ReviewPicture({ start, run }: { start: boolean; run: number }) {
             <span className="ax-bubble__typing col-start-1 row-start-1 flex items-center gap-1 px-3.5 py-3">
               <i /> <i /> <i />
             </span>
-            <span className="ax-bubble__text col-start-1 row-start-1 px-3.5 py-2.5 text-[13px] leading-[1.45] text-[#121212]">
+            <span className="ax-bubble__text col-start-1 row-start-1 px-3.5 py-2.5 text-[0.8125rem] leading-[1.45] text-[#121212]">
               Keep a finance sign-off before statements go out.
             </span>
           </div>
@@ -449,13 +449,13 @@ function RoadmapPicture({ start, run }: { start: boolean; run: number }) {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/JupitexLogos/tab-logo-dark.png" alt="" className="w-[11px] h-[11px] object-contain" />
               </span>
-              <span className="text-[13px] font-semibold text-[#090909]">Example roadmap</span>
+              <span className="text-[0.8125rem] font-semibold text-[#090909]">Example roadmap</span>
             </div>
             <ul className="mt-2">
               {rows.map(([label, v], i) => (
                 <li
                   key={label}
-                  className="ax-page__row flex items-center justify-between gap-3 py-[7px] border-t border-black/[0.06] text-[12.5px]"
+                  className="ax-page__row flex items-center justify-between gap-3 py-[7px] border-t border-black/[0.06] text-[0.7812rem]"
                   style={{ "--r": i } as React.CSSProperties}
                 >
                   <span className="text-[#5c6064]">{label}</span>
@@ -524,7 +524,7 @@ export default function AuditGrid() {
     <div
       ref={ref}
       data-in={inView || undefined}
-      className="ax-grid text-left w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 xl:grid-rows-2 gap-4 mt-6 lg:mt-5 xl:h-[590px]"
+      className="ax-grid text-left w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 xl:grid-rows-2 gap-4 mt-6 lg:mt-5 xl:h-[620px]"
     >
       <Tile
         index={0}

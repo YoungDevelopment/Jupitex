@@ -155,7 +155,7 @@ export default function FloatingNav() {
     >
       <div
         ref={dropRef}
-        className="site-scale relative transition-[opacity,transform] duration-300 ease-out"
+        className="relative transition-[opacity,transform] duration-300 ease-out"
         style={{
           opacity: visible ? 1 : 0,
           transform: visible ? "none" : "translate3d(0,-28px,0) scale(0.8)",
@@ -211,7 +211,7 @@ export default function FloatingNav() {
                     e.preventDefault();
                     scrollToId(link.id);
                   }}
-                  className={`px-3.5 h-8 rounded-full flex items-center text-[13px] font-medium tracking-[-0.01em] ${
+                  className={`px-3.5 h-8 rounded-full flex items-center text-[0.8125rem] font-medium tracking-[-0.01em] ${
                     isActive ? "bg-black/[0.06] text-[#090909]" : "text-[#686c70] hover:text-[#090909]"
                   }`}
                   style={itemStyle(i)}
@@ -229,7 +229,7 @@ export default function FloatingNav() {
               e.preventDefault();
               scrollToId("contact");
             }}
-            className="group h-8 pl-3.5 pr-3 rounded-full bg-[#0a0a0a] text-white flex items-center gap-2 text-[13px] font-medium tracking-[-0.01em] hover:bg-[#1e1e1e]"
+            className="group h-8 pl-3.5 pr-3 rounded-full bg-[#0a0a0a] text-white flex items-center gap-2 text-[0.8125rem] font-medium tracking-[-0.01em] hover:bg-[#1e1e1e]"
             style={itemStyle(NAV_LINKS.length)}
           >
             <span>Book free audit</span>

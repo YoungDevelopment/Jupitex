@@ -26,13 +26,12 @@ body {
   overflow-x: clip;
 }
 
-/* Desktop type and spacing run a size smaller: at 100% the page read cramped, and the 90% browser
-   zoom was the size that looked right. Applied to each section's content, the nav, the hero copy
-   and the footer, never to <html> or the full-height section boxes: those keep real 100vh heights
-   and the scroll maths (offsetTop vs scrollY) stays in one coordinate system. */
+/* Desktop text runs a size smaller: at the browser default (16px) it read large and cramped.
+   Text sizes and Tailwind spacing are in rem, so they follow this; pictures, rocks and other
+   artwork are sized in px and keep their size. A px value, not a %, so every browser matches. */
 @media (min-width: 1024px) {
-  .site-scale {
-    zoom: 0.9;
+  html {
+    font-size: 14.4px;
   }
 }
 

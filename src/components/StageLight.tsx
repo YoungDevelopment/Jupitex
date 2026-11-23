@@ -58,7 +58,7 @@ export default function StageLight({
 
     const onMove = (e: PointerEvent) => {
       const r = el.getBoundingClientRect();
-      // the light is drawn in the element's own pixels; inside .site-scale those differ from screen pixels
+      // the light is drawn in the element's own pixels, which differ from screen pixels under a scale
       const k = el.offsetWidth / Math.max(1, r.width);
       const lx = (e.clientX - r.left) * k;
       const ly = (e.clientY - r.top) * k;

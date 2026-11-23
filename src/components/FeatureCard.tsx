@@ -58,13 +58,13 @@ export default function FeatureCard({
         <h3 className="text-[1.375rem] sm:text-[1.5rem] font-semibold leading-[1.16] tracking-[-0.02em] text-apple-near-black">
           {title}
         </h3>
-        <p className="mt-3 text-[15px] sm:text-[15.5px] leading-[1.55] text-[#55585c]">{description}</p>
+        <p className="mt-3 text-[0.9375rem] sm:text-[0.9688rem] leading-[1.55] text-[#55585c]">{description}</p>
         {items && (
           <ul className={`${bottom ? "" : "mt-auto"} pt-5 flex flex-wrap gap-2`}>
             {items.map((item) => (
               <li
                 key={item}
-                className="rounded-full bg-apple-light-gray px-3 py-1.5 text-[13px] font-medium text-apple-near-black"
+                className="rounded-full bg-apple-light-gray px-3 py-1.5 text-[0.8125rem] font-medium text-apple-near-black"
               >
                 {item}
               </li>

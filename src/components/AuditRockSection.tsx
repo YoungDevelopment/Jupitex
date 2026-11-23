@@ -598,7 +598,7 @@ export default function AuditRockSection() {
               >
                 {/* Quote: four lines at rest, the whole quote on hover */}
                 <p
-                  className="relative text-[12.5px] xl:text-[13px] leading-[1.52] text-[#2c3035] overflow-hidden transition-[max-height] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                  className="relative text-[0.7812rem] xl:text-[0.8125rem] leading-[1.52] text-[#2c3035] overflow-hidden transition-[max-height] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
                   style={{
                     maxHeight: isHovered ? "20em" : "6.08em",
                     // fade the last line out while the quote is cut short
@@ -612,7 +612,7 @@ export default function AuditRockSection() {
                 {/* Author Footer */}
                 <div className="pt-2.5 border-t border-black/[0.06] flex items-center gap-2.5">
                   <div
-                    className="w-8 h-8 rounded-full flex items-center justify-center text-[11px] font-bold shrink-0 transition-colors duration-300"
+                    className="w-8 h-8 rounded-full flex items-center justify-center text-[0.6875rem] font-bold shrink-0 transition-colors duration-300"
                     style={{
                       backgroundColor: isHovered
                         ? LOGO_ORANGE
@@ -623,10 +623,10 @@ export default function AuditRockSection() {
                     {item.initials}
                   </div>
                   <div className="min-w-0">
-                    <div className="text-[13px] font-semibold tracking-[-0.015em] text-[#090909] truncate">
+                    <div className="text-[0.8125rem] font-semibold tracking-[-0.015em] text-[#090909] truncate">
                       {item.name}
                     </div>
-                    <div className="text-[11px] text-[#686c70] truncate">
+                    <div className="text-[0.6875rem] text-[#686c70] truncate">
                       {item.role} · {item.company}
                     </div>
                   </div>

@@ -50,9 +50,9 @@ function Slider({
   return (
     <div>
       <div className="flex items-center justify-between gap-4">
-        <span className="text-[14px] sm:text-[14.5px] text-[#3d4044]">{label}</span>
+        <span className="text-[0.875rem] sm:text-[0.9062rem] text-[#3d4044]">{label}</span>
         <label
-          className="group/val flex items-baseline rounded-lg border border-transparent bg-[#f1f2f3] px-2.5 py-1 text-[15px] sm:text-[16px] font-medium tracking-[-0.02em] text-[#090909] tabular-nums cursor-text transition-colors duration-200 hover:border-black/10 focus-within:border-black/30 focus-within:bg-white"
+          className="group/val flex items-baseline rounded-lg border border-transparent bg-[#f1f2f3] px-2.5 py-1 text-[0.9375rem] sm:text-[1rem] font-medium tracking-[-0.02em] text-[#090909] tabular-nums cursor-text transition-colors duration-200 hover:border-black/10 focus-within:border-black/30 focus-within:bg-white"
           title="Type your own value"
         >
           {prefix && <span>{prefix}</span>}
@@ -257,7 +257,7 @@ export default function RoiSection() {
             suffix="%"
             onChange={setShare}
           />
-          <p className="-mt-1 sm:-mt-2 text-[12px] text-[#8e9296]">
+          <p className="-mt-1 sm:-mt-2 text-[0.75rem] text-[#8e9296]">
             Tap any number to type your own.
           </p>
         </div>
@@ -281,7 +281,7 @@ export default function RoiSection() {
 
           <div className="relative flex w-full flex-col justify-between gap-8" style={blackContent}>
             <div>
-              <div className="text-[13px] text-white/55">Hours handed back every week</div>
+              <div className="text-[0.8125rem] text-white/55">Hours handed back every week</div>
               <div className="mt-1 text-[clamp(2.75rem,6vw,4rem)] font-medium tracking-[-0.04em] leading-none tabular-nums">
                 {Math.round(revealed ? shownHours : 0).toLocaleString("en-US")}
               </div>
@@ -289,7 +289,7 @@ export default function RoiSection() {
               {/* Before / after week */}
               <div className="mt-6 space-y-2.5" aria-hidden>
                 <div>
-                  <div className="flex justify-between text-[12px] text-white/50">
+                  <div className="flex justify-between text-[0.75rem] text-white/50">
                     <span>Manual today</span>
                     <span className="tabular-nums">
                       {manualHours.toLocaleString("en-US")} hrs / wk
@@ -298,7 +298,7 @@ export default function RoiSection() {
                   <div className="mt-1.5 h-1.5 rounded-full bg-white/20" />
                 </div>
                 <div>
-                  <div className="flex justify-between text-[12px]">
+                  <div className="flex justify-between text-[0.75rem]">
                     <span className="text-white/85">After automation</span>
                     <span className="tabular-nums" style={{ color: ACCENT }}>
                       {Math.round(remaining).toLocaleString("en-US")} hrs / wk
@@ -319,19 +319,19 @@ export default function RoiSection() {
 
             <div>
               <div className="pt-5 border-t border-dashed border-white/15 flex items-baseline justify-between gap-4">
-                <span className="text-[13px] text-white/55">Worth per year</span>
-                <span className="text-[24px] sm:text-[28px] font-medium tracking-[-0.03em] tabular-nums">
+                <span className="text-[0.8125rem] text-white/55">Worth per year</span>
+                <span className="text-[1.5rem] sm:text-[1.75rem] font-medium tracking-[-0.03em] tabular-nums">
                   ${Math.round(revealed ? shownYearly : 0).toLocaleString("en-US")}
                 </span>
               </div>
-              <p className="mt-3 text-[12px] leading-[1.5] text-white/45">
+              <p className="mt-3 text-[0.75rem] leading-[1.5] text-white/45">
                 An estimate from your inputs over {WEEKS} weeks, not a quote. Build cost is not
                 included.
               </p>
               <button
                 type="button"
                 onClick={() => scrollToId("contact")}
-                className="group mt-5 h-[46px] w-full rounded-full bg-white text-[#0a0a0a] flex items-center justify-center gap-2.5 text-[14px] font-medium tracking-[-0.01em] cursor-pointer hover:bg-[#f1f2f3] active:scale-[0.98] transition-[background-color,transform] duration-200"
+                className="group mt-5 h-[46px] w-full rounded-full bg-white text-[#0a0a0a] flex items-center justify-center gap-2.5 text-[0.875rem] font-medium tracking-[-0.01em] cursor-pointer hover:bg-[#f1f2f3] active:scale-[0.98] transition-[background-color,transform] duration-200"
               >
                 <span>Get the measured version</span>
                 <svg

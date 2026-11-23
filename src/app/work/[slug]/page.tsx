@@ -31,10 +31,10 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
   return (
     <main className="min-h-screen w-full bg-background">
       <ReadingProgress />
-      <div className="site-scale mx-auto w-full max-w-[860px] px-5 sm:px-8 pt-8 pb-20">
+      <div className="mx-auto w-full max-w-[860px] px-5 sm:px-8 pt-8 pb-20">
         <Link
           href="/#our-work"
-          className="inline-flex items-center gap-2 text-[14px] font-medium text-[#0a0a0a] hover:opacity-70 transition-opacity"
+          className="inline-flex items-center gap-2 text-[0.875rem] font-medium text-[#0a0a0a] hover:opacity-70 transition-opacity"
         >
           <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden>
             <path d="M11 7H3M3 7L6.5 3.5M3 7L6.5 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

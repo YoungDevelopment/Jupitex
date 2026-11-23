@@ -157,7 +157,7 @@ export default function HeroCta({ label, onClick }: { label: string; onClick: ()
       <span
         ref={measureRef}
         aria-hidden
-        className="invisible absolute left-0 top-0 whitespace-nowrap flex items-center gap-3 text-[14px] font-medium tracking-[-0.01em]"
+        className="invisible absolute left-0 top-0 whitespace-nowrap flex items-center gap-3 text-[0.875rem] font-medium tracking-[-0.01em]"
         style={{ paddingLeft: PAD, paddingRight: 20, height: PILL_H }}
       >
         <span style={{ width: BALL, height: BALL }} className="shrink-0" />
@@ -183,7 +183,7 @@ export default function HeroCta({ label, onClick }: { label: string; onClick: ()
 
         {/* Label, revealed as the ball moves out of the way */}
         <span
-          className="hero-cta__label absolute inset-y-0 flex items-center whitespace-nowrap text-white text-[14px] font-medium tracking-[-0.01em]"
+          className="hero-cta__label absolute inset-y-0 flex items-center whitespace-nowrap text-white text-[0.875rem] font-medium tracking-[-0.01em]"
           style={{ left: PAD + BALL + 12 }}
         >
           {label}
