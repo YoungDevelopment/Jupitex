@@ -495,7 +495,6 @@ export default function AuditRockSection() {
     <SectionWrapper
       id="testimonials"
       ariaLabel="Client Testimonials"
-      subject="CLIENT TESTIMONIALS"
       className="h-screen min-h-screen max-h-screen !pb-0"
       containerClassName="h-full"
       contentClassName="flex-1 flex flex-col items-center !mt-4"
