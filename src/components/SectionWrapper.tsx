@@ -79,7 +79,7 @@ export default function SectionWrapper({
 
       <div
         className={cn(
-          "relative z-10 w-full max-w-[1140px] mx-auto flex flex-col items-center transition-all duration-700",
+          "relative z-10 w-full max-w-[calc(1140px*var(--ui))] mx-auto flex flex-col items-center transition-all duration-700",
           containerClassName
         )}
         style={revealContent ? reveal : undefined}
@@ -103,7 +103,7 @@ export default function SectionWrapper({
           </h2>
 
           {description && (
-            <p className="mt-3.5 sm:mt-4 max-w-[650px] text-[0.9375rem] sm:text-[1.0312rem] font-normal leading-[1.6] tracking-[-0.01em] text-[#55585c] px-2">
+            <p className="mt-3.5 sm:mt-4 max-w-[calc(650px*var(--ui))] text-[0.9375rem] sm:text-[1.0312rem] font-normal leading-[1.6] tracking-[-0.01em] text-[#55585c] px-2">
               {description}
             </p>
           )}

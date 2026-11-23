@@ -95,15 +95,15 @@ export default function SiteFooter() {
       {/* ── Centred column, sinking into the sky of the scene below ── */}
       {/* No top padding: the last section's bottom space is the gap, same as between sections */}
       <div className="relative z-10 px-5 sm:px-8 lg:px-14">
-        <div className="mx-auto max-w-[1140px] border-t border-black/[0.08] pt-14 sm:pt-16 flex flex-col items-center text-center">
+        <div className="mx-auto max-w-[calc(1140px*var(--ui))] border-t border-black/[0.08] pt-14 sm:pt-16 flex flex-col items-center text-center">
           <Image
             src="/JupitexLogos/nav_logo_light.png"
             alt="Jupitex"
             width={240}
             height={72}
-            className="h-[28px] w-auto object-contain"
+            className="h-[calc(28px*var(--ui))] w-auto object-contain"
           />
-          <p className="mt-4 max-w-[400px] text-[0.875rem] leading-[1.6] text-[#686c70]">
+          <p className="mt-4 max-w-[calc(400px*var(--ui))] text-[0.875rem] leading-[1.6] text-[#686c70]">
             AI and automation for debt collection agencies. We find what is worth building,
             build it, and train your team to run it.
           </p>
@@ -157,7 +157,7 @@ export default function SiteFooter() {
       {/* ── The shoreline: sky keyed out, pulled up under the column ── */}
       <div
         ref={sceneRef}
-        className="relative z-0 -mt-16 sm:-mt-[7vw] w-full h-[260px] sm:h-[max(23vw,220px)]"
+        className="relative z-0 -mt-16 sm:-mt-[7vw] w-full h-[calc(260px*var(--ui))] sm:h-[max(23vw,220px)]"
       >
         <img
           ref={imgRef}

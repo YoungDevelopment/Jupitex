@@ -38,7 +38,7 @@ export default function CaseStudyContent({ study }: { study: CaseStudy }) {
         <h1 className="mt-2 text-[1.875rem] sm:text-[2.5rem] font-medium leading-[1.08] tracking-[-0.03em] text-[#0a0a0a]">
           {study.title}
         </h1>
-        <p className="mt-4 text-[1rem] sm:text-[1.0938rem] leading-[1.6] text-[#55585c] max-w-[640px]">
+        <p className="mt-4 text-[1rem] sm:text-[1.0938rem] leading-[1.6] text-[#55585c] max-w-[calc(640px*var(--ui))]">
           <Rich text={study.summary} />
         </p>
       </Reveal>
@@ -90,7 +90,7 @@ export default function CaseStudyContent({ study }: { study: CaseStudy }) {
                     <li key={point} className="flex gap-3 text-[1rem] leading-[1.7] text-[#3d4044]">
                       <span
                         aria-hidden
-                        className="mt-[11px] w-1.5 h-1.5 rounded-full shrink-0"
+                        className="mt-[calc(11px*var(--ui))] w-1.5 h-1.5 rounded-full shrink-0"
                         style={{ backgroundColor: ACCENT }}
                       />
                       <span>
@@ -124,12 +124,12 @@ export default function CaseStudyContent({ study }: { study: CaseStudy }) {
       {/* Next step */}
       <Reveal className="mt-12">
         <div className="rounded-2xl bg-[#0a0a0a] px-6 py-6 sm:px-8 sm:py-7 flex flex-col sm:flex-row sm:items-center gap-4 sm:justify-between cs-dark">
-          <p className="text-white text-[1rem] sm:text-[1.0625rem] font-medium leading-snug max-w-[420px]">
+          <p className="text-white text-[1rem] sm:text-[1.0625rem] font-medium leading-snug max-w-[calc(420px*var(--ui))]">
             Want the same for your agency? Start with a free 90-minute audit.
           </p>
           <Link
             href="/#contact"
-            className="group inline-flex items-center justify-center gap-1.5 h-[42px] px-5 rounded-full text-[0.875rem] font-medium text-white shrink-0 transition-transform duration-200 hover:scale-[1.03] active:scale-[0.97]"
+            className="group inline-flex items-center justify-center gap-1.5 h-[calc(42px*var(--ui))] px-5 rounded-full text-[0.875rem] font-medium text-white shrink-0 transition-transform duration-200 hover:scale-[1.03] active:scale-[0.97]"
             style={{ backgroundColor: ACCENT }}
           >
             Book the free audit

@@ -3,7 +3,9 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { NAV_LINKS, scrollToId } from "@/lib/site";
 
-const DROP = 44; // the droplet: the logo button (32px) plus the pill's 6px padding each side
+/** The droplet: the logo button (2rem) plus the pill's 0.375rem padding each side, in px now. */
+const dropSize = () =>
+  typeof window === "undefined" ? 44 : 2.75 * parseFloat(getComputedStyle(document.documentElement).fontSize);
 const EXPAND_MS = 1000;
 
 /** A damped spring as a CSS linear() easing, so the pill overshoots and settles like a liquid. */
@@ -135,8 +137,9 @@ export default function FloatingNav() {
   }, []);
 
 
-  const logoShift = open || !navW ? 0 : navW / 2 - DROP / 2;
-  const width = open ? navW || "auto" : DROP;
+  const drop = navW ? dropSize() : 44;
+  const logoShift = open || !navW ? 0 : navW / 2 - drop / 2;
+  const width = open ? navW || "auto" : drop;
   const tab = shown ? 0 : -1;
 
   // Links and the call to action arrive one after another as the bar spreads under them
@@ -195,7 +198,7 @@ export default function FloatingNav() {
             }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/JupitexLogos/tab-logo-dark.png" alt="" className="w-[17px] h-[17px] object-contain" />
+            <img src="/JupitexLogos/tab-logo-dark.png" alt="" className="w-[calc(17px*var(--ui))] h-[calc(17px*var(--ui))] object-contain" />
           </button>
 
           <div className="hidden md:flex items-center">

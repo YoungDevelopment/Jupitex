@@ -142,7 +142,7 @@ export default function AutomationsSection() {
                   aria-controls="workflow-panel"
                   tabIndex={isActive ? 0 : -1}
                   onClick={() => select(i)}
-                  className={`group relative shrink-0 snap-start w-[240px] sm:w-[280px] lg:w-full text-left rounded-[16px] border px-4 py-3.5 lg:px-5 lg:py-4 cursor-pointer transition-[background-color,border-color,box-shadow] duration-200 ${
+                  className={`group relative shrink-0 snap-start w-[calc(240px*var(--ui))] sm:w-[calc(280px*var(--ui))] lg:w-full text-left rounded-[calc(16px*var(--ui))] border px-4 py-3.5 lg:px-5 lg:py-4 cursor-pointer transition-[background-color,border-color,box-shadow] duration-200 ${
                     isActive
                       ? "bg-card border-black/[0.08] shadow-[0_8px_30px_rgba(0,0,0,0.05)]"
                       : "bg-transparent border-transparent hover:bg-white/60 hover:border-black/[0.05]"
@@ -243,12 +243,12 @@ export default function AutomationsSection() {
           id="workflow-panel"
           role="tabpanel"
           aria-labelledby={`tab-${workflow.id}`}
-          className="lg:col-span-8 rounded-[20px] bg-card border border-black/[0.06] shadow-[0_8px_30px_rgba(0,0,0,0.05)] p-4 sm:p-5 lg:p-6 flex flex-col"
+          className="lg:col-span-8 rounded-[calc(20px*var(--ui))] bg-card border border-black/[0.06] shadow-[0_8px_30px_rgba(0,0,0,0.05)] p-4 sm:p-5 lg:p-6 flex flex-col"
         >
           <StageLight
             active={workflow.id}
             order={WORKFLOWS.map((w) => w.id)}
-            className="rounded-t-[14px] [clip-path:inset(0_round_14px_14px_0_0)]"
+            className="rounded-t-[calc(14px*var(--ui))] [clip-path:inset(0_round_14px_14px_0_0)]"
           >
             {/* The animated story. Remounted per workflow: each one starts from its own first frame. */}
             <div
@@ -327,7 +327,7 @@ export default function AutomationsSection() {
                 >
                   <span
                     aria-hidden
-                    className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full"
+                    className="mt-[calc(7px*var(--ui))] h-1.5 w-1.5 shrink-0 rounded-full"
                     style={{ backgroundColor: ACCENT }}
                   />
                   <span>{line}</span>

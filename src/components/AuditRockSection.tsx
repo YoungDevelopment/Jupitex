@@ -128,7 +128,7 @@ function arcScale(absAngle: number) {
  * Near the top the cards sit side by side; toward the sides they stack, so the spacing has to
  * hold both ways. The dial's loop is then CARD_COUNT × step long, longer than 360° if needed.
  */
-function pickAngleStep(rx: number, ry: number, w: number, h: number, visibleTo: number) {
+function pickAngleStep(rx: number, ry: number, w: number, h: number, visibleTo: number, gap = CARD_GAP) {
   const place = (deg: number) => {
     const r = (deg * Math.PI) / 180;
     const s = arcScale(Math.abs(deg));
@@ -140,8 +140,8 @@ function pickAngleStep(rx: number, ry: number, w: number, h: number, visibleTo: 
     for (let a = -visibleTo; a + step <= visibleTo && clear; a += 1) {
       const p = place(a);
       const q = place(a + step);
-      const overlapX = Math.abs(p.cx - q.cx) < (p.w + q.w) / 2 + CARD_GAP;
-      const overlapY = Math.abs(p.cy - q.cy) < (p.h + q.h) / 2 + CARD_GAP;
+      const overlapX = Math.abs(p.cx - q.cx) < (p.w + q.w) / 2 + gap;
+      const overlapY = Math.abs(p.cy - q.cy) < (p.h + q.h) / 2 + gap;
       if (overlapX && overlapY) clear = false;
     }
     if (clear) return step;
@@ -270,9 +270,15 @@ export default function AuditRockSection() {
         fadeEndAngle = 42;
       }
 
+      // Desktop draws every fixed size at --ui (globals.css); the arc follows suit
+      const ui = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--ui")) || 1;
+      radiusX *= ui;
+      radiusY *= ui;
+      cardWidth = Math.round(cardWidth * ui);
+
       // Measure the real cards (their height depends on the copy), fall back to their min-height
       const cards = document.querySelectorAll<HTMLElement>("[data-testimonial-card]");
-      let cardHeight = w >= 1280 ? 228 : 215;
+      let cardHeight = (w >= 1280 ? 228 : 215) * ui;
       cards.forEach((c) => (cardHeight = Math.max(cardHeight, c.offsetHeight)));
       // a card is still noticeably visible until most of the way through its fade
       const visibleTo = fadeStartAngle + (fadeEndAngle - fadeStartAngle) * 0.7;
@@ -284,7 +290,7 @@ export default function AuditRockSection() {
         fadeStartAngle,
         fadeEndAngle,
         angleStep: syncedStep(
-          pickAngleStep(radiusX, radiusY, cardWidth, cardHeight, visibleTo),
+          pickAngleStep(radiusX, radiusY, cardWidth, cardHeight, visibleTo, CARD_GAP * ui),
           fadeStartAngle,
           fadeEndAngle,
           CARD_COUNT
@@ -490,13 +496,13 @@ export default function AuditRockSection() {
       title={
         <>
           <span className="text-[#8e9296]">What our clients say about</span>
-          <span className="inline-flex items-center px-3.5 sm:px-4 py-1.5 rounded-[16px] bg-white border border-black/[0.06] shadow-[0_4px_14px_rgba(0,0,0,0.04)]">
+          <span className="inline-flex items-center px-3.5 sm:px-4 py-1.5 rounded-[calc(16px*var(--ui))] bg-white border border-black/[0.06] shadow-[0_4px_14px_rgba(0,0,0,0.04)]">
             <Image
               src="/JupitexLogos/nav_logo_light.png"
               alt="Jupitex"
               width={125}
               height={35}
-              className="h-[22px] sm:h-[27px] lg:h-[30px] w-auto object-contain"
+              className="h-[calc(22px*var(--ui))] sm:h-[calc(27px*var(--ui))] lg:h-[calc(30px*var(--ui))] w-auto object-contain"
             />
           </span>
         </>
@@ -517,11 +523,11 @@ export default function AuditRockSection() {
       <div
         ref={stageRef}
         // Fixed heights: the rock's top two thirds show on every screen, tall or short
-        className="relative w-full h-[480px] sm:h-[575px] lg:h-[660px] xl:h-[710px] mt-6 sm:mt-8 xl:mt-9"
+        className="relative w-full h-[calc(480px*var(--ui))] sm:h-[calc(575px*var(--ui))] lg:h-[calc(660px*var(--ui))] xl:h-[calc(710px*var(--ui))] mt-6 sm:mt-8 xl:mt-9"
       >
         {/* THE MOUNTAIN / ROCK IN BETWEEN */}
         <div
-          className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-[250px] sm:top-[275px] lg:top-[295px] xl:top-[305px] z-10 w-[340px] sm:w-[440px] lg:w-[540px] xl:w-[600px] transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
+          className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-[calc(250px*var(--ui))] sm:top-[calc(275px*var(--ui))] lg:top-[calc(295px*var(--ui))] xl:top-[calc(305px*var(--ui))] z-10 w-[calc(340px*var(--ui))] sm:w-[calc(440px*var(--ui))] lg:w-[calc(540px*var(--ui))] xl:w-[calc(600px*var(--ui))] transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
           style={{
             opacity: isVisible ? 1 : 0,
             transform: isVisible
@@ -589,7 +595,7 @@ export default function AuditRockSection() {
                   top: "0px",
                 }}
                 className="
-                  absolute min-h-[180px] xl:min-h-[190px] rounded-[20px] bg-card
+                  absolute min-h-[calc(180px*var(--ui))] xl:min-h-[calc(190px*var(--ui))] rounded-[calc(20px*var(--ui))] bg-card
                   border border-black/[0.06] hover:border-[#FF731E]/50
                   p-4 sm:p-5 flex flex-col justify-between gap-3
                   shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:shadow-[0_18px_42px_rgba(0,0,0,0.11)]

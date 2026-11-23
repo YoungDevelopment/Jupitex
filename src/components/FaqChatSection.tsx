@@ -577,7 +577,7 @@ export default function FaqChatSection() {
 
         {/* Chat card: fades in once the wood has settled */}
         <div
-          className="relative z-10 mx-auto w-full max-w-[640px] rounded-2xl sm:rounded-3xl border border-[rgba(0,0,0,0.1)] bg-card shadow-[0_18px_50px_rgba(0,0,0,0.12)] overflow-hidden"
+          className="relative z-10 mx-auto w-full max-w-[calc(640px*var(--ui))] rounded-2xl sm:rounded-3xl border border-[rgba(0,0,0,0.1)] bg-card shadow-[0_18px_50px_rgba(0,0,0,0.12)] overflow-hidden"
           style={{
             opacity: stageInView ? 1 : 0,
             transform: stageInView ? "none" : "translateY(18px) scale(0.98)",
@@ -606,7 +606,7 @@ export default function FaqChatSection() {
           <div
             ref={scrollContainerRef}
             onWheel={handleWheel}
-            className="h-[400px] sm:h-[460px] md:h-[500px] overflow-y-scroll p-4 sm:p-5 md:p-6 space-y-3 sm:space-y-4 faq-scrollbar"
+            className="h-[calc(400px*var(--ui))] sm:h-[calc(460px*var(--ui))] md:h-[calc(500px*var(--ui))] overflow-y-scroll p-4 sm:p-5 md:p-6 space-y-3 sm:space-y-4 faq-scrollbar"
           >
             {!hasMessages && (
               <div className="flex items-center justify-center h-full">
@@ -686,7 +686,7 @@ export default function FaqChatSection() {
       <div className="h-6 sm:h-8 md:h-10" />
 
       {/* ── FAQ Accordion ──────────────────────────────────────── */}
-      <div className="mx-auto w-full max-w-[640px] text-left">
+      <div className="mx-auto w-full max-w-[calc(640px*var(--ui))] text-left">
         {FAQS.map((faq, i) => (
           <FaqItem
             key={i}

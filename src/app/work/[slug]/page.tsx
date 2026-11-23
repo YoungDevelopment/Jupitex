@@ -31,7 +31,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
   return (
     <main className="min-h-screen w-full bg-background">
       <ReadingProgress />
-      <div className="mx-auto w-full max-w-[860px] px-5 sm:px-8 pt-8 pb-20">
+      <div className="mx-auto w-full max-w-[calc(860px*var(--ui))] px-5 sm:px-8 pt-8 pb-20">
         <Link
           href="/#our-work"
           className="inline-flex items-center gap-2 text-[0.875rem] font-medium text-[#0a0a0a] hover:opacity-70 transition-opacity"
