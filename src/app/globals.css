@@ -29,9 +29,9 @@ body {
 /* Desktop sizing, fluid with the screen. No CSS zoom (it shrinks artwork and differs between browsers):
    - text and Tailwind spacing are rem, so html's font-size scales them;
    - every fixed size is written calc(N * var(--u)), --u being one scaled pixel.
-   Both shrink as the screen widens: 14.4px / 0.95 on a small laptop down to 12.96px / 0.9 on a
-   large one. Retina Macs draw a CSS pixel physically smaller than a 125-150%-scaled Windows
-   laptop, so their range starts later (1512px, a 14" MacBook) and ends at 1728px (16").
+   Both shrink as the screen widens. Windows: 14.4px / 0.95 at 1280px down to 12.96px / 0.9 at
+   1536px. Retina Macs draw a CSS pixel physically smaller than a 125-150%-scaled Windows laptop,
+   so they run a size up: 16px / 1.05 to 1512px (13-14"), down to 14.4px / 0.95 at 1728px (16").
    Phones and tablets keep 16px and --u: 1px. Media queries stay in real px. */
 :root {
   --u: 1px;
@@ -46,12 +46,12 @@ body {
   }
 }
 @media (min-width: 1024px) and (min-resolution: 2dppx), (min-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
-  /* 1512 -> 1728px wide */
+  /* 1512 -> 1728px wide: 16px / 1.05 on a 13-14" MacBook, 14.4px / 0.95 on a 16" */
   :root {
-    --u: clamp(0.9px, calc(1.3px - 0.0231481vw), 0.95px);
+    --u: clamp(0.95px, calc(1.75px - 0.0462963vw), 1.05px);
   }
   html {
-    font-size: clamp(12.96px, calc(24.48px - 0.666667vw), 14.4px);
+    font-size: clamp(14.4px, calc(27.2px - 0.740741vw), 16px);
   }
 }
 
