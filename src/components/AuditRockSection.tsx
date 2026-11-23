@@ -171,8 +171,6 @@ export default function AuditRockSection() {
   const rockRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-  const [stageScale, setStageScale] = useState(1);
-  const [stageOffsetY, setStageOffsetY] = useState(0);
   const [dialConfig, setDialConfig] = useState({
     radiusX: 540,
     radiusY: 390,
@@ -234,20 +232,17 @@ export default function AuditRockSection() {
     placeCards();
   }, [dialConfig, hoveredCard, placeCards]);
 
-  // Responsive arc radius & 100vh height adaptation so the rotary dial frames the mountain on all displays
+  // The arc follows the screen's width only. The stage has a fixed height per breakpoint (see its
+  // className), so every screen shows the same amount of rock whatever its height or zoom level.
   useEffect(() => {
     const updateDimensions = () => {
       const w = window.innerWidth;
-      const h = window.innerHeight;
 
       let radiusX = 540;
       let radiusY = 390;
       let cardWidth = 252;
       let fadeStartAngle = 74;
       let fadeEndAngle = 96;
-      let rockTop = 305;
-      let rockWidth = 600;
-      let minComfortHeight = 520;
 
       if (w >= 1280) {
         radiusX = 540;
@@ -255,36 +250,24 @@ export default function AuditRockSection() {
         cardWidth = 252;
         fadeStartAngle = 74;
         fadeEndAngle = 96;
-        rockTop = 305;
-        rockWidth = 600;
-        minComfortHeight = 520;
       } else if (w >= 1024) {
         radiusX = 392;
         radiusY = 310;
         cardWidth = 206;
         fadeStartAngle = 73;
         fadeEndAngle = 92;
-        rockTop = 295;
-        rockWidth = 540;
-        minComfortHeight = 480;
       } else if (w >= 640) {
         radiusX = 365;
         radiusY = 260;
         cardWidth = 204;
         fadeStartAngle = 38;
         fadeEndAngle = 58;
-        rockTop = 275;
-        rockWidth = 440;
-        minComfortHeight = 450;
       } else {
         radiusX = 410;
         radiusY = 240;
         cardWidth = 228;
         fadeStartAngle = 16;
         fadeEndAngle = 42;
-        rockTop = 250;
-        rockWidth = 340;
-        minComfortHeight = 420;
       }
 
       // Measure the real cards (their height depends on the copy), fall back to their min-height
@@ -307,37 +290,6 @@ export default function AuditRockSection() {
           CARD_COUNT
         ),
       });
-
-      const sectionPaddingTop = w >= 1024 ? 96 : w >= 640 ? 80 : 64;
-      const fallbackStageOffsetTop = w >= 1024 ? 252 : w >= 640 ? 228 : 235;
-      const measuredOffsetTop = stageRef.current?.offsetTop;
-      const stageTop =
-        sectionPaddingTop +
-        (measuredOffsetTop && measuredOffsetTop > 0
-          ? measuredOffsetTop
-          : fallbackStageOffsetTop);
-
-      const availableStageHeight = Math.max(300, h - stageTop);
-      const rockHeight = rockWidth * (1033 / 1024);
-      const naturalStageBottom = rockTop + rockHeight - 24;
-
-      let nextScale = 1;
-      if (availableStageHeight < minComfortHeight) {
-        nextScale = Math.max(0.65, availableStageHeight / minComfortHeight);
-      } else if (availableStageHeight > naturalStageBottom && w >= 1024) {
-        const arcSpan = radiusX * 2 + cardWidth;
-        const maxHorizScale = Math.max(1, (w - 80) / arcSpan);
-        const desiredScale = availableStageHeight / naturalStageBottom;
-        nextScale = Math.min(maxHorizScale, desiredScale, 1.35);
-      }
-
-      const nextOffsetY = Math.max(
-        0,
-        Math.round(availableStageHeight - naturalStageBottom * nextScale)
-      );
-
-      setStageScale(nextScale);
-      setStageOffsetY(nextOffsetY);
     };
 
     updateDimensions();
@@ -533,8 +485,7 @@ export default function AuditRockSection() {
     <SectionWrapper
       id="testimonials"
       ariaLabel="Client Testimonials"
-      className="h-screen min-h-screen max-h-screen !pb-0"
-      containerClassName="h-full"
+      className="!pb-0"
       contentClassName="flex-1 flex flex-col items-center !mt-4"
       title={
         <>
@@ -565,13 +516,8 @@ export default function AuditRockSection() {
          ===================================================================== */}
       <div
         ref={stageRef}
-        className="relative w-full flex-1 min-h-[540px] sm:min-h-[580px] lg:min-h-[620px] mt-6 sm:mt-8 xl:mt-9 origin-top"
-        style={{
-          transform:
-            stageScale !== 1 || stageOffsetY !== 0
-              ? `translate3d(0, ${stageOffsetY}px, 0) scale(${stageScale.toFixed(3)})`
-              : undefined,
-        }}
+        // Fixed heights: the rock's top two thirds show on every screen, tall or short
+        className="relative w-full h-[480px] sm:h-[575px] lg:h-[660px] xl:h-[710px] mt-6 sm:mt-8 xl:mt-9"
       >
         {/* THE MOUNTAIN / ROCK IN BETWEEN */}
         <div

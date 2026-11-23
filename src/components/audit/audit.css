@@ -495,12 +495,6 @@
   .ax-copy { min-height: 102px; }
 }
 
-/* Short laptop screens: the one-line copy goes so the pictures keep their room */
-@media (min-width: 1280px) and (max-height: 860px) {
-  .ax-body { display: none; }
-  .ax-copy { min-height: 0; }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .ax-grid *,
   .ax-grid *::before,

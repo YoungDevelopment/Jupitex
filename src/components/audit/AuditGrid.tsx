@@ -524,7 +524,7 @@ export default function AuditGrid() {
     <div
       ref={ref}
       data-in={inView || undefined}
-      className="ax-grid text-left w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 xl:grid-rows-2 gap-4 mt-6 lg:mt-5 xl:h-[clamp(446px,calc(100svh-369px),680px)]"
+      className="ax-grid text-left w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 xl:grid-rows-2 gap-4 mt-6 lg:mt-5 xl:h-[590px]"
     >
       <Tile
         index={0}
