@@ -198,7 +198,7 @@ export default function FloatingNav() {
             }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/JupitexLogos/tab-logo-dark.png" alt="" className="w-[calc(17px*var(--ui))] h-[calc(17px*var(--ui))] object-contain" />
+            <img src="/JupitexLogos/tab-logo-dark.png" alt="" className="w-[calc(17*var(--u))] h-[calc(17*var(--u))] object-contain" />
           </button>
 
           <div className="hidden md:flex items-center">

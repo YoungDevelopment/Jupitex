@@ -113,7 +113,7 @@ function Tile({
       style={{ "--i": index } as React.CSSProperties}
     >
       <div
-        className={`ax-picture relative isolate overflow-hidden rounded-[calc(18px*var(--ui))] bg-[#f5f6f7] xl:flex-1 xl:min-h-0 ${pictureClassName}`}
+        className={`ax-picture relative isolate overflow-hidden rounded-[calc(18*var(--u))] bg-[#f5f6f7] xl:flex-1 xl:min-h-0 ${pictureClassName}`}
       >
         <div className="ax-art relative h-full">{children}</div>
       </div>
@@ -164,7 +164,7 @@ function GoalsPicture({ start }: { start: boolean }) {
 
   return (
     <div className="h-full flex items-center justify-center px-4 sm:px-5 py-4">
-      <div className="ax-goals w-full max-w-[calc(330px*var(--ui))] rounded-2xl bg-white border border-black/[0.06] shadow-[0_10px_30px_rgba(0,0,0,0.06)]">
+      <div className="ax-goals w-full max-w-[calc(330*var(--u))] rounded-2xl bg-white border border-black/[0.06] shadow-[0_10px_30px_rgba(0,0,0,0.06)]">
         <div className="flex items-center justify-between gap-3 pl-3.5 pr-2.5 pt-2.5 pb-1.5">
           <span className="text-[0.8125rem] font-semibold text-[#090909]">What matters most</span>
           {/* What the ticked goals are worth, adding up as they are ticked */}
@@ -187,11 +187,11 @@ function GoalsPicture({ start }: { start: boolean }) {
                 type="button"
                 aria-pressed={checked[i]}
                 onClick={() => toggle(i)}
-                className="ax-goal__row w-full flex items-center gap-2.5 rounded-xl px-2 py-[calc(7px*var(--ui))] text-left cursor-pointer"
+                className="ax-goal__row w-full flex items-center gap-2.5 rounded-xl px-2 py-[calc(7*var(--u))] text-left cursor-pointer"
                 data-on={checked[i] || undefined}
               >
-                <span className="ax-check w-[calc(18px*var(--ui))] h-[calc(18px*var(--ui))] rounded-full flex items-center justify-center shrink-0">
-                  <Check className="ax-check__mark w-[calc(11px*var(--ui))] h-[calc(11px*var(--ui))] text-white" strokeWidth={3.5} />
+                <span className="ax-check w-[calc(18*var(--u))] h-[calc(18*var(--u))] rounded-full flex items-center justify-center shrink-0">
+                  <Check className="ax-check__mark w-[calc(11*var(--u))] h-[calc(11*var(--u))] text-white" strokeWidth={3.5} />
                 </span>
                 <span className="flex-1 min-w-0 truncate text-[0.8125rem] font-medium text-[#121212]">
                   {g.label}
@@ -218,7 +218,7 @@ const NODES = [
 function FlowPicture() {
   return (
     <div className="ax-flow relative h-full flex flex-col lg:block">
-      <div className="flex-1 flex items-center px-4 sm:px-6 pt-5 pb-4 lg:h-full lg:pt-[calc(30px*var(--ui))] lg:pb-[calc(50px*var(--ui))]">
+      <div className="flex-1 flex items-center px-4 sm:px-6 pt-5 pb-4 lg:h-full lg:pt-[calc(30*var(--u))] lg:pb-[calc(50*var(--u))]">
         <ol className="w-full flex flex-col lg:flex-row lg:items-center">
           {NODES.map((n, i) => {
             const Icon = n.icon;
@@ -230,11 +230,11 @@ function FlowPicture() {
                 {i > 0 && (
                   <span
                     aria-hidden
-                    className="ax-wire relative self-start ml-[calc(27px*var(--ui))] lg:ml-0 lg:self-auto w-px h-5 lg:h-px lg:w-auto lg:flex-1 lg:min-w-[calc(18px*var(--ui))]"
+                    className="ax-wire relative self-start ml-[calc(27*var(--u))] lg:ml-0 lg:self-auto w-px h-5 lg:h-px lg:w-auto lg:flex-1 lg:min-w-[calc(18*var(--u))]"
                     style={{ "--w": i - 1 } as React.CSSProperties}
                   >
                     <span className="ax-wire__line absolute inset-0" />
-                    <span className="ax-wire__dot absolute w-[calc(7px*var(--ui))] h-[calc(7px*var(--ui))] rounded-full bg-[var(--ax-accent)]" />
+                    <span className="ax-wire__dot absolute w-[calc(7*var(--u))] h-[calc(7*var(--u))] rounded-full bg-[var(--ax-accent)]" />
                   </span>
                 )}
                 <div
@@ -243,7 +243,7 @@ function FlowPicture() {
                   data-slow={n.slow || undefined}
                 >
                   <span className="ax-node__icon w-7 h-7 rounded-lg bg-[#f2f3f4] flex items-center justify-center shrink-0">
-                    <Icon className="w-[calc(15px*var(--ui))] h-[calc(15px*var(--ui))]" strokeWidth={2} />
+                    <Icon className="w-[calc(15*var(--u))] h-[calc(15*var(--u))]" strokeWidth={2} />
                   </span>
                   <span className="min-w-0">
                     <span className="block text-[0.7812rem] font-semibold leading-[1.3] text-[#121212]">
@@ -258,7 +258,7 @@ function FlowPicture() {
                     <span aria-hidden className="ax-branch hidden lg:flex absolute left-1/2 top-full flex-col items-center">
                       <span className="ax-wire ax-wire--branch relative w-px h-4" style={{ "--w": 3 } as React.CSSProperties}>
                         <span className="ax-wire__line absolute inset-0" />
-                        <span className="ax-wire__dot absolute w-[calc(7px*var(--ui))] h-[calc(7px*var(--ui))] rounded-full bg-[var(--ax-accent)]" />
+                        <span className="ax-wire__dot absolute w-[calc(7*var(--u))] h-[calc(7*var(--u))] rounded-full bg-[var(--ax-accent)]" />
                       </span>
                       <span className="ax-branch__node flex items-center gap-2 rounded-xl bg-white border border-black/[0.07] pl-2 pr-3 py-1.5 whitespace-nowrap shadow-[0_4px_14px_rgba(0,0,0,0.04)]">
                         <span className="w-6 h-6 rounded-md bg-[#f2f3f4] text-[#55585c] flex items-center justify-center">
@@ -338,14 +338,14 @@ function ReturnPicture({ start, run }: { start: boolean; run: number }) {
             <span>Done by hand</span>
             <span className="tabular-nums">14 hrs / wk</span>
           </div>
-          <div className="mt-1 h-[calc(7px*var(--ui))] rounded-full bg-black/[0.1]" />
+          <div className="mt-1 h-[calc(7*var(--u))] rounded-full bg-black/[0.1]" />
         </div>
         <div>
           <div className="flex justify-between text-[0.75rem] font-semibold">
             <span className="text-[#090909]">Automated</span>
             <span className="text-[var(--ax-accent)] tabular-nums">10 min / wk</span>
           </div>
-          <div className="mt-1 h-[calc(7px*var(--ui))] rounded-full bg-white/80">
+          <div className="mt-1 h-[calc(7*var(--u))] rounded-full bg-white/80">
             <div className="ax-bar h-full rounded-full bg-[var(--ax-accent)]" data-on={shrunk || undefined} />
           </div>
         </div>
@@ -439,15 +439,15 @@ function RoadmapPicture({ start, run }: { start: boolean; run: number }) {
 
   return (
     <div className="ax-stack relative h-full flex items-center justify-center px-6 py-4">
-      <div className="relative w-full max-w-[calc(290px*var(--ui))]">
+      <div className="relative w-full max-w-[calc(290*var(--u))]">
         <div className="ax-page ax-page--b2 absolute inset-0"><div className="ax-page__face" /></div>
         <div className="ax-page ax-page--b1 absolute inset-0"><div className="ax-page__face" /></div>
         <div className="ax-page ax-page--top relative">
           <div className="ax-page__face px-4 pt-2.5 pb-0.5">
             <div className="flex items-center gap-2">
-              <span className="w-[calc(22px*var(--ui))] h-[calc(22px*var(--ui))] rounded-full bg-[#0a0a0a] flex items-center justify-center shrink-0">
+              <span className="w-[calc(22*var(--u))] h-[calc(22*var(--u))] rounded-full bg-[#0a0a0a] flex items-center justify-center shrink-0">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/JupitexLogos/tab-logo-dark.png" alt="" className="w-[calc(11px*var(--ui))] h-[calc(11px*var(--ui))] object-contain" />
+                <img src="/JupitexLogos/tab-logo-dark.png" alt="" className="w-[calc(11*var(--u))] h-[calc(11*var(--u))] object-contain" />
               </span>
               <span className="text-[0.8125rem] font-semibold text-[#090909]">Example roadmap</span>
             </div>
@@ -455,7 +455,7 @@ function RoadmapPicture({ start, run }: { start: boolean; run: number }) {
               {rows.map(([label, v], i) => (
                 <li
                   key={label}
-                  className="ax-page__row flex items-center justify-between gap-3 py-[calc(7px*var(--ui))] border-t border-black/[0.06] text-[0.7812rem]"
+                  className="ax-page__row flex items-center justify-between gap-3 py-[calc(7*var(--u))] border-t border-black/[0.06] text-[0.7812rem]"
                   style={{ "--r": i } as React.CSSProperties}
                 >
                   <span className="text-[#5c6064]">{label}</span>
@@ -524,7 +524,7 @@ export default function AuditGrid() {
     <div
       ref={ref}
       data-in={inView || undefined}
-      className="ax-grid text-left w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 xl:grid-rows-2 gap-4 mt-6 lg:mt-5 xl:h-[calc(620px*var(--ui))]"
+      className="ax-grid text-left w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 xl:grid-rows-2 gap-4 mt-6 lg:mt-5 xl:h-[calc(620*var(--u))]"
     >
       <Tile
         index={0}
@@ -533,7 +533,7 @@ export default function AuditGrid() {
         body="We agree on which back-office work costs you the most time, and what a good result looks like."
         tone="sage"
         className="lg:col-span-2"
-        pictureClassName="h-[calc(210px*var(--ui))] lg:h-[calc(180px*var(--ui))] xl:h-auto"
+        pictureClassName="h-[calc(210*var(--u))] lg:h-[calc(180*var(--u))] xl:h-auto"
       >
         <GoalsPicture start={started[0]} />
       </Tile>
@@ -545,7 +545,7 @@ export default function AuditGrid() {
         body="We work with your team to map out how each process runs today, step by step, and find the opportunities to automate."
         tone="blue"
         className="lg:col-span-4"
-        pictureClassName="ax-dots lg:h-[calc(180px*var(--ui))] xl:h-auto"
+        pictureClassName="ax-dots lg:h-[calc(180*var(--u))] xl:h-auto"
       >
         <FlowPicture />
       </Tile>
@@ -557,7 +557,7 @@ export default function AuditGrid() {
         body="Each idea gets a fixed price, the hours it saves each month and the payback, so you only pick what pays."
         tone="moss"
         className="lg:col-span-2"
-        pictureClassName="h-[calc(210px*var(--ui))] lg:h-[calc(180px*var(--ui))] xl:h-auto"
+        pictureClassName="h-[calc(210*var(--u))] lg:h-[calc(180*var(--u))] xl:h-auto"
         onEnter={replay(0)}
       >
         <ReturnPicture start={started[2]} run={runs[0]} />
@@ -570,7 +570,7 @@ export default function AuditGrid() {
         body="Your finance and compliance leads review the plan before anything is built, and we adjust it to how they work."
         tone="teal"
         className="lg:col-span-2"
-        pictureClassName="h-[calc(210px*var(--ui))] lg:h-[calc(180px*var(--ui))] xl:h-auto"
+        pictureClassName="h-[calc(210*var(--u))] lg:h-[calc(180*var(--u))] xl:h-auto"
         onEnter={replay(1)}
       >
         <ReviewPicture start={started[3]} run={runs[1]} />
@@ -583,7 +583,7 @@ export default function AuditGrid() {
         body="A written plan: what to automate first, the fixed price and the return to expect. The process map is yours, even if you never hire us."
         tone="amber"
         className="sm:col-span-2 lg:col-span-2"
-        pictureClassName="h-[calc(210px*var(--ui))] lg:h-[calc(180px*var(--ui))] xl:h-auto"
+        pictureClassName="h-[calc(210*var(--u))] lg:h-[calc(180*var(--u))] xl:h-auto"
         onEnter={replay(2)}
       >
         <RoadmapPicture start={started[4]} run={runs[2]} />

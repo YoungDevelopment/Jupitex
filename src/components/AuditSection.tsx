@@ -16,18 +16,18 @@ export default function AuditSection() {
         subject="FREE AI AUTOMATION AUDIT"
         // The snap from the problems slides lands on this section's top, under the floating nav:
         // leave room for the nav, and keep the whole section to one screen on desktop
-        className="min-h-screen !pt-[calc(84px*var(--ui))] sm:!pt-[calc(92px*var(--ui))] lg:!pt-[calc(76px*var(--ui))] lg:!pb-7"
+        className="min-h-screen !pt-[calc(84*var(--u))] sm:!pt-[calc(92*var(--u))] lg:!pt-[calc(76*var(--u))] lg:!pb-7"
         contentClassName="!mt-6 sm:!mt-7 lg:!mt-5"
         title={
           <>
             <span className="text-[#8e9296]">That is why we built</span>
-            <span className="inline-flex items-center px-3.5 sm:px-4 py-1.5 rounded-[calc(16px*var(--ui))] bg-white border border-black/[0.07] shadow-[0_6px_20px_rgba(0,0,0,0.05)]">
+            <span className="inline-flex items-center px-3.5 sm:px-4 py-1.5 rounded-[calc(16*var(--u))] bg-white border border-black/[0.07] shadow-[0_6px_20px_rgba(0,0,0,0.05)]">
               <Image
                 src="/JupitexLogos/nav_logo_light.png"
                 alt="Jupitex"
                 width={120}
                 height={34}
-                className="h-[calc(24px*var(--ui))] sm:h-[calc(30px*var(--ui))] lg:h-[calc(34px*var(--ui))] w-auto object-contain"
+                className="h-[calc(24*var(--u))] sm:h-[calc(30*var(--u))] lg:h-[calc(34*var(--u))] w-auto object-contain"
               />
             </span>
           </>
@@ -51,10 +51,10 @@ export default function AuditSection() {
           <button
             type="button"
             onClick={() => scrollToId("contact")}
-            className="group relative h-[calc(50px*var(--ui))] sm:h-[calc(52px*var(--ui))] lg:h-[calc(48px*var(--ui))] pl-[calc(11px*var(--ui))] pr-[calc(24px*var(--ui))] sm:pr-[calc(26px*var(--ui))] rounded-full bg-[#0a0a0a] text-white flex items-center gap-3 sm:gap-3.5 text-[0.9062rem] sm:text-[0.9375rem] font-medium tracking-[-0.01em] hover:bg-[#1a1a1a] active:scale-[0.97] transition-[background-color,transform] duration-200 shadow-[0_14px_34px_rgba(10,10,10,0.16)] cursor-pointer"
+            className="group relative h-[calc(50*var(--u))] sm:h-[calc(52*var(--u))] lg:h-[calc(48*var(--u))] pl-[calc(11*var(--u))] pr-[calc(24*var(--u))] sm:pr-[calc(26*var(--u))] rounded-full bg-[#0a0a0a] text-white flex items-center gap-3 sm:gap-3.5 text-[0.9062rem] sm:text-[0.9375rem] font-medium tracking-[-0.01em] hover:bg-[#1a1a1a] active:scale-[0.97] transition-[background-color,transform] duration-200 shadow-[0_14px_34px_rgba(10,10,10,0.16)] cursor-pointer"
           >
             <span
-              className="w-[calc(30px*var(--ui))] h-[calc(30px*var(--ui))] sm:w-[calc(32px*var(--ui))] sm:h-[calc(32px*var(--ui))] rounded-full flex items-center justify-center shrink-0 transition-transform duration-500 group-hover:rotate-90"
+              className="w-[calc(30*var(--u))] h-[calc(30*var(--u))] sm:w-[calc(32*var(--u))] sm:h-[calc(32*var(--u))] rounded-full flex items-center justify-center shrink-0 transition-transform duration-500 group-hover:rotate-90"
               style={{ backgroundColor: LOGO_ORANGE }}
             >
               <svg width="13" height="13" viewBox="0 0 10 10" fill="none">

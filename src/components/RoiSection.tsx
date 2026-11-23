@@ -214,7 +214,7 @@ export default function RoiSection() {
       >
         {/* White: inputs. The bigger card, on top. */}
         <div
-          className="relative z-10 w-full lg:w-[58%] rounded-[calc(22px*var(--ui))] border border-black/[0.06] bg-card shadow-[0_18px_50px_rgba(0,0,0,0.08)] p-5 sm:p-8 lg:p-10 lg:min-h-[calc(520px*var(--ui))] flex flex-col justify-center gap-6 sm:gap-8 will-change-transform"
+          className="relative z-10 w-full lg:w-[58%] rounded-[calc(22*var(--u))] border border-black/[0.06] bg-card shadow-[0_18px_50px_rgba(0,0,0,0.08)] p-5 sm:p-8 lg:p-10 lg:min-h-[calc(520*var(--u))] flex flex-col justify-center gap-6 sm:gap-8 will-change-transform"
           style={whiteStyle}
         >
           <Slider
@@ -264,7 +264,7 @@ export default function RoiSection() {
 
         {/* Black: result. Slightly smaller, tucked under the white card's edge. */}
         <div
-          className="relative z-0 -mt-4 lg:mt-0 lg:-ml-[2%] w-full lg:w-[44%] rounded-b-[calc(22px*var(--ui))] lg:rounded-[calc(22px*var(--ui))] overflow-hidden isolate bg-[#0a0b09] text-white pt-9 px-5 pb-5 sm:pt-11 sm:px-8 sm:pb-8 lg:py-9 lg:pl-[calc(2.25rem+2%)] lg:pr-9 lg:min-h-[calc(460px*var(--ui))] flex will-change-transform"
+          className="relative z-0 -mt-4 lg:mt-0 lg:-ml-[2%] w-full lg:w-[44%] rounded-b-[calc(22*var(--u))] lg:rounded-[calc(22*var(--u))] overflow-hidden isolate bg-[#0a0b09] text-white pt-9 px-5 pb-5 sm:pt-11 sm:px-8 sm:pb-8 lg:py-9 lg:pl-[calc(2.25rem+2%)] lg:pr-9 lg:min-h-[calc(460*var(--u))] flex will-change-transform"
           style={blackStyle}
         >
           {/* Moss light: soft, out-of-focus green glow falling from the top, grain on top */}
@@ -331,7 +331,7 @@ export default function RoiSection() {
               <button
                 type="button"
                 onClick={() => scrollToId("contact")}
-                className="group mt-5 h-[calc(46px*var(--ui))] w-full rounded-full bg-white text-[#0a0a0a] flex items-center justify-center gap-2.5 text-[0.875rem] font-medium tracking-[-0.01em] cursor-pointer hover:bg-[#f1f2f3] active:scale-[0.98] transition-[background-color,transform] duration-200"
+                className="group mt-5 h-[calc(46*var(--u))] w-full rounded-full bg-white text-[#0a0a0a] flex items-center justify-center gap-2.5 text-[0.875rem] font-medium tracking-[-0.01em] cursor-pointer hover:bg-[#f1f2f3] active:scale-[0.98] transition-[background-color,transform] duration-200"
               >
                 <span>Get the measured version</span>
                 <svg

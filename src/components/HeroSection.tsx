@@ -121,7 +121,7 @@ function ScrollHint({ className, gradient }: { className: string; gradient: stri
       className={`pointer-events-none absolute inset-x-0 bottom-0 z-40 flex items-end justify-center ${className}`}
       style={{ background: gradient }}
     >
-      <div className="flex items-center gap-[calc(6px*var(--ui))] text-white/90 text-[0.6875rem] font-normal">
+      <div className="flex items-center gap-[calc(6*var(--u))] text-white/90 text-[0.6875rem] font-normal">
         <Star size={11} fill="white" />
         <span>Scroll to explore</span>
       </div>
@@ -378,7 +378,7 @@ export default function HeroSection() {
         {viewportMode === "desktop" && (
           <>
             {/* Room for the site nav (FloatingNav), which floats over the hero */}
-            <div aria-hidden className="w-full h-[calc(68px*var(--ui))] shrink-0" />
+            <div aria-hidden className="w-full h-[calc(68*var(--u))] shrink-0" />
 
             {/* Center Hero Heading & Subtitle */}
             <div
@@ -397,7 +397,7 @@ export default function HeroSection() {
                 {HERO.eyebrow}
               </div>
 
-              <h1 className="mt-[calc(8px*var(--ui))] flex flex-col items-center">
+              <h1 className="mt-[calc(8*var(--u))] flex flex-col items-center">
                 <span
                   style={r2}
                   className="block text-[3.125rem] font-medium tracking-[-0.038em] leading-[1.05] text-[#0a0a0a]"
@@ -414,7 +414,7 @@ export default function HeroSection() {
 
               <p
                 style={r4}
-                className="mt-[calc(14px*var(--ui))] max-w-[calc(540px*var(--ui))] text-[0.8438rem] font-normal leading-[1.5] tracking-[-0.01em] text-[#8e9296]"
+                className="mt-[calc(14*var(--u))] max-w-[calc(540*var(--u))] text-[0.8438rem] font-normal leading-[1.5] tracking-[-0.01em] text-[#8e9296]"
               >
                 {HERO.body}
               </p>

@@ -4,9 +4,10 @@ import { CASE_STUDIES } from "@/lib/case-studies";
 import { SlideIn } from "@/components/case-study/motion";
 import SectionWrapper from "@/components/SectionWrapper";
 
-/** Fills the graphic column edge-to-edge without block-by-block pixel animation. */
+/** Fills the graphic column edge-to-edge at the screenshots' own 16:10, so nothing is cropped;
+    the card grows to the picture when the copy beside it is shorter. */
 const CaseStudyImage = ({ src, alt }: { src: string; alt: string }) => (
-  <div className="relative h-full w-full min-h-[min(22rem,60vw)] aspect-[16/10] lg:aspect-auto min-w-0 overflow-hidden">
+  <div className="relative h-full w-full aspect-[16/10] min-w-0 overflow-hidden">
     <Image
       src={src}
       alt={alt}

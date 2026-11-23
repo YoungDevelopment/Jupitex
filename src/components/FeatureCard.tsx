@@ -49,7 +49,7 @@ export default function FeatureCard({
   return (
     <article
       className={cn(
-        "flex flex-col rounded-3xl bg-card text-left lg:min-h-[calc(512px*var(--ui))] border border-black/[0.06] shadow-[0_8px_30px_rgba(0,0,0,0.04)]",
+        "flex flex-col rounded-3xl bg-card text-left lg:min-h-[calc(512*var(--u))] border border-black/[0.06] shadow-[0_8px_30px_rgba(0,0,0,0.04)]",
         className
       )}
     >

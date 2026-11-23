@@ -574,7 +574,7 @@ export default function ProblemsSection() {
       ref={sectionRef}
       id="problems"
       aria-label="Problems"
-      className="relative w-full h-screen h-dvh min-h-[calc(340px*var(--ui))] bg-background select-none overflow-hidden touch-none"
+      className="relative w-full h-screen h-dvh min-h-[calc(340*var(--u))] bg-background select-none overflow-hidden touch-none"
     >
       {/* Full-Viewport Centered Stage */}
       <div
@@ -615,11 +615,11 @@ export default function ProblemsSection() {
         </div>
 
         {/* Top Spacer */}
-        <div className="relative z-20 w-full h-[calc(20px*var(--ui))]" />
+        <div className="relative z-20 w-full h-[calc(20*var(--u))]" />
 
         {/* 3. CENTER: MORPHING TYPOGRAPHY WITH FADE-IN & FADE-OUT */}
         <div
-          className="relative z-20 flex-1 w-full max-w-[calc(1100px*var(--ui))] flex flex-col items-center justify-center my-auto"
+          className="relative z-20 flex-1 w-full max-w-[calc(1100*var(--u))] flex flex-col items-center justify-center my-auto"
           style={{
             opacity: easeOutCubic(entryFade),
             filter:
@@ -632,7 +632,7 @@ export default function ProblemsSection() {
             ).toFixed(1)}px, 0)`,
           }}
         >
-          <div className="relative w-full max-w-[calc(960px*var(--ui))] min-h-[min(260px,45svh)] sm:min-h-[min(300px,50svh)] flex items-center justify-center">
+          <div className="relative w-full max-w-[calc(960*var(--u))] min-h-[min(260px,45svh)] sm:min-h-[min(300px,50svh)] flex items-center justify-center">
             {PROBLEMS_DATA.map((slide, sIdx) => {
               const dist = displayStepFloat - sIdx;
               const absDist = Math.abs(dist);
@@ -710,7 +710,7 @@ export default function ProblemsSection() {
                   </div>
 
                   {/* Main Centered Morphing Sentence — Word-by-Word Staggered Fade-In & Fade-Out */}
-                  <h2 className="flex flex-wrap items-center justify-center gap-x-[0.28em] gap-y-2.5 sm:gap-y-3.5 text-[clamp(1.5rem,min(max(1.95rem,6.4vw),9.5svh),4.25rem)] font-medium tracking-[-0.038em] leading-[1.12] sm:leading-[1.09] max-w-[calc(940px*var(--ui))]">
+                  <h2 className="flex flex-wrap items-center justify-center gap-x-[0.28em] gap-y-2.5 sm:gap-y-3.5 text-[clamp(1.5rem,min(max(1.95rem,6.4vw),9.5svh),4.25rem)] font-medium tracking-[-0.038em] leading-[1.12] sm:leading-[1.09] max-w-[calc(940*var(--u))]">
                     {slide.words.map((word, wIdx) => {
                       const totalWords = slide.words.length;
                       const wordNorm = wIdx / Math.max(1, totalWords - 1);

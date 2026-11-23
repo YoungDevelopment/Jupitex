@@ -270,8 +270,12 @@ export default function AuditRockSection() {
         fadeEndAngle = 42;
       }
 
-      // Desktop draws every fixed size at --ui (globals.css); the arc follows suit
-      const ui = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--ui")) || 1;
+      // Desktop draws every fixed size in --u, a scaled pixel (globals.css); the arc follows suit
+      const probe = document.createElement("div");
+      probe.style.cssText = "position:absolute;visibility:hidden;width:calc(1000 * var(--u))";
+      document.body.appendChild(probe);
+      const ui = probe.offsetWidth / 1000 || 1;
+      probe.remove();
       radiusX *= ui;
       radiusY *= ui;
       cardWidth = Math.round(cardWidth * ui);
@@ -496,13 +500,13 @@ export default function AuditRockSection() {
       title={
         <>
           <span className="text-[#8e9296]">What our clients say about</span>
-          <span className="inline-flex items-center px-3.5 sm:px-4 py-1.5 rounded-[calc(16px*var(--ui))] bg-white border border-black/[0.06] shadow-[0_4px_14px_rgba(0,0,0,0.04)]">
+          <span className="inline-flex items-center px-3.5 sm:px-4 py-1.5 rounded-[calc(16*var(--u))] bg-white border border-black/[0.06] shadow-[0_4px_14px_rgba(0,0,0,0.04)]">
             <Image
               src="/JupitexLogos/nav_logo_light.png"
               alt="Jupitex"
               width={125}
               height={35}
-              className="h-[calc(22px*var(--ui))] sm:h-[calc(27px*var(--ui))] lg:h-[calc(30px*var(--ui))] w-auto object-contain"
+              className="h-[calc(22*var(--u))] sm:h-[calc(27*var(--u))] lg:h-[calc(30*var(--u))] w-auto object-contain"
             />
           </span>
         </>
@@ -523,11 +527,11 @@ export default function AuditRockSection() {
       <div
         ref={stageRef}
         // Fixed heights: the rock's top two thirds show on every screen, tall or short
-        className="relative w-full h-[calc(480px*var(--ui))] sm:h-[calc(575px*var(--ui))] lg:h-[calc(660px*var(--ui))] xl:h-[calc(710px*var(--ui))] mt-6 sm:mt-8 xl:mt-9"
+        className="relative w-full h-[calc(480*var(--u))] sm:h-[calc(575*var(--u))] lg:h-[calc(660*var(--u))] xl:h-[calc(710*var(--u))] mt-6 sm:mt-8 xl:mt-9"
       >
         {/* THE MOUNTAIN / ROCK IN BETWEEN */}
         <div
-          className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-[calc(250px*var(--ui))] sm:top-[calc(275px*var(--ui))] lg:top-[calc(295px*var(--ui))] xl:top-[calc(305px*var(--ui))] z-10 w-[calc(340px*var(--ui))] sm:w-[calc(440px*var(--ui))] lg:w-[calc(540px*var(--ui))] xl:w-[calc(600px*var(--ui))] transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
+          className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-[calc(250*var(--u))] sm:top-[calc(275*var(--u))] lg:top-[calc(295*var(--u))] xl:top-[calc(305*var(--u))] z-10 w-[calc(340*var(--u))] sm:w-[calc(440*var(--u))] lg:w-[calc(540*var(--u))] xl:w-[calc(600*var(--u))] transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
           style={{
             opacity: isVisible ? 1 : 0,
             transform: isVisible
@@ -595,7 +599,7 @@ export default function AuditRockSection() {
                   top: "0px",
                 }}
                 className="
-                  absolute min-h-[calc(180px*var(--ui))] xl:min-h-[calc(190px*var(--ui))] rounded-[calc(20px*var(--ui))] bg-card
+                  absolute min-h-[calc(180*var(--u))] xl:min-h-[calc(190*var(--u))] rounded-[calc(20*var(--u))] bg-card
                   border border-black/[0.06] hover:border-[#FF731E]/50
                   p-4 sm:p-5 flex flex-col justify-between gap-3
                   shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:shadow-[0_18px_42px_rgba(0,0,0,0.11)]

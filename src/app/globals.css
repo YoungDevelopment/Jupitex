@@ -26,20 +26,32 @@ body {
   overflow-x: clip;
 }
 
-/* Desktop runs one size smaller than the browser default, matching how the site looked at 90%
-   browser zoom, without zoom (zoom shrinks artwork and differs between browsers):
-   - text and Tailwind spacing are rem, so html's font-size scales them (16px -> 12.96px);
-   - every fixed px size is written calc(Npx * var(--ui)), and --ui is 0.9 on desktop.
-   Phones and tablets keep 16px and --ui: 1. Media queries stay in real px. */
+/* Desktop sizing, fluid with the screen. No CSS zoom (it shrinks artwork and differs between browsers):
+   - text and Tailwind spacing are rem, so html's font-size scales them;
+   - every fixed size is written calc(N * var(--u)), --u being one scaled pixel.
+   Both shrink as the screen widens: 14.4px / 0.95 on a small laptop down to 12.96px / 0.9 on a
+   large one. Retina Macs draw a CSS pixel physically smaller than a 125-150%-scaled Windows
+   laptop, so their range starts later (1512px, a 14" MacBook) and ends at 1728px (16").
+   Phones and tablets keep 16px and --u: 1px. Media queries stay in real px. */
 :root {
-  --ui: 1;
+  --u: 1px;
 }
 @media (min-width: 1024px) {
+  /* 1280 -> 1536px wide */
   :root {
-    --ui: 0.9;
+    --u: clamp(0.9px, calc(1.2px - 0.01953125vw), 0.95px);
   }
   html {
-    font-size: 12.96px;
+    font-size: clamp(12.96px, calc(21.6px - 0.5625vw), 14.4px);
+  }
+}
+@media (min-width: 1024px) and (min-resolution: 2dppx), (min-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+  /* 1512 -> 1728px wide */
+  :root {
+    --u: clamp(0.9px, calc(1.3px - 0.0231481vw), 0.95px);
+  }
+  html {
+    font-size: clamp(12.96px, calc(24.48px - 0.666667vw), 14.4px);
   }
 }
 
@@ -56,8 +68,8 @@ body {
 @keyframes blurFadeIn {
   0% {
     opacity: 0;
-    filter: blur(calc(14px * var(--ui)));
-    transform: translateY(calc(8px * var(--ui)));
+    filter: blur(calc(14 * var(--u)));
+    transform: translateY(calc(8 * var(--u)));
   }
   100% {
     opacity: 1;
@@ -69,7 +81,7 @@ body {
 @keyframes subtleFadeIn {
   0% {
     opacity: 0;
-    filter: blur(calc(6px * var(--ui)));
+    filter: blur(calc(6 * var(--u)));
   }
   100% {
     opacity: 1;
@@ -146,18 +158,18 @@ body {
 }
 
 .faq-scrollbar::-webkit-scrollbar {
-  width: calc(5px * var(--ui));
+  width: calc(5 * var(--u));
 }
 
 .faq-scrollbar::-webkit-scrollbar-track {
   background: #f3f4f6;
-  border-radius: calc(9999px * var(--ui));
+  border-radius: calc(9999 * var(--u));
 }
 
 .faq-scrollbar::-webkit-scrollbar-thumb {
   background-color: #d1d5db;
-  border-radius: calc(9999px * var(--ui));
-  min-height: calc(40px * var(--ui));
+  border-radius: calc(9999 * var(--u));
+  min-height: calc(40 * var(--u));
 }
 
 .faq-scrollbar::-webkit-scrollbar-thumb:hover {
@@ -173,7 +185,7 @@ body {
 
 :focus-visible {
   outline: 2px solid #0a0a0a;
-  outline-offset: calc(3px * var(--ui));
+  outline-offset: calc(3 * var(--u));
 }
 
 /* Range inputs (ROI estimator) */
@@ -181,13 +193,13 @@ body {
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
-  height: calc(20px * var(--ui));
+  height: calc(20 * var(--u));
   background: transparent;
   cursor: pointer;
 }
 .jx-range::-webkit-slider-runnable-track {
-  height: calc(4px * var(--ui));
-  border-radius: calc(999px * var(--ui));
+  height: calc(4 * var(--u));
+  border-radius: calc(999 * var(--u));
   background: linear-gradient(
     to right,
     #0a0a0a 0 var(--p, 50%),
@@ -195,33 +207,33 @@ body {
   );
 }
 .jx-range::-moz-range-track {
-  height: calc(4px * var(--ui));
-  border-radius: calc(999px * var(--ui));
+  height: calc(4 * var(--u));
+  border-radius: calc(999 * var(--u));
   background: rgba(10, 10, 10, 0.1);
 }
 .jx-range::-moz-range-progress {
-  height: calc(4px * var(--ui));
-  border-radius: calc(999px * var(--ui));
+  height: calc(4 * var(--u));
+  border-radius: calc(999 * var(--u));
   background: #0a0a0a;
 }
 .jx-range::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: calc(20px * var(--ui));
-  height: calc(20px * var(--ui));
-  margin-top: calc(-8px * var(--ui));
+  width: calc(20 * var(--u));
+  height: calc(20 * var(--u));
+  margin-top: calc(-8 * var(--u));
   border-radius: 50%;
   background: #ffffff;
   border: 1.5px solid #0a0a0a;
-  box-shadow: 0 2px calc(6px * var(--ui)) rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px calc(6 * var(--u)) rgba(0, 0, 0, 0.12);
   transition: transform 0.15s ease, border-color 0.15s ease;
 }
 .jx-range::-moz-range-thumb {
-  width: calc(17px * var(--ui));
-  height: calc(17px * var(--ui));
+  width: calc(17 * var(--u));
+  height: calc(17 * var(--u));
   border-radius: 50%;
   background: #ffffff;
   border: 1.5px solid #0a0a0a;
-  box-shadow: 0 2px calc(6px * var(--ui)) rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px calc(6 * var(--u)) rgba(0, 0, 0, 0.12);
 }
 .jx-range:hover::-webkit-slider-thumb,
 .jx-range:active::-webkit-slider-thumb {
@@ -249,8 +261,8 @@ body {
 }
 .jx-light__lean {
   transform: translate3d(
-    calc(-50% + var(--px) * var(--d) * calc(120px * var(--ui))),
-    calc(-50% + var(--py) * var(--d) * calc(72px * var(--ui))),
+    calc(-50% + var(--px) * var(--d) * calc(120 * var(--u))),
+    calc(-50% + var(--py) * var(--d) * calc(72 * var(--u))),
     0
   );
 }
@@ -313,8 +325,8 @@ body {
   /* the layer is inset -10%, so offset back into stage coordinates */
   left: calc(var(--cx) + 10% / 1.2);
   top: calc(var(--cy) + 10% / 1.2);
-  width: calc(440px * var(--ui));
-  height: calc(440px * var(--ui));
+  width: calc(440 * var(--u));
+  height: calc(440 * var(--u));
   border-radius: 50%;
   background: radial-gradient(closest-side, var(--glow), transparent);
   transform: translate(-50%, -50%);
@@ -330,7 +342,7 @@ body {
 
 /* Hero dashboard (DashboardPreview.tsx): automations landing money */
 @keyframes dashIn {
-  from { opacity: 0; transform: translateY(calc(-10px * var(--ui))); }
+  from { opacity: 0; transform: translateY(calc(-10 * var(--u))); }
   to { opacity: 1; transform: translateY(0); }
 }
 @keyframes dashGlow {
@@ -338,10 +350,10 @@ body {
   100% { background-color: rgba(255, 244, 236, 0); }
 }
 @keyframes dashGain {
-  0% { opacity: 0; transform: translateY(calc(6px * var(--ui))); }
+  0% { opacity: 0; transform: translateY(calc(6 * var(--u))); }
   18% { opacity: 1; transform: translateY(0); }
-  70% { opacity: 1; transform: translateY(calc(-3px * var(--ui))); }
-  100% { opacity: 0; transform: translateY(calc(-9px * var(--ui))); }
+  70% { opacity: 1; transform: translateY(calc(-3 * var(--u))); }
+  100% { opacity: 0; transform: translateY(calc(-9 * var(--u))); }
 }
 @keyframes dashRun {
   0%, 100% { opacity: 1; }
@@ -370,7 +382,7 @@ body {
 }
 .cs-reveal {
   opacity: 0;
-  transform: translateY(calc(16px * var(--ui)));
+  transform: translateY(calc(16 * var(--u)));
   transition:
     opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
     transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
@@ -399,9 +411,9 @@ body {
     border-color 260ms ease;
 }
 .cs-stat:hover {
-  transform: translateY(calc(-3px * var(--ui)));
+  transform: translateY(calc(-3 * var(--u)));
   border-color: rgba(255, 115, 30, 0.45);
-  box-shadow: 0 calc(14px * var(--ui)) calc(30px * var(--ui)) rgba(0, 0, 0, 0.07);
+  box-shadow: 0 calc(14 * var(--u)) calc(30 * var(--u)) rgba(0, 0, 0, 0.07);
 }
 .cs-image img {
   transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
@@ -429,14 +441,14 @@ body {
 /* A gentle ease-out over ~1.6s: the card glides in evenly instead of snapping most of the way at once */
 .cs-slide {
   opacity: 0;
-  transform: translateX(calc(-140px * var(--ui)));
+  transform: translateX(calc(-140 * var(--u)));
   transition:
     opacity 1300ms cubic-bezier(0.33, 1, 0.68, 1),
     transform 1600ms cubic-bezier(0.33, 1, 0.68, 1);
   will-change: transform, opacity;
 }
 .cs-slide[data-from="right"] {
-  transform: translateX(calc(140px * var(--ui)));
+  transform: translateX(calc(140 * var(--u)));
 }
 .cs-slide[data-shown] {
   opacity: 1;
