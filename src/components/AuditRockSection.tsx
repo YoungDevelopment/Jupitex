@@ -14,7 +14,6 @@ export interface TestimonialItem {
   name: string;
   role: string;
   company: string;
-  metric: string;
   initials: string;
 }
 
@@ -28,7 +27,6 @@ export const TESTIMONIALS: TestimonialItem[] = [
     // TODO: confirm Irfan's surname and job title before this goes live
     role: "VP of Manufacturing",
     company: "Label Works",
-    metric: "Zero Missed Orders",
     initials: "IR",
   },
 
@@ -39,7 +37,6 @@ export const TESTIMONIALS: TestimonialItem[] = [
     name: "Hina Patel",
     role: "Managing Partner",
     company: "MaxHP LLC",
-    metric: "+$5k New Pipeline",
     initials: "HP",
   },
 ];
@@ -584,7 +581,7 @@ export default function AuditRockSection() {
           </div>
         </div>
 
-        {/* 10 ROTATING TESTIMONIAL CARDS ON THE CIRCULAR ARC (STRAIGHT, NO TILT) */}
+        {/* ROTATING TESTIMONIAL CARDS ON THE CIRCULAR ARC (STRAIGHT, NO TILT) */}
         <div
           className="relative z-20 w-full h-full transition-opacity duration-700"
           style={{ opacity: isVisible ? 1 : 0 }}
@@ -609,45 +606,25 @@ export default function AuditRockSection() {
                   top: "0px",
                 }}
                 className="
-                  absolute min-h-[215px] xl:min-h-[228px] rounded-[20px] bg-card
+                  absolute min-h-[180px] xl:min-h-[190px] rounded-[20px] bg-card
                   border border-black/[0.06] hover:border-[#FF731E]/50
                   p-4 sm:p-5 flex flex-col justify-between gap-3
                   shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:shadow-[0_18px_42px_rgba(0,0,0,0.11)]
                   transition-[border-color,box-shadow] duration-300 will-change-transform
                 "
               >
-                {/* Top Row: Stars & Outcome Badge */}
-                <div>
-                  <div className="flex items-center justify-between gap-2">
-                    <div
-                      className="flex items-center gap-0.5 text-[12px]"
-                      style={{ color: LOGO_ORANGE }}
-                      aria-label="5 out of 5 stars"
-                    >
-                      <span>★</span>
-                      <span>★</span>
-                      <span>★</span>
-                      <span>★</span>
-                      <span>★</span>
-                    </div>
-                    <span
-                      className="px-2.5 py-0.5 rounded-full text-[10.5px] font-semibold tracking-[-0.01em] shrink-0"
-                      style={{
-                        backgroundColor: isHovered
-                          ? LOGO_ORANGE
-                          : "rgba(255, 115, 30, 0.09)",
-                        color: isHovered ? "#ffffff" : LOGO_ORANGE,
-                      }}
-                    >
-                      {item.metric}
-                    </span>
-                  </div>
-
-                  {/* Quote */}
-                  <p className="mt-2.5 text-[12.5px] xl:text-[13px] leading-[1.52] text-[#2c3035] line-clamp-4">
-                    &ldquo;{item.quote}&rdquo;
-                  </p>
-                </div>
+                {/* Quote: four lines at rest, the whole quote on hover */}
+                <p
+                  className="relative text-[12.5px] xl:text-[13px] leading-[1.52] text-[#2c3035] overflow-hidden transition-[max-height] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+                  style={{
+                    maxHeight: isHovered ? "20em" : "6.08em",
+                    // fade the last line out while the quote is cut short
+                    maskImage: isHovered ? "none" : "linear-gradient(to bottom, #000 70%, transparent)",
+                    WebkitMaskImage: isHovered ? "none" : "linear-gradient(to bottom, #000 70%, transparent)",
+                  }}
+                >
+                  &ldquo;{item.quote}&rdquo;
+                </p>
 
                 {/* Author Footer */}
                 <div className="pt-2.5 border-t border-black/[0.06] flex items-center gap-2.5">
