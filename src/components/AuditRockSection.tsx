@@ -45,6 +45,12 @@ const ALL_TESTIMONIALS: TestimonialItem[] = [
     initials: "HP",
   },
 
+  // Pending quotes sit inside a build-time check, so the production bundle never contains their text
+  ...(process.env.NODE_ENV !== "production" ? PENDING_TESTIMONIALS() : []),
+];
+
+function PENDING_TESTIMONIALS(): TestimonialItem[] {
+  return [
   {
     id: 3,
     // From Ben's own words; he works at the founder's current employer, so the agency stays unnamed
@@ -68,11 +74,10 @@ const ALL_TESTIMONIALS: TestimonialItem[] = [
     initials: "AZ",
     pending: true,
   },
-];
+  ];
+}
 
-// Unapproved quotes never reach the live site
-export const TESTIMONIALS: TestimonialItem[] =
-  process.env.NODE_ENV === "production" ? ALL_TESTIMONIALS.filter((t) => !t.pending) : ALL_TESTIMONIALS;
+export const TESTIMONIALS: TestimonialItem[] = ALL_TESTIMONIALS;
 
 /**
  * The rock art is a 2400x1792 canvas; the box it sits in is the old 1024:1033 rock's footprint.
