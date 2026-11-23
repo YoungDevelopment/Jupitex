@@ -168,9 +168,9 @@ const CaseStudyCard = ({
   );
 };
 
-// The three collection-agency projects (founder experience), from lib/case-studies
+// The three collection-agency systems our founder built, from lib/case-studies
 const caseStudies: CaseStudy[] = CASE_STUDIES.map((c, i) => ({
-  category: "Founder experience",
+  category: "Case study",
   brand: c.card.name,
   description: c.card.description,
   metric: c.card.metric,
@@ -196,7 +196,7 @@ export default function OurWorkSection() {
           <span>a collection agency</span>
         </>
       }
-      description="Back-office work our founder automated inside a US debt collection agency, before starting Jupitex."
+      description="Systems our founder designed and built inside a US debt collection agency, and that still run there every day."
     >
       <div className="flex w-full flex-col gap-6 sm:gap-8">
         {caseStudies.map((cs) => (

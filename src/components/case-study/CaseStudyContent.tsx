@@ -33,7 +33,7 @@ export default function CaseStudyContent({ study }: { study: CaseStudy }) {
     <article className="cs-article text-left">
       <Reveal>
         <p className="text-xs uppercase tracking-widest font-medium" style={{ color: ACCENT }}>
-          Founder experience
+          Case study
         </p>
         <h1 className="mt-2 text-[30px] sm:text-[40px] font-medium leading-[1.08] tracking-[-0.03em] text-[#0a0a0a]">
           {study.title}
