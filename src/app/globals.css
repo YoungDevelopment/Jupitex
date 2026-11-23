@@ -1,0 +1,444 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f1f2f3;
+  --card: #ffffff;
+  --foreground: #0a0a0a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Apple design-system palette (used by the Services section) */
+  --color-apple-light-gray: #f1f2f3;
+  --color-apple-near-black: #1d1d1f;
+  --color-apple-text-secondary: rgba(0, 0, 0, 0.8);
+  --color-apple-text-tertiary: rgba(0, 0, 0, 0.48);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow-x: clip;
+}
+
+/* iOS Safari zooms the whole page into any field under 16px. Touch screens only, so
+   desktop keeps the tighter type the design calls for. */
+@media (pointer: coarse) {
+  input:not([type="range"]):not([type="checkbox"]):not([type="radio"]),
+  textarea,
+  select {
+    font-size: max(16px, 1em);
+  }
+}
+
+@keyframes blurFadeIn {
+  0% {
+    opacity: 0;
+    filter: blur(14px);
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    filter: none;
+    transform: translateY(0px);
+  }
+}
+
+@keyframes subtleFadeIn {
+  0% {
+    opacity: 0;
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    filter: none;
+  }
+}
+
+/* ─── Apple design-system typography utilities (used by the FAQ section) ── */
+.text-body-ds {
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: -0.374px;
+}
+@media (min-width: 640px) {
+  .text-body-ds { font-size: 1.25rem; }
+}
+@media (min-width: 834px) {
+  .text-body-ds { font-size: 1.375rem; }
+}
+
+.text-caption-ds {
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+@media (min-width: 640px) {
+  .text-caption-ds { font-size: 1rem; }
+}
+
+.text-micro {
+  font-size: 0.6875rem;
+  font-weight: 400;
+  line-height: 1.33;
+  letter-spacing: -0.12px;
+}
+
+/* ─── FAQ chat section animations ──────────────────────────────── */
+@keyframes faqDot {
+  0%,
+  80%,
+  100% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  40% {
+    transform: scale(1.4);
+    opacity: 1;
+  }
+}
+
+@keyframes faqPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.faq-typing-dot {
+  animation: faqDot 1.4s ease-in-out infinite;
+}
+
+.faq-pulse {
+  animation: faqPulse 2s ease-in-out infinite;
+}
+
+.faq-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #d1d5db #f3f4f6;
+}
+
+.faq-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.faq-scrollbar::-webkit-scrollbar-track {
+  background: #f3f4f6;
+  border-radius: 9999px;
+}
+
+.faq-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #d1d5db;
+  border-radius: 9999px;
+  min-height: 40px;
+}
+
+.faq-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #9ca3af;
+}
+
+
+/* ─── Shared motion + interaction layer ─────────────────────────── */
+:root {
+  --accent: #ff731e;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:focus-visible {
+  outline: 2px solid #0a0a0a;
+  outline-offset: 3px;
+}
+
+/* Range inputs (ROI estimator) */
+.jx-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 20px;
+  background: transparent;
+  cursor: pointer;
+}
+.jx-range::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    #0a0a0a 0 var(--p, 50%),
+    rgba(10, 10, 10, 0.1) var(--p, 50%) 100%
+  );
+}
+.jx-range::-moz-range-track {
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(10, 10, 10, 0.1);
+}
+.jx-range::-moz-range-progress {
+  height: 4px;
+  border-radius: 999px;
+  background: #0a0a0a;
+}
+.jx-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: -8px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1.5px solid #0a0a0a;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+.jx-range::-moz-range-thumb {
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1.5px solid #0a0a0a;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+.jx-range:hover::-webkit-slider-thumb,
+.jx-range:active::-webkit-slider-thumb {
+  transform: scale(1.12);
+  border-color: var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Workflow stage light (StageLight.tsx): blobs drift on their own paths and lean toward the pointer */
+.jx-light {
+  --px: 0;
+  --py: 0;
+  --hover: 0;
+  --cx: 50%;
+  --cy: 50%;
+}
+.jx-light__lean {
+  transform: translate3d(
+    calc(-50% + var(--px) * var(--d) * 120px),
+    calc(-50% + var(--py) * var(--d) * 72px),
+    0
+  );
+}
+.jx-light__blob {
+  position: absolute;
+  inset: 0;
+  animation-timing-function: ease-in-out, ease-in-out;
+  animation-iteration-count: infinite, infinite;
+  animation-direction: alternate, alternate;
+  will-change: transform, scale, opacity;
+}
+/* Two animations per blob: a drift on `transform`, a breath on `scale` + `opacity` */
+.jx-light__blob--a { animation-name: jxBlobA, jxBreath; }
+.jx-light__blob--b { animation-name: jxBlobB, jxBreath; }
+.jx-light__blob--c { animation-name: jxBlobC, jxBreath; }
+@keyframes jxBlobA {
+  0% { transform: translate3d(-30%, -18%, 0); }
+  35% { transform: translate3d(22%, 10%, 0) rotate(8deg); }
+  70% { transform: translate3d(-8%, 30%, 0) rotate(-6deg); }
+  100% { transform: translate3d(28%, -12%, 0); }
+}
+@keyframes jxBlobB {
+  0% { transform: translate3d(26%, 24%, 0); }
+  40% { transform: translate3d(-28%, -6%, 0) rotate(-10deg); }
+  75% { transform: translate3d(10%, -28%, 0) rotate(6deg); }
+  100% { transform: translate3d(-20%, 16%, 0); }
+}
+@keyframes jxBlobC {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  30% { transform: translate3d(-26%, 22%, 0) rotate(22deg); }
+  65% { transform: translate3d(24%, -18%, 0) rotate(-14deg); }
+  100% { transform: translate3d(-12%, -26%, 0) rotate(10deg); }
+}
+@keyframes jxBreath {
+  0% { scale: 0.78; opacity: 0.5; }
+  100% { scale: 1.34; opacity: 1; }
+}
+/* The whole scene inhales and exhales too */
+.jx-light__layer {
+  animation: jxSceneBreath 7s ease-in-out infinite alternate;
+}
+@keyframes jxSceneBreath {
+  0% { scale: 1; }
+  100% { scale: 1.09; }
+}
+/* The light turns: the second wash fades in and out over the first */
+.jx-light__alt {
+  animation: jxTurn 9s ease-in-out infinite alternate;
+  will-change: opacity;
+}
+@keyframes jxTurn {
+  0%, 12% { opacity: 0; }
+  88%, 100% { opacity: 1; }
+}
+/* Inactive workflows hold still while hidden */
+.jx-light > .jx-light__layer:not([data-on]),
+.jx-light > .jx-light__layer:not([data-on]) :is(.jx-light__blob, .jx-light__alt) { animation-play-state: paused; }
+.jx-light__cursor {
+  position: absolute;
+  /* the layer is inset -10%, so offset back into stage coordinates */
+  left: calc(var(--cx) + 10% / 1.2);
+  top: calc(var(--cy) + 10% / 1.2);
+  width: 440px;
+  height: 440px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--glow), transparent);
+  transform: translate(-50%, -50%);
+  opacity: var(--hover);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .jx-light__blob,
+  .jx-light__alt,
+  .jx-light__layer { animation: none; }
+}
+
+/* Hero dashboard (DashboardPreview.tsx): automations landing money */
+@keyframes dashIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes dashGlow {
+  0%, 35% { background-color: #fff4ec; }
+  100% { background-color: rgba(255, 244, 236, 0); }
+}
+@keyframes dashGain {
+  0% { opacity: 0; transform: translateY(6px); }
+  18% { opacity: 1; transform: translateY(0); }
+  70% { opacity: 1; transform: translateY(-3px); }
+  100% { opacity: 0; transform: translateY(-9px); }
+}
+@keyframes dashRun {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+/* Referenced from classes, not inline styles: the CSS pipeline drops keyframes no rule uses */
+.dash-in { animation: dashIn 650ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+.dash-in-money { animation: dashIn 650ms cubic-bezier(0.22, 1, 0.36, 1) both, dashGlow 2.2s ease-out both; }
+.dash-gain { animation: dashGain 1.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.dash-run { animation: dashRun 2.4s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .dash-in, .dash-in-money, .dash-gain, .dash-run { animation: none; }
+}
+
+/* Case study pages: sections rise in, key phrases get a highlighter stroke, cards lift on hover */
+
+/* Soft selection for reading (unlayered, so it wins over the site-wide black selection utility) */
+.cs-article::selection,
+.cs-article *::selection {
+  background: #ffd9bf;
+  color: #0a0a0a;
+}
+.cs-article .cs-dark *::selection {
+  background: #ff731e;
+  color: #ffffff;
+}
+.cs-reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cs-reveal[data-shown] {
+  opacity: 1;
+  transform: none;
+}
+.cs-mark {
+  color: inherit;
+  background-color: transparent;
+  background-image: linear-gradient(transparent 54%, rgba(255, 115, 30, 0.32) 54%);
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  transition: background-size 900ms cubic-bezier(0.22, 1, 0.36, 1) 350ms;
+}
+.cs-reveal[data-shown] .cs-mark {
+  background-size: 100% 100%;
+}
+.cs-stat {
+  transition:
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 260ms ease,
+    border-color 260ms ease;
+}
+.cs-stat:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 115, 30, 0.45);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.07);
+}
+.cs-image img {
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cs-image:hover img {
+  transform: scale(1.025);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cs-reveal,
+  .cs-mark,
+  .cs-stat,
+  .cs-image img {
+    transition: none;
+  }
+  .cs-reveal {
+    opacity: 1;
+    transform: none;
+  }
+  .cs-mark {
+    background-size: 100% 100%;
+  }
+}
+
+/* Our Work cards: slide in from the picture's side; on hover only the picture zooms */
+/* A gentle ease-out over ~1.6s: the card glides in evenly instead of snapping most of the way at once */
+.cs-slide {
+  opacity: 0;
+  transform: translateX(-140px);
+  transition:
+    opacity 1300ms cubic-bezier(0.33, 1, 0.68, 1),
+    transform 1600ms cubic-bezier(0.33, 1, 0.68, 1);
+  will-change: transform, opacity;
+}
+.cs-slide[data-from="right"] {
+  transform: translateX(140px);
+}
+.cs-slide[data-shown] {
+  opacity: 1;
+  transform: none;
+}
+.cs-card img {
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cs-card:hover img {
+  transform: scale(1.03);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cs-slide,
+  .cs-card img {
+    transition: none;
+  }
+  .cs-slide {
+    opacity: 1;
+    transform: none;
+  }
+}
+

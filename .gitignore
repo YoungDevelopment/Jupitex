@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Unblurred originals of the case-study screenshots: they show employer and client names, never commit
+/public/images/our-work/AI response.png
+/public/images/our-work/New Business loading.png
+/public/images/our-work/Client reporting.png

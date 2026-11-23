@@ -1,0 +1,132 @@
+/* The workflow story inside "What we automate". All rules belong to this stage. */
+.jxa {
+  & .ss-stage {
+    /* One travel curve for everything that arrives in this story */
+    --jxa-ease: cubic-bezier(0.45, 0, 0.1, 1);
+    overflow: hidden;
+    border-radius: 14px 14px 0 0;
+    background: transparent; /* the workflow's light sits behind (AutomationsSection) */
+    font: 12.5px/1.4 var(--ss-font);
+    color: var(--ss-text-strong);
+  }
+
+  .jxa-strong { font-weight: 600; }
+  .jxa-muted { color: var(--ss-text); font-size: 11.5px; }
+
+  /* What arrived: rises in, then stays put while the story happens to it */
+  .jxa-item {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    display: grid;
+    gap: 12px;
+    width: 264px;
+    padding: 16px;
+    border-radius: 12px;
+    background: var(--ss-surface);
+    box-shadow: var(--ss-shadow-satellite);
+    opacity: 0;
+    transform: translateY(18px);
+    will-change: transform;
+    transition: opacity 0.8s ease, transform 1.1s var(--jxa-ease);
+  }
+
+  .jxa-item[data-in] { opacity: 1; transform: translateY(0); }
+
+  .jxa-item__head { display: flex; align-items: center; gap: 8px; }
+  .jxa-item__time { margin-left: auto; }
+
+  .jxa-item__mark {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 8px;
+    background: var(--ss-accent-soft);
+    color: var(--ss-accent);
+  }
+
+  .jxa-item__body {
+    margin: 0;
+    font-size: 13.5px;
+    line-height: 1.45;
+    letter-spacing: -0.005em;
+  }
+
+  .jxa-found {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    min-height: 34px;
+    padding-top: 12px;
+    border-top: 1px solid var(--ss-line-faint);
+  }
+
+  .jxa-found__tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  .jxa-tag {
+    opacity: 0;
+    transform: translateY(6px);
+    will-change: transform;
+    transition: opacity 0.5s ease, transform 0.7s var(--jxa-ease);
+  }
+
+  .jxa-tag[data-in] { opacity: 1; transform: translateY(0); }
+
+  /* Where it goes: a full column, cut by the stage's foot over filler rows */
+  .jxa-queue {
+    position: absolute;
+    top: 24px;
+    left: 368px;
+    width: 248px;
+    height: 360px;
+    padding: 6px 4px 0;
+    border-radius: 12px;
+    background: var(--ss-surface);
+    box-shadow: var(--ss-shadow-hero);
+    opacity: 0;
+    transform: translateY(18px);
+    will-change: transform;
+    transition: opacity 0.8s ease 0.15s, transform 1.1s var(--jxa-ease) 0.15s;
+  }
+
+  .jxa-queue[data-in] { opacity: 1; transform: translateY(0); }
+
+  .jxa-queue__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 12px 12px;
+    border-bottom: 1px solid var(--ss-line-faint);
+  }
+
+  .jxa-count {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .jxa-record { background: var(--ss-accent-soft); border-radius: 8px; }
+
+  /* The log line inside the item: its space is always there, the words arrive last */
+  .jxa-log {
+    display: flex;
+    justify-self: start;
+    align-items: center;
+    gap: 8px;
+    color: var(--ss-text);
+    font-size: 11.5px;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  .jxa-log[data-in] { opacity: 1; }
+
+  /* Phone column: the item on top, its queue beneath, the line running down */
+  & .ss-stage[data-layout="compact"] .jxa-item { top: 16px; left: 16px; width: 326px; }
+  & .ss-stage[data-layout="compact"] .jxa-queue { top: 236px; left: 16px; width: 326px; height: 300px; }
+}

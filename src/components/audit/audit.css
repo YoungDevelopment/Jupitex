@@ -1,0 +1,522 @@
+/* Audit bento: five steps, each a small illustration that plays once as the grid arrives. */
+
+.ax-grid {
+  --ax-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ax-spring: cubic-bezier(0.34, 1.45, 0.64, 1);
+}
+
+/* ── Tiles rise in, left to right, top to bottom ── */
+.ax-tile {
+  opacity: 0;
+  translate: 0 36px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+  /* after the heading has faded in, the tiles follow one at a time in reading order */
+  transition:
+    opacity 650ms ease calc(350ms + var(--i) * 170ms),
+    translate 950ms var(--ax-out) calc(350ms + var(--i) * 170ms),
+    box-shadow 300ms ease;
+}
+.ax-grid[data-in] .ax-tile {
+  opacity: 1;
+  translate: 0 0;
+}
+.ax-tile:hover {
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.12);
+}
+.ax-step {
+  background: #ff731e;
+  color: #fff;
+  transition: scale 400ms var(--ax-spring), box-shadow 300ms ease;
+}
+.ax-tile:hover .ax-step {
+  scale: 1.1;
+  box-shadow: 0 0 0 4px rgba(255, 115, 30, 0.16);
+}
+
+/* ── Each step takes one colour from the site's gradients, in place of orange and black ── */
+.ax-tile {
+  --ax-accent: #5f6b75;
+  --ax-deep: #2c3238;
+  --ax-tint: rgba(95, 107, 117, 0.12);
+  --ax-line: rgba(95, 107, 117, 0.4);
+  --ax-glow: rgba(95, 107, 117, 0.3);
+}
+.ax-tile[data-tone="sage"] { --ax-accent: #76824c; --ax-deep: #4c5530; --ax-tint: rgba(118, 130, 76, 0.13); --ax-line: rgba(118, 130, 76, 0.45); --ax-glow: rgba(118, 130, 76, 0.32); }
+.ax-tile[data-tone="blue"] { --ax-accent: #4a6cb3; --ax-deep: #2f4a8a; --ax-tint: rgba(74, 108, 179, 0.12); --ax-line: rgba(74, 108, 179, 0.45); --ax-glow: rgba(74, 108, 179, 0.32); }
+.ax-tile[data-tone="moss"] { --ax-accent: #6a8a35; --ax-deep: #3e5429; --ax-tint: rgba(106, 138, 53, 0.13); --ax-line: rgba(106, 138, 53, 0.45); --ax-glow: rgba(106, 138, 53, 0.32); }
+.ax-tile[data-tone="teal"] { --ax-accent: #4f7d87; --ax-deep: #33525a; --ax-tint: rgba(79, 125, 135, 0.13); --ax-line: rgba(79, 125, 135, 0.45); --ax-glow: rgba(79, 125, 135, 0.32); }
+.ax-tile[data-tone="amber"] { --ax-accent: #b0702f; --ax-deep: #6e4a2a; --ax-tint: rgba(176, 112, 47, 0.13); --ax-line: rgba(176, 112, 47, 0.45); --ax-glow: rgba(176, 112, 47, 0.3); }
+
+.ax-dots {
+  background-image: radial-gradient(rgba(10, 10, 10, 0.08) 1px, transparent 1px);
+  background-size: 14px 14px;
+  background-position: 7px 7px;
+}
+
+/* ── 1 · goals ── */
+.ax-goal {
+  opacity: 0;
+  translate: 0 10px;
+  transition:
+    opacity 500ms ease calc(850ms + var(--r) * 90ms),
+    translate 700ms var(--ax-out) calc(850ms + var(--r) * 90ms);
+}
+.ax-grid[data-in] .ax-goal {
+  opacity: 1;
+  translate: 0 0;
+}
+.ax-goal__row {
+  transition: background-color 200ms ease, scale 160ms ease;
+}
+.ax-goal__row:hover {
+  background: #f5f6f7;
+}
+.ax-goal__row:active {
+  scale: 0.985;
+}
+.ax-check {
+  box-shadow: inset 0 0 0 1.5px rgba(10, 10, 10, 0.2);
+  transition: background-color 220ms ease, box-shadow 220ms ease, scale 360ms var(--ax-spring);
+}
+.ax-goal__row:hover .ax-check {
+  box-shadow: inset 0 0 0 1.5px rgba(10, 10, 10, 0.38);
+}
+.ax-goal__row[data-on] .ax-check {
+  background: var(--ax-accent);
+  box-shadow: inset 0 0 0 1.5px var(--ax-accent);
+  animation: axPop 420ms var(--ax-spring);
+}
+.ax-check__mark {
+  scale: 0;
+  transition: scale 320ms var(--ax-spring);
+}
+.ax-goal__row[data-on] .ax-check__mark {
+  scale: 1;
+}
+.ax-goals__chip {
+  opacity: 0;
+  translate: 0 10px;
+  scale: 0.9;
+  transition: opacity 300ms ease, translate 500ms var(--ax-spring), scale 500ms var(--ax-spring);
+}
+.ax-goals__chip[data-on] {
+  opacity: 1;
+  translate: 0 0;
+  scale: 1;
+}
+
+/* ── 2 · flowchart ── */
+.ax-node {
+  opacity: 0;
+  translate: 0 12px;
+  scale: 0.96;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  transition:
+    opacity 450ms ease calc(950ms + var(--n) * 260ms),
+    translate 650ms var(--ax-spring) calc(950ms + var(--n) * 260ms),
+    scale 650ms var(--ax-spring) calc(950ms + var(--n) * 260ms),
+    box-shadow 250ms ease,
+    border-color 250ms ease;
+}
+.ax-grid[data-in] .ax-node {
+  opacity: 1;
+  translate: 0 0;
+  scale: 1;
+}
+.ax-grid[data-in] .ax-node:hover {
+  translate: 0 -3px;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.1);
+  transition-delay: 0s;
+}
+.ax-node__icon {
+  color: #55585c;
+  transition: background-color 250ms ease, color 250ms ease;
+}
+.ax-node:hover .ax-node__icon {
+  background: var(--ax-deep);
+  color: #fff;
+}
+.ax-node[data-slow] {
+  border-color: var(--ax-line);
+}
+.ax-node[data-slow] .ax-node__icon {
+  background: var(--ax-tint);
+  color: var(--ax-accent);
+}
+.ax-node[data-slow]:hover .ax-node__icon {
+  background: var(--ax-accent);
+  color: #fff;
+}
+.ax-node[data-slow] .ax-node__meta {
+  color: var(--ax-accent);
+  font-weight: 600;
+}
+
+/* A dashed wire draws itself between each pair of nodes, then a dot travels the whole route */
+.ax-wire__line {
+  background-image: linear-gradient(to bottom, rgba(10, 10, 10, 0.22) 50%, transparent 50%);
+  background-size: 1px 6px;
+  scale: 1 0;
+  transform-origin: 50% 0;
+  transition: scale 420ms ease calc(1180ms + var(--w) * 260ms);
+}
+@media (min-width: 1024px) {
+  .ax-wire__line {
+    background-image: linear-gradient(to right, rgba(10, 10, 10, 0.22) 50%, transparent 50%);
+    background-size: 6px 1px;
+    scale: 0 1;
+    transform-origin: 0 50%;
+  }
+}
+.ax-grid[data-in] .ax-wire__line {
+  scale: 1 1;
+}
+.ax-wire__dot {
+  left: 50%;
+  top: 0;
+  margin: -3.5px 0 0 -3.5px;
+  opacity: 0;
+  box-shadow: 0 0 0 4px var(--ax-tint);
+}
+.ax-grid[data-in] .ax-wire__dot {
+  animation: axTravelY 3.6s linear infinite;
+  animation-delay: calc(2400ms + var(--w) * 1.2s);
+}
+@media (min-width: 1024px) {
+  .ax-wire__dot {
+    left: 0;
+    top: 50%;
+    margin: -3.5px 0 0 -3.5px;
+  }
+  .ax-grid[data-in] .ax-wire__dot {
+    animation-name: axTravelX;
+  }
+}
+/* Each wire owns a third of the 3.6s loop, so the dot hands off node to node */
+@keyframes axTravelX {
+  0% { left: 0; opacity: 0; }
+  3% { opacity: 1; }
+  30% { left: 100%; opacity: 1; }
+  33.3%, 100% { left: 100%; opacity: 0; }
+}
+@keyframes axTravelY {
+  0% { top: 0; opacity: 0; }
+  3% { opacity: 1; }
+  30% { top: 100%; opacity: 1; }
+  33.3%, 100% { top: 100%; opacity: 0; }
+}
+.ax-tile:hover .ax-wire__dot {
+  animation-play-state: running;
+}
+
+/* Phones: the tag rides the node's top edge so it never covers the label */
+.ax-flag-pos {
+  right: 10px;
+  top: 0;
+  transform: translateY(-55%);
+}
+.ax-flag {
+  opacity: 0;
+  scale: 0.6;
+  transition: opacity 250ms ease 2.3s, scale 600ms var(--ax-spring) 2.3s;
+}
+.ax-grid[data-in] .ax-flag {
+  opacity: 1;
+  scale: 1;
+  animation: axBob 3.6s ease-in-out 3s infinite;
+}
+.ax-node[data-slow]:hover .ax-flag {
+  animation-play-state: paused;
+}
+@media (min-width: 1024px) {
+  .ax-flag-pos {
+    right: auto;
+    top: auto;
+    left: 50%;
+    bottom: calc(100% + 10px);
+    transform: translateX(-50%);
+  }
+  .ax-flag::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    margin-left: -4px;
+    border: 4px solid transparent;
+    border-top-color: var(--ax-accent);
+  }
+}
+/* The branch hangs under the slow step: escalations drop off to compliance */
+.ax-branch {
+  transform: translateX(-50%);
+}
+.ax-branch__node {
+  opacity: 0;
+  translate: 0 -6px;
+  transition: opacity 450ms ease 2.15s, translate 600ms var(--ax-spring) 2.15s;
+}
+.ax-grid[data-in] .ax-branch__node {
+  opacity: 1;
+  translate: 0 0;
+}
+/* the branch wire is vertical at every width, and its dot runs on the third leg's timing */
+.ax-wire--branch .ax-wire__line {
+  background-image: linear-gradient(to bottom, rgba(10, 10, 10, 0.22) 50%, transparent 50%) !important;
+  background-size: 1px 6px !important;
+  scale: 1 0;
+  transform-origin: 50% 0;
+  transition-delay: 1.9s;
+}
+.ax-grid[data-in] .ax-wire--branch .ax-wire__line { scale: 1 1; }
+.ax-wire--branch .ax-wire__dot {
+  left: 50% !important;
+  top: 0 !important;
+}
+.ax-grid[data-in] .ax-wire--branch .ax-wire__dot {
+  animation-name: axTravelY !important;
+  animation-delay: calc(2400ms + 1.6s);
+}
+
+.ax-flow__foot {
+  opacity: 0;
+  transition: opacity 600ms ease 2.2s;
+}
+.ax-grid[data-in] /* The branch hangs under the slow step: escalations drop off to compliance */
+.ax-branch {
+  transform: translateX(-50%);
+}
+.ax-branch__node {
+  opacity: 0;
+  translate: 0 -6px;
+  transition: opacity 450ms ease 2.15s, translate 600ms var(--ax-spring) 2.15s;
+}
+.ax-grid[data-in] .ax-branch__node {
+  opacity: 1;
+  translate: 0 0;
+}
+/* the branch wire is vertical at every width, and its dot runs on the third leg's timing */
+.ax-wire--branch .ax-wire__line {
+  background-image: linear-gradient(to bottom, rgba(10, 10, 10, 0.22) 50%, transparent 50%) !important;
+  background-size: 1px 6px !important;
+  scale: 1 0;
+  transform-origin: 50% 0;
+  transition-delay: 1.9s;
+}
+.ax-grid[data-in] .ax-wire--branch .ax-wire__line { scale: 1 1; }
+.ax-wire--branch .ax-wire__dot {
+  left: 50% !important;
+  top: 0 !important;
+}
+.ax-grid[data-in] .ax-wire--branch .ax-wire__dot {
+  animation-name: axTravelY !important;
+  animation-delay: calc(2400ms + 1.6s);
+}
+
+.ax-flow__foot {
+  opacity: 1;
+}
+
+/* ── 3 · return ── */
+.ax-bar {
+  width: 100%;
+  transition: width 350ms ease;
+}
+.ax-bar[data-on] {
+  width: 4%;
+  transition: width 1300ms var(--ax-out);
+}
+.ax-payback {
+  opacity: 0;
+  translate: 0 6px;
+  transition: opacity 200ms ease, translate 200ms ease;
+}
+.ax-payback[data-on] {
+  opacity: 1;
+  translate: 0 0;
+  transition: opacity 400ms ease 1000ms, translate 600ms var(--ax-spring) 1000ms;
+}
+
+/* ── 4 · team review ── */
+.ax-bubble {
+  opacity: 0;
+  scale: 0.85;
+  transform-origin: 0 0;
+  transition: opacity 250ms ease, scale 450ms var(--ax-spring);
+}
+.ax-bubble:not([data-phase="0"]) {
+  opacity: 1;
+  scale: 1;
+}
+.ax-bubble__typing i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #a3a7ab;
+  animation: axTyping 1s ease-in-out infinite;
+}
+.ax-bubble__typing i:nth-child(2) { animation-delay: 0.15s; }
+.ax-bubble__typing i:nth-child(3) { animation-delay: 0.3s; }
+.ax-bubble__typing,
+.ax-bubble__text {
+  transition: opacity 250ms ease;
+}
+.ax-bubble__text { opacity: 0; }
+.ax-bubble[data-phase="2"] .ax-bubble__typing,
+.ax-bubble[data-phase="3"] .ax-bubble__typing { opacity: 0; }
+.ax-bubble[data-phase="2"] .ax-bubble__text,
+.ax-bubble[data-phase="3"] .ax-bubble__text { opacity: 1; }
+/* typing collapses the bubble to the dots' size until the words arrive */
+.ax-bubble[data-phase="0"] .ax-bubble__text,
+.ax-bubble[data-phase="1"] .ax-bubble__text { display: none; }
+
+.ax-pill {
+  height: 30px;
+  padding: 0 11px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex: none;
+  font-size: 12px;
+  font-weight: 600;
+  color: #121212;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px rgba(10, 10, 10, 0.08);
+  white-space: nowrap;
+}
+.ax-pill--dark {
+  background: var(--ax-deep);
+  color: #fff;
+  box-shadow: none;
+}
+.ax-pill--new {
+  background: var(--ax-tint);
+  color: var(--ax-deep);
+  box-shadow: inset 0 0 0 1px var(--ax-line);
+}
+.ax-mini__wire {
+  flex: 1;
+  min-width: 10px;
+  height: 1px;
+  background: rgba(10, 10, 10, 0.18);
+}
+/* The new step opens a gap in the flow, its neighbours sliding apart to make room */
+.ax-mini__insert {
+  display: grid;
+  grid-template-columns: 0fr;
+  flex: 0 1 auto;
+  transition: grid-template-columns 300ms ease;
+}
+.ax-mini__inner {
+  min-width: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.ax-mini__inner .ax-pill {
+  scale: 0.6;
+  opacity: 0;
+  transition: scale 200ms ease, opacity 150ms ease;
+}
+.ax-mini[data-on] .ax-mini__insert {
+  grid-template-columns: 1fr;
+  flex: 1 1 auto;
+  transition: grid-template-columns 650ms var(--ax-out);
+}
+.ax-mini[data-on] .ax-mini__inner .ax-pill {
+  scale: 1;
+  opacity: 1;
+  transition: scale 550ms var(--ax-spring) 220ms, opacity 250ms ease 220ms;
+}
+
+/* ── 5 · roadmap ── */
+.ax-page {
+  opacity: 0;
+  translate: 0 70px;
+  rotate: 0deg;
+  transition:
+    opacity 500ms ease,
+    translate 950ms cubic-bezier(0.25, 1.25, 0.4, 1),
+    rotate 950ms cubic-bezier(0.25, 1.25, 0.4, 1);
+}
+.ax-page__face {
+  height: 100%;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(10, 10, 10, 0.06), 0 10px 28px rgba(0, 0, 0, 0.07);
+  transition: translate 450ms var(--ax-spring), rotate 450ms var(--ax-spring);
+}
+.ax-page--b2 .ax-page__face { background: #fbfbfc; }
+.ax-grid[data-in] .ax-page {
+  opacity: 1;
+  translate: 0 0;
+}
+.ax-grid[data-in] .ax-page--top { transition-delay: calc(350ms + var(--i, 4) * 170ms + 450ms); }
+.ax-grid[data-in] .ax-page--b1 { rotate: 5deg; transition-delay: calc(350ms + var(--i, 4) * 170ms + 360ms); }
+.ax-grid[data-in] .ax-page--b2 { rotate: -6deg; transition-delay: calc(350ms + var(--i, 4) * 170ms + 270ms); }
+/* Hover fans the pages apart and lifts the top one */
+.ax-tile:hover .ax-page--top .ax-page__face { translate: 0 -6px; rotate: -1deg; }
+.ax-tile:hover .ax-page--b1 .ax-page__face { translate: 18px -2px; rotate: 4deg; }
+.ax-tile:hover .ax-page--b2 .ax-page__face { translate: -18px 2px; rotate: -4deg; }
+
+.ax-page__row {
+  opacity: 0;
+  translate: 0 6px;
+  transition: opacity 400ms ease, translate 500ms var(--ax-out);
+}
+.ax-grid[data-in] .ax-page__row {
+  opacity: 1;
+  translate: 0 0;
+  transition-delay: calc(1700ms + var(--r) * 120ms);
+}
+
+/* ── shared ── */
+@keyframes axPop {
+  0% { scale: 0.7; }
+  60% { scale: 1.15; }
+  100% { scale: 1; }
+}
+@keyframes axBob {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -3px; }
+}
+@keyframes axTyping {
+  0%, 60%, 100% { translate: 0 0; opacity: 0.5; }
+  30% { translate: 0 -3px; opacity: 1; }
+}
+
+/* The illustrations' cards sit a size smaller on desktop, leaving the tiles some air */
+@media (min-width: 1024px) {
+  .ax-art { zoom: 0.88; }
+}
+
+/* Every tile keeps room for three lines of copy, so the pictures in a row end on one line */
+@media (min-width: 1280px) {
+  .ax-copy { min-height: 102px; }
+}
+
+/* Short laptop screens: the one-line copy goes so the pictures keep their room */
+@media (min-width: 1280px) and (max-height: 860px) {
+  .ax-body { display: none; }
+  .ax-copy { min-height: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ax-grid *,
+  .ax-grid *::before,
+  .ax-grid *::after {
+    animation: none !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
+  .ax-tile,
+  .ax-goal,
+  .ax-node,
+  .ax-page,
+  .ax-page__row,
+  .ax-flow__foot,
+  .ax-flag {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
